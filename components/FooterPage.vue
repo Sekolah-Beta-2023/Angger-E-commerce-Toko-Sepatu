@@ -66,3 +66,78 @@
     </div>
   </footer>
 </template>
+
+<style>
+/* footer start */
+footer {
+  background-color: var(--primary-color);
+  color: white;
+}
+.wrapper-footer {
+  padding-block: 20px;
+}
+.wrapper-footer > p {
+  padding-top: 20px;
+  text-align: center;
+}
+.footer-logo,
+.footer-collection,
+.footer-contact,
+.footer-payment {
+  width: 25%;
+}
+.footer-content {
+  align-items: flex-start;
+  gap: 30px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 20px;
+}
+
+.footer-content > .footer-logo > h4,
+.footer-contact > h4,
+.footer-collection > h4 {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+.footer-collection > ul > li,
+.footer-contact > ul > li,
+.footer-payment > ul > li {
+  list-style-type: none;
+  font-weight: 300;
+}
+.footer-collection > ul > li > a,
+.footer-contact > ul > li {
+  color: var(--third-color);
+  text-decoration: none;
+  margin-bottom: 10px;
+  font-weight: 300;
+  transition: 0.3s;
+}
+.footer-collection > ul > li > a:hover {
+  color: var(--btn-color);
+}
+
+.footer-payment > h4 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+.footer-logo > p {
+  font-weight: 300;
+}
+.footer-payment > p {
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+.footer-payment > ul {
+  gap: 10px;
+}
+.footer-payment > .flex-between {
+  flex-wrap: wrap;
+}
+.footer-payment > ul > li > a > img {
+  width: 50px;
+  height: 35px;
+}
+/* footer end */
+</style>
