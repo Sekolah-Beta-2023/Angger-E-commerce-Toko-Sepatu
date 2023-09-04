@@ -14,11 +14,15 @@ export default {
         rel: 'stylesheet',
         href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css',
       },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500;600;700;800&display=swap',
+      },
     ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ['@/assets/css/tailwind.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -59,5 +63,15 @@ export default {
   content: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    // set postcss.config.js bawaan dari intal tailwind pindah ke nuxt.config.js
+    postcss: {
+      postcssOptions: {
+        plugins: {
+          tailwindcss: {},
+          autoprefixer: {},
+        },
+      },
+    },
+  },
 }

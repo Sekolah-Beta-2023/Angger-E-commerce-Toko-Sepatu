@@ -1,16 +1,20 @@
 <template>
-  <footer>
-    <div class="wrapper-footer">
-      <div class="footer-content flex-between">
+  <footer class="bg-primary text-slate-50">
+    <div class="py-5 container w-[90%]">
+      <div class="footer-content pt-5 flex justify-between gap-8 items-start">
         <div class="footer-logo">
-          <h4>Ana <span>Shoes</span></h4>
+          <h4 class="text-3xl font-bold mb-5">
+            ANA<span class="text-btnColor">SHOES</span>
+          </h4>
           <p>
             Discover our latest collection of stylish and comfortable shoes.
             Choose from our high-quality selection, including casual shoes,
             sports shoes, and renowned brands. Start your fashion adventure now!
           </p>
         </div>
-        <div class="footer-collection">
+        <div
+          class="footer-collection flex justify-center items-center flex-col"
+        >
           <h4>Collection</h4>
           <ul>
             <li><a href="#Product">Summer</a></li>
@@ -31,55 +35,56 @@
         </div>
         <div class="footer-payment">
           <h4>PAYMENT METHODS</h4>
-          <p>
+          <p class="mb-5 font-normal">
             Here are some payment methods available for purchases at our shoe
             store:
           </p>
-          <ul class="flex-between">
+          <ul class="flex justify-between items-center gap-3 flex-wrap">
             <li>
               <a href="#">
-                <img src="assets/" alt="logo visa" />
+                <img :src="visa" alt="logo visa" />
               </a>
             </li>
             <li>
               <a href="#">
-                <img
-                  src="asets/payment/master card.png"
-                  alt="logo master card"
-                />
+                <img :src="masterCard" alt="logo master card" />
               </a>
             </li>
             <li>
               <a href="#">
-                <img src="asets/payment/ovo.png" alt="logo ovo" />
+                <img :src="ovo" alt="logo ovo" />
               </a>
             </li>
             <li>
               <a href="#">
-                <img src="asets/payment/dana.png" alt="logo dana" />
+                <img :src="dana" alt="logo dana" />
               </a>
             </li>
           </ul>
         </div>
       </div>
-      <p>© 2023 AnaShoes, Inc. All Rights Reserved</p>
+      <p class="text-center pt-3 text-base font-semibold">
+        © 2023 AnaShoes, Inc. All Rights Reserved
+      </p>
     </div>
   </footer>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      visa: require('@/assets/payment/visa.png'),
+      dana: require('@/assets/payment/dana.png'),
+      masterCard: require('@/assets/payment/master card.png'),
+      ovo: require('@/assets/payment/ovo.png'),
+    }
+  },
+}
+</script>
 <style>
 /* footer start */
-footer {
-  background-color: var(--primary-color);
-  color: white;
-}
-.wrapper-footer {
-  padding-block: 20px;
-}
-.wrapper-footer > p {
-  padding-top: 20px;
-  text-align: center;
-}
+
 .footer-logo,
 .footer-collection,
 .footer-contact,
@@ -93,9 +98,9 @@ footer {
   padding-bottom: 20px;
 }
 
-.footer-content > .footer-logo > h4,
 .footer-contact > h4,
-.footer-collection > h4 {
+.footer-collection > h4,
+.footer-payment > h4 {
   font-size: 1.4rem;
   margin-bottom: 20px;
   font-weight: 500;
@@ -104,40 +109,23 @@ footer {
 .footer-contact > ul > li,
 .footer-payment > ul > li {
   list-style-type: none;
-  font-weight: 300;
+  font-weight: 400;
 }
 .footer-collection > ul > li > a,
 .footer-contact > ul > li {
-  color: var(--third-color);
   text-decoration: none;
   margin-bottom: 10px;
-  font-weight: 300;
+  font-weight: 400;
   transition: 0.3s;
 }
 .footer-collection > ul > li > a:hover {
-  color: var(--btn-color);
+  color: orange;
 }
 
-.footer-payment > h4 {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-.footer-logo > p {
-  font-weight: 300;
-}
-.footer-payment > p {
-  margin-bottom: 20px;
-  font-weight: 300;
-}
-.footer-payment > ul {
-  gap: 10px;
-}
-.footer-payment > .flex-between {
-  flex-wrap: wrap;
-}
 .footer-payment > ul > li > a > img {
   width: 50px;
   height: 35px;
 }
+
 /* footer end */
 </style>

@@ -1,54 +1,118 @@
 <template>
-  <section id="Reviews">
-    <div class="wrapper-reviews">
-      <h2>Reviews</h2>
-      <p class="mb-4">Get real-world advice from people who've been there</p>
-      <div class="card-reviews flex-center"></div>
-    </div>
-    <div class="review-page">
-      <div class="review-form" v-if="!userReview">
-        <h2>Write a Review</h2>
-        <form @submit.prevent="submitReview">
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input v-model="review.name" type="text" id="name" required />
-          </div>
-          <div class="form-group">
-            <label for="image">Image:</label>
-            <input v-model="review.image" type="text" id="image" required />
-          </div>
-          <div class="form-group">
-            <label for="content">Review:</label>
-            <textarea v-model="review.content" id="content" required></textarea>
-          </div>
-          <div class="form-group">
-            <label class="rating" for="content">Rating:</label>
-
-            <RatingUser @rating-selected="handleRatingSelected" />
-          </div>
-          <button class="style-active-button" type="submit">
-            Submit Review
-          </button>
-        </form>
+  <section id="Reviews" class="bg-secondary">
+    <div
+      class="container w-[90%] pt-[120px] flex justify-center items-center flex-col"
+    >
+      <div class="mb-3">
+        <h2 class="mt-5 text-5xl text-center mb-2 font-semibold">Reviews</h2>
+        <p class="text-center text-2xl font-normal text-slate-900">
+          Get real-world advice from people who've been there
+        </p>
+        <div class="card-reviews flex-center"></div>
       </div>
+      <!-- v-if="!userReview" -->
+      <div class="review-page rounded-md w-[70%] p-5 bg-white">
+        <div class="mb-5 rounded-md">
+          <h2 class="text-center text-primary text-3xl mb-5 font-semibold">
+            Write a Review
+          </h2>
+          <form @submit.prevent="submitForm">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input v-model="review.name" type="text" id="name" required />
+            </div>
+            <div class="form-group image-wrapper">
+              <label for="image">Image:</label>
+              <div>
+                <p>
+                  Gambar Profile Anda sebaiknya memiliki rasio 1:1 dan berukuran
+                  tidak lebih dari 2MB.
+                </p>
+                <input
+                  type="file"
+                  accept="image/*"
+                  @change="handleImageUpload"
+                />
+              </div>
+            </div>
 
-      <div class="user-review" v-if="userReview">
-        <h2>Your Review</h2>
-        <div class="review">
-          <p>Name: {{ userReview.name }}</p>
-          <p>Review: {{ userReview.content }}</p>
-          <p>Rating: {{ userReview.rating }}/5</p>
-          <button @click="editReview(userReview)">Edit Review</button>
-          <button @click="deleteReview(userReview)">Delete Review</button>
+            <div class="form-group">
+              <label for="content">Review:</label>
+              <textarea
+                v-model="review.content"
+                id="content"
+                required
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label class="rating" for="content">Rating:</label>
+
+              <RatingUser @rating-selected="handleRatingSelected" />
+            </div>
+            <button
+              class="mt-4 border-2 border-transparent outline-none bg-btnColor py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
+              type="submit"
+            >
+              Submit Review
+            </button>
+          </form>
         </div>
-      </div>
+        <!-- v-if="userReview" -->
+        <div class="user-review">
+          <h2 class="text-2xl mb-3 font-semibold">Your Review</h2>
+          <div class="review user-review p-5">
+            <img class="" :src="userReview.src" />
+            <p class="review-name">Name: {{ userReview.name }}</p>
+            <p>Rating :</p>
+            <DisplayRating :rating="userReview.rating" />
+            <p class="review-description">
+              Description: {{ userReview.description }}
+            </p>
+            <button
+              class="border-2 border-btnColor outline-none bg-transparent py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-btnColor hover:border-transparent"
+              @click="editReview(userReview)"
+            >
+              Edit Review
+            </button>
+            <button
+              class="me-2 border-2 border-btnColor outline-none bg-transparent py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-btnColor hover:border-transparent"
+              @click="deleteReview(userReview)"
+            >
+              Delete Review
+            </button>
+          </div>
+        </div>
 
-      <div class="all-reviews">
-        <h2>All Reviews</h2>
-        <div class="review" v-for="(review, index) in reviews" :key="index">
-          <p>Name: {{ review.name }}</p>
-          <p>Review: {{ review.content }}</p>
-          <p>Rating: {{ review.rating }}/5</p>
+        <div class="all-reviews">
+          <h2 class="text-2xl font-semibold mb-3">All Reviews</h2>
+          <div
+            v-for="(item, index) in reviews"
+            :key="index"
+            class="border-2 border-btnColor p-5 mb-3 rounded-md"
+          >
+            <div class="flex">
+              <img
+                class="mr-3 w-[50px] h-[50px] rounded-full border-e-2 border-primary"
+                :src="item.url"
+              />
+              <div>
+                <p class="text-xs font-semibold text-slate-700">
+                  {{
+                    new Date(item.createdAt).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'numeric',
+                      day: 'numeric',
+                    })
+                  }}
+                </p>
+                <p class="mb-1 text-base text-slate-800">{{ item.name }}</p>
+                <p>
+                  <DisplayRating :rating="4" />
+                </p>
+              </div>
+            </div>
+            <p class="review-description">{{ item.description }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -56,45 +120,29 @@
 </template>
 
 <script>
+// agar tailwind autoreload maka gunakan perintah yarn run dev / npm run dev (sertakan run)
 import axios from 'axios'
 export default {
   data() {
     return {
-      persons: [
-        {
-          src: require('@/assets/reviews/Sarah.png'),
-          alt: 'reviews Sarah',
-          name: 'Sarah',
-          description:
-            '"I am extremely satisfied with the shoes I recently purchased. The stylish design and excellent quality make me feel comfortable wearing them all day long. The shoes also provide great support for my feet. Highly recommended!',
-        },
-        {
-          src: require('@/assets/reviews/Lisa.png'),
-          alt: 'reviews Lisa',
-          name: 'Lisa',
+      sampleImage: require('@/assets/reviews/Sarah.png'),
 
-          description:
-            'The shoes I bought from this store are absolutely amazing. Not only do they look great, but they are also incredibly comfortable. I often struggle with finding shoes that fit my foot shape, but these shoes fit perfectly. The quality is also superb, making me confident that they will last. I am delighted with my purchase!',
-        },
-        {
-          src: require('@/assets/reviews/John.png'),
-          alt: 'reviews John',
-          name: 'John',
-
-          description:
-            ' I just got a pair of shoes from this store, and I mthrilled with my purchase. The shoes feel lightweight and offer excellent protection for my feet. The elegant design also boosts my  confidence. The customer service at this store is outstanding. Thank you!',
-        },
-      ],
       // rating
       selectedRating: 0,
       // crud reviews
       reviews: [],
       review: {
         name: '',
-        image: '',
+        image: null,
         content: '',
-        rating: 0,
-        userReview: true,
+        rating: null,
+      },
+      userReview: {
+        name: 'Angger NUr AMin',
+        src: require('@/assets/reviews/John.png'),
+        description:
+          'The shoes feel lightweight and offer excellent protection for my feet. The elegant design also boosts my  confidence. The customer service at this store is outstanding. Thank you!',
+        rating: 5,
       },
     }
   },
@@ -160,43 +208,42 @@ export default {
   //     this.selectedRating = rating
   //   },
   created() {
-    // Mengambil data ulasan dari API saat komponen dibuat
     this.fetchReviews()
   },
   methods: {
+    handleImageUpload(event) {
+      this.review.image = event.target.files[0]
+    },
     handleRatingSelected(rating) {
       this.selectedRating = rating
     },
     async fetchReviews() {
       try {
         const response = await axios.get(
-          'https://crudcrud.com/api/dd3b59a0cb6a47358b430bea894052fc/reviews'
+          'https://api-crud-production-bc39.up.railway.app/review'
         )
         this.reviews = response.data
       } catch (error) {
-        console.error('Error fetching reviews:', error)
+        return 'Error fetching reviews: ' + error
       }
     },
     async submitForm() {
-      // Menambah ulasan baru ke dalam API
       try {
-        this.review.rating = this.selectedRating
         const response = await axios.post(
-          'https://crudcrud.com/api/dd3b59a0cb6a47358b430bea894052fc/reviews',
+          'https://jsonplaceholder.typicode.com/posts',
           {
-            name: this.review.name,
-            content: this.review.content,
-            rating: this.selectedRating,
+            title: this.review.name,
+            body: this.review.content,
+            userId: 1, // You can adjust this
           }
         )
+        console.log('data post ', response.data)
 
-        // Menambah ulasan baru ke dalam array reviews
         this.reviews.push(response.data)
-
-        // Mereset form dan selectedRating
         this.review.name = ''
         this.review.content = ''
         this.selectedRating = null
+        this.review.image = null
       } catch (error) {
         console.error('Error submitting review:', error)
       }
@@ -206,123 +253,46 @@ export default {
 </script>
 
 <style>
-.form-group {
+.user-review img {
+  width: 100px;
+  height: 100px;
+}
+.user-review .review-description {
   margin-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 3px;
+}
+.image-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.image-wrapper p {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.image-wrapper input {
+  border: 0 !important;
+  font-size: 16px !important;
 }
 .form-group .rating {
   margin-bottom: 5px;
 }
 
-.user-review,
-.all-reviews {
+.user-review {
   background-color: #f9f9f9;
-  padding: 20px;
   border-radius: 5px;
   margin-bottom: 20px;
 }
 
-.review {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500;600;700;800&display=swap');
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-:root {
-  --primary-color: #112852;
-  --secondary-color: #efefef;
-  --third-color: #fff;
-  --btn-color: rgb(238, 178, 12);
-  --font-paragraf: rgba(0, 0, 0, 0.7);
-  /* rgb btn = rgb(255,203,60) */
-}
-html {
-  scroll-behavior: smooth;
-  background-color: var(--secondary-color);
-  font-family: 'Lexend', sans-serif;
-}
-
-.flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.flex-between {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.style-active-button {
-  border: 2px solid transparent;
-  outline: none;
-  background-color: var(--btn-color);
-  padding: 10px 35px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-weight: 700;
-  margin-top: 10px;
-}
-
-.style-active-button:hover {
-  background-color: transparent;
-  border: 2px solid var(--btn-color);
-}
 /* riviews start */
-.wrapper-reviews {
-  padding-top: 130px;
-  margin-bottom: 20px;
-}
-.wrapper-reviews > h2 {
-  font-size: 2rem;
-  text-align: center;
-  margin-bottom: 5px;
-  font-weight: 500;
-}
-.wrapper-reviews > p {
-  margin: 0 auto;
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: 400;
-  color: var(--font-paragraf);
-}
-
-.review-page {
-  margin: 0 auto;
-  border-radius: 5px;
-  width: 60%;
-  background-color: var(--third-color);
-  padding: 20px;
-}
-.review-form {
-  background-color: #f5f5f5;
-  padding: 20px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-}
-.review-from h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-.review-form label {
-  font-size: 1rem;
-  display: block;
-}
-.review-form input::placeholder,
-.review-form textarea::placeholder {
+form input::placeholder,
+form textarea::placeholder {
   font-size: 15px;
   font-style: italic;
 }
-.review-form input {
+form input {
   font-size: 16px;
   background-color: inherit;
   outline: 0;
@@ -332,7 +302,7 @@ html {
   height: 25px;
   border-bottom: 2px solid rgba(0, 0, 0, 0.5);
 }
-.review-form textarea {
+form textarea {
   font-size: 16 px;
   margin-top: 10px;
   width: 100%;

@@ -1,0 +1,80 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+/* custom class */
+@layer components {
+  .wrapper-nav-list > ul > li:hover > a::after {
+    @apply opacity-100;
+  }
+}
+/* icon start */
+
+.home-content-sosmed {
+  position: relative;
+  margin-top: 60px;
+  margin-bottom: 50px;
+  display: flex;
+}
+.home-content-sosmed .sosmed {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+}
+
+.home-content-sosmed .btn-sosmed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  box-shadow: 0 5px 15px -5px #aaa;
+  padding: 10px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+.home-content-sosmed a {
+  text-decoration: none;
+  margin-right: 15px;
+}
+
+.home-content-sosmed .btn-sosmed::before {
+  content: '';
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  background: linear-gradient(#00c6ff, #0072ff);
+  transform: rotate(45deg);
+  left: -110%;
+  top: 90%;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+}
+
+.sosmed > a > i {
+  color: var(--primary-color);
+}
+
+.home-content-sosmed .btn-sosmed:hover i {
+  color: #fff;
+  transform: scale(1.3);
+  -webkit-transform: scale(1.3);
+  -moz-transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  -o-transform: scale(1.3);
+}
+
+.home-content-sosmed .btn-sosmed:hover::before {
+  animation: animate 0.7s 1;
+  -webkit-animation: animate 0.7s 1;
+  left: -10%;
+  top: -10%;
+}
+
+/* icon end */

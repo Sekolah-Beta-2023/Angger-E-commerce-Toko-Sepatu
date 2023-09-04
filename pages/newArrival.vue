@@ -1,20 +1,26 @@
 <template>
-  <section id="newArrival">
-    <div class="wrapper-newArrival">
-      <div class="box-newArrival">
-        <div class="menu-newArrival">
-          <div class="title-product-newArrival flex-between">
-            <h1>NEW OFFER</h1>
-            <a href="#newArrival">More</a>
+  <section id="newArrival" class="bg-secondary">
+    <div class="container w-[90%] pt-[130px] pb-8">
+      <div class="flex justify-between">
+        <div class="bg-slate-50 w-[25%] p-5 mr-5 rounded-md">
+          <div
+            class="title-product-newArrival flex justify-between items-center"
+          >
+            <h1 class="font-semibold">NEW OFFER</h1>
+            <a
+              class="text-red-600 font-semibold hover:text-red-900"
+              href="#newArrival"
+              >More</a
+            >
           </div>
           <div
             v-for="(item, index) in productNewArrival"
             :key="index"
-            class="product-newArrival flex-between"
+            class="mt-3 border-t-2 border-slate-200 w-[100%] h-[160px] p-3 flex justify-between items-center"
           >
-            <img :src="item.src" :alt="item.alt" />
-            <div class="deskripsi-product-newArrival">
-              <h3>{{ item.name }}</h3>
+            <img class="w-[100px]" :src="item.src" :alt="item.alt" />
+            <div class="flex items-start flex-col">
+              <h3 class="font-semibold my-3">{{ item.name }}</h3>
               <div class="card-product-rating">
                 <i class="fas fa-star active-rating"></i>
                 <i class="fas fa-star active-rating"></i>
@@ -22,28 +28,51 @@
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
               </div>
-              <span class="harga-awal">{{ item.harga }}</span>
+              <div class="flex justify-between items-center">
+                <span class="font-semibold">${{ item.harga }}</span>
+                <span class="text-red-600 font-semibold line-through">{{
+                  item.harga
+                }}</span>
+              </div>
             </div>
           </div>
         </div>
-        <div class="box-card-newArrival">
-          <div class="banner-newArrival">
-            <div class="content-banner-newArrival flex-center">
-              <h3>New Arrival</h3>
-              <p>
+        <div class="box-card-newArrival w-[75%]">
+          <div
+            class="banner-newArrival w-[100%] h-[300px] bg-no-repeat bg-center relative rounded-md overflow-hidden mb-5"
+          >
+            <div
+              class="h-[100%f flex-col z-10 absolute text-slate-50 flex justify-center items-center"
+            >
+              <h3 class="text-btnColor text-5xl mt-9 mb-3 font-semibold">
+                New Arrival
+              </h3>
+              <p class="w-[70%] text-lg mb-5 text-center font-normal">
                 Discover the latest style with our newest collection, Our shoe
                 store offers the most up-to-date options. From modern designs to
                 the latest trends, Elevate your appearance with our curated
                 selection of shoes!
               </p>
-              <a href="#Product" class="style-active-button">Shop No</a>
+              <a
+                href="#Product"
+                class="border-2 border-transparent outline-none bg-btnColor py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
+                >Shop No</a
+              >
             </div>
           </div>
-          <div class="card-newArrival flex-between">
-            <div v-for="(item, index) in products" :key="index" class="card">
-              <img :src="item.src" :alt="item.alt" />
-              <h3>{{ item.name }}</h3>
-              <p>
+          <div
+            class="card-newArrival bg-slate-50 flex-wrap flex justify-between items-center gap-1"
+          >
+            <div
+              v-for="(item, index) in products"
+              :key="index"
+              class="w-[215px] h-auto p-3 hover:bg-secondary"
+            >
+              <img class="w-[150px]" :src="item.src" :alt="item.alt" />
+              <h3 class="border-t-2 border-slate-200 pt-3 mb-3 font-bold">
+                {{ item.name }}
+              </h3>
+              <p class="font-semibold text-slate-600 mb-2">
                 {{ item.description }}
               </p>
               <div class="card-product-rating">
@@ -53,9 +82,11 @@
                 <i class="fas fa-star active-rating"></i>
                 <i class="fas fa-star"></i>
               </div>
-              <div class="harga-product flex-between">
-                <span>${{ item.diskon }}</span>
-                <span class="harga-awal">${{ item.harga }}</span>
+              <div class="mt-2 flex justify-between items-center">
+                <span class="font-semibold">${{ item.harga }}</span>
+                <span class="text-red-600 font-semibold line-through"
+                  >${{ item.diskon }}</span
+                >
               </div>
             </div>
           </div>
@@ -178,122 +209,9 @@ export default {
 }
 </script>
 
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500;600;700;800&display=swap');
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-:root {
-  --primary-color: #112852;
-  --secondary-color: #efefef;
-  --third-color: #fff;
-  --btn-color: rgb(238, 178, 12);
-  --font-paragraf: rgba(0, 0, 0, 0.7);
-  /* rgb btn = rgb(255,203,60) */
-}
-html {
-  scroll-behavior: smooth;
-  background-color: var(--secondary-color);
-  font-family: 'Lexend', sans-serif;
-}
-a {
-  text-decoration: none;
-}
-#About,
-#Product,
-#newArrival {
-  background-color: var(--secondary-color);
-}
-.navbar-container {
-  position: fixed;
-  z-index: 10;
-  width: 100%;
-  background-color: var(--primary-color);
-}
-
-.size-container,
-.wrapper-home,
-.wrapper-about,
-.wrapper-product,
-.wrapper-newArrival,
-.wrapper-contact,
-.wrapper-reviews,
-.wrapper-profile,
-.wrapper-footer {
-  width: 90%;
-  margin: 0 auto;
-}
-
-.flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.flex-between {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.style-button {
-  border: 2px solid var(--btn-color);
-  outline: none;
-  background-color: transparent;
-  padding: 10px 35px;
-  font-size: 16px;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-  font-weight: 700;
-}
-.style-active-button {
-  border: 2px solid transparent;
-  outline: none;
-  background-color: var(--btn-color);
-  padding: 10px 35px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-weight: 700;
-}
-
-.style-button:hover {
-  background-color: var(--btn-color);
-  border: 2px solid transparent;
-}
-.style-active-button:hover {
-  background-color: transparent;
-  border: 2px solid var(--btn-color);
-}
-/* newArrival start */
-.card:hover {
-  background-color: var(--secondary-color);
-}
-.wrapper-newArrival {
-  padding-top: 130px;
-}
-.box-newArrival {
-  display: flex;
-  justify-content: space-between;
-}
-.box-card-newArrival {
-  width: 75%;
-}
+<style>
 .banner-newArrival {
-  width: 100%;
-  height: 300px;
   background-image: url('../assets/background/banner-newArrival.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  border-radius: 5px;
-  overflow: hidden;
-  margin-bottom: 20px;
 }
 
 .banner-newArrival::after {
@@ -303,91 +221,9 @@ a {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }
-.content-banner-newArrival {
-  height: 100%;
-  flex-direction: column;
-  z-index: 9;
-  position: absolute;
-  color: white;
-}
-.content-banner-newArrival > h3 {
-  color: var(--btn-color);
-  font-size: 3rem;
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-
-.content-banner-newArrival > p {
-  width: 70%;
-  font-size: 18px;
-  margin-bottom: 20px;
-  text-align: center;
-  font-weight: 300;
-}
-.content-banner-newArrival > a {
-  text-decoration: none;
-  color: black;
-}
-.content-banner-newArrival > a:hover {
-  color: var(--third-color);
-}
-.box-newArrival > .menu-newArrival {
-  background-color: var(--third-color);
-  width: 25%;
-  padding: 20px;
-  margin-right: 20px;
-  border-radius: 5px;
-}
-.product-newArrival {
-  margin-top: 10px;
-  border-top: 2px solid rgba(0, 0, 0, 0.1);
-  width: 100%;
-  height: 160px;
-  padding: 10px;
-}
-.title-product-newArrival > h1 {
-  font-weight: 400;
-}
-.product-newArrival > img {
-  width: 100px;
-}
-.product-newArrival > .product-newArrival > .deskripsi-product-newArrival {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-}
-.deskripsi-product-newArrival > h3 {
-  font-weight: 500;
-  margin-block: 10px;
-}
-.deskripsi-product-newArrival > .harga-awal {
-  color: red;
-  font-weight: bold;
-}
-.card-newArrival {
-  background-color: white;
-  flex-wrap: wrap;
-}
-.card-newArrival > .card {
-  margin-right: 5px;
-  padding: 10px;
-  width: 218px;
-}
-.card-newArrival > .card:last-of-type {
+.card-newArrival .mr-2:last-of-type {
   margin-right: 0;
 }
 
-.card-newArrival > .card > img {
-  width: 150px;
-}
-.card-newArrival > .card > h3 {
-  border-top: 2px solid rgba(0, 0, 0, 0.1);
-  padding-top: 10px;
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-.card-newArrival > .card > p {
-  font-weight: 400;
-}
 /* new arrival end */
 </style>
