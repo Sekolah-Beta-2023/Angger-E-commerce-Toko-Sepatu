@@ -1,8 +1,8 @@
 <template>
-  <section id="About">
+  <section id="About" class="bg-secondary">
     <h2 class="text-4xl pt-[150px] uppercase text-center font-bold">About</h2>
-    <div class="bg-secondary flex container w-[90%] my-16">
-      <div class="w-[40%] rounded-md mr-5">
+    <div class="flex container w-[90%] my-16">
+      <div class="about-image w-[40%] rounded-md mr-5">
         <img :src="imageAbout" alt="image-about" class="w-[100%] h-[100%]" />
       </div>
       <article class="w-[55%] bg-slate-50">
@@ -34,3 +34,26 @@ export default {
   },
 }
 </script>
+<style>
+/* media query mobile */
+@media screen and (max-width: 576px) {
+  #About .container {
+    width: 100%;
+    padding: 20px;
+    overflow: hidden;
+    flex-direction: column;
+    margin-block: 15px;
+  }
+
+  .about-image {
+    width: 100%;
+  }
+  #About .container article {
+    width: 100%;
+  }
+  #About .container article {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+</style>

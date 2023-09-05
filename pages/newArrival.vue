@@ -1,8 +1,8 @@
 <template>
   <section id="newArrival" class="bg-secondary">
     <div class="container w-[90%] pt-[130px] pb-8">
-      <div class="flex justify-between">
-        <div class="bg-slate-50 w-[25%] p-5 mr-5 rounded-md">
+      <div class="box-newArrival flex justify-between">
+        <div class="menu-newArrival bg-slate-50 w-[25%] p-5 mr-5 rounded-md">
           <div
             class="title-product-newArrival flex justify-between items-center"
           >
@@ -16,7 +16,7 @@
           <div
             v-for="(item, index) in productNewArrival"
             :key="index"
-            class="mt-3 border-t-2 border-slate-200 w-[100%] h-[160px] p-3 flex justify-between items-center"
+            class="box-card-newArrival mt-3 border-t-2 border-slate-200 w-[100%] h-[160px] p-3 flex justify-between items-center"
           >
             <img class="w-[100px]" :src="item.src" :alt="item.alt" />
             <div class="flex items-start flex-col">
@@ -42,7 +42,7 @@
             class="banner-newArrival w-[100%] h-[300px] bg-no-repeat bg-center relative rounded-md overflow-hidden mb-5"
           >
             <div
-              class="h-[100%f flex-col z-10 absolute text-slate-50 flex justify-center items-center"
+              class="content-banner-newArrival h-[100%] flex-col z-10 absolute text-slate-50 flex justify-center items-center"
             >
               <h3 class="text-btnColor text-5xl mt-9 mb-3 font-semibold">
                 New Arrival
@@ -66,7 +66,7 @@
             <div
               v-for="(item, index) in products"
               :key="index"
-              class="w-[215px] h-auto p-3 hover:bg-secondary"
+              class="card w-[215px] h-auto p-3 hover:bg-secondary"
             >
               <img class="w-[150px]" :src="item.src" :alt="item.alt" />
               <h3 class="border-t-2 border-slate-200 pt-3 mb-3 font-bold">
@@ -223,6 +223,48 @@ export default {
 }
 .card-newArrival .mr-2:last-of-type {
   margin-right: 0;
+}
+
+/* media query mobile */
+@media screen and (max-width: 576px) {
+  #newArrival .container {
+    width: 100%;
+    padding: 20px;
+    overflow: hidden;
+  }
+  .box-newArrival > .menu-newArrival {
+    order: 1;
+    width: 100%;
+    padding: 20px;
+    margin-right: 20px;
+  }
+  .box-newArrival {
+    padding-top: 120px;
+    flex-direction: column;
+  }
+
+  .box-card-newArrival {
+    width: 100%;
+    order: -1;
+    margin-bottom: 20px;
+  }
+  .banner-newArrival {
+    height: 350px;
+  }
+
+  .content-banner-newArrival > h3 {
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+  }
+  .content-banner-newArrival > p {
+    widows: 90%;
+    font-size: 16px;
+  }
+  .card-newArrival > .card {
+    margin-right: 3px;
+    width: 160px;
+    margin-bottom: 10px;
+  }
 }
 
 /* new arrival end */

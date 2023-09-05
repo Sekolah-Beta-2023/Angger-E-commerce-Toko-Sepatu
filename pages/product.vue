@@ -20,7 +20,7 @@
       </div>
       <div class="mt-5">
         <div class="box-card flex justify-between items-center">
-          <div class="w-[25%] bg-slate-50 p-5 mr-5 rounded-md">
+          <div class="card-product w-[25%] bg-slate-50 p-5 mr-5 rounded-md">
             <div class="flex justify-between items-center">
               <h3 class="font-semibold">HOT DEALS</h3>
               <a href="#product" class="transition text-red-600">More</a>
@@ -57,11 +57,11 @@
               <h2 class="font-semibold text-xl">Product</h2>
               <a href="#newArrival" class="transition text-red-600">More</a>
             </div>
-            <div class="flex justify-between items-center">
+            <div class="list-card flex justify-between items-center">
               <div
                 v-for="(item, index) in product"
                 :key="index"
-                class="p-5 w-[270px] hover:bg-secondary"
+                class="card p-5 w-[270px] hover:bg-secondary"
               >
                 <img
                   class="w-[180px] h-[150px]"
@@ -176,5 +176,54 @@ export default {
   padding: 90px 5px 5px 60px;
 }
 
+/* media query mobile */
+@media screen and (max-width: 576px) {
+  #Product .container {
+    width: 100%;
+    padding: 20px;
+    overflow: hidden;
+    padding-top: 150px;
+  }
+  .banner-product {
+    height: 300px;
+  }
+  .deskripsi-banner-product {
+    padding: 20px;
+  }
+  .deskripsi-banner-product > h3 {
+    font-size: 1.7rem;
+  }
+  .deskripsi-banner-product > p {
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .box-card {
+    flex-direction: column;
+  }
+
+  .card-product-promo {
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+  .card-product {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .box-card .rounded-md {
+    width: 100%;
+  }
+  .list-card {
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+  }
+  .list-card > .card {
+    width: 100% !important;
+  }
+}
 /* product end */
 </style>

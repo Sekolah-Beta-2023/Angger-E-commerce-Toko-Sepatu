@@ -127,5 +127,38 @@ export default {
   height: 35px;
 }
 
+@media screen and (max-width: 576px) {
+  footer .container {
+    overflow: hidden;
+    width: 100%;
+    padding: 20px;
+  }
+  .footer-content {
+    flex-direction: column;
+  }
+  .footer-logo,
+  .footer-collection,
+  .footer-contact,
+  .footer-payment {
+    width: 100%;
+  }
+  .footer-collection {
+    align-items: flex-start;
+  }
+  .footer-content > .footer-logo > h4,
+  .footer-contact > h4,
+  .footer-collection > h4 {
+    margin-bottom: 10px;
+  }
+
+  .footer-payment > ul > li > a > img {
+    width: 100px;
+    height: 35px;
+  }
+  .footer-payment ul {
+    align-items: flex-start;
+  }
+}
+
 /* footer end */
 </style>

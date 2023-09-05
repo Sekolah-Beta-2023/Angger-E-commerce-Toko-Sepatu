@@ -5,7 +5,7 @@
     >
       <div class="mb-3">
         <h2 class="mt-5 text-5xl text-center mb-2 font-semibold">Reviews</h2>
-        <p class="text-center text-2xl font-normal text-slate-900">
+        <p class="ket-reviews text-center text-2xl font-normal text-slate-900">
           Get real-world advice from people who've been there
         </p>
         <div class="card-reviews flex-center"></div>
@@ -311,6 +311,26 @@ form textarea {
   outline: 0;
   background-color: inherit;
   border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+}
+@media screen and (max-width: 576px) {
+  #Reviews .container {
+    width: 100%;
+    padding: 120px 20px 20px 20px;
+    overflow: hidden;
+  }
+  .review-page {
+    width: 100%;
+  }
+  .user-review button {
+    margin-top: 10px;
+    padding-inline: 10px;
+    padding-block: 8px;
+  }
+  .ket-reviews {
+    font-size: 20px;
+    width: 70%;
+    margin: auto;
+  }
 }
 /* reviews end */
 </style>

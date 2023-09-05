@@ -2,7 +2,7 @@
   <section id="Contact" class="bg-secondary">
     <div class="pt-[130px] pb-5 container w-[90%]">
       <div class="flex justify-between items-start flex-wrap w-[100%]">
-        <div class="rounded-md w-[40%] bg-slate-50 p-5">
+        <div class="form-contact rounded-md w-[40%] bg-slate-50 p-5">
           <h2 class="text-center text-3xl mb-5">Contact Us</h2>
           <form action="">
             <label class="text-xl block" for="name">Name</label>
@@ -24,7 +24,7 @@
             </button>
           </form>
         </div>
-        <div class="w-[50%] h-[100%]">
+        <div class="image-contact w-[50%] h-[100%]">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126438.33876429695!2d112.54938001799935!3d-7.978467193550372!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd62822063dc2fb%3A0x78879446481a4da2!2sMalang%2C%20Kota%20Malang%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1684366694438!5m2!1sid!2sid"
             width="600"
@@ -36,8 +36,10 @@
           ></iframe>
         </div>
       </div>
-      <div class="w-[100%] mt-5">
-        <div class="card-info-contact gap-5 flex justify-center items-center">
+      <div class="info-contact w-[100%] mt-5">
+        <div
+          class="card-info-contact gap-5 flex justify-center items-center flex-wrap"
+        >
           <!-- 1 -->
           <div class="card p-5 w-[300px] h-[125px] rounded-md">
             <div class="flex justify-start items-center gap-3 mb-2">
@@ -115,4 +117,41 @@ form > textarea {
   background-color: rgba(0, 0, 255, 0.3);
 }
 /* contact end */
+@media screen and (max-width: 576px) {
+  #Contact .container {
+    width: 100%;
+    padding: 140px 20px 20px 20px;
+    overflow: hidden;
+    height: min-content;
+  }
+  .container .flex {
+    height: min-content;
+    flex-direction: column;
+  }
+  .form-contact {
+    width: 100%;
+  }
+  .image-contact {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .image-contact iframe {
+    width: 100%;
+  }
+  .info-contact {
+    width: 100%;
+  }
+  .card-info-contact > .card {
+    height: 150px;
+    text-align: center;
+  }
+
+  form > textarea {
+    margin-bottom: 10px;
+  }
+
+  .card-info-contact {
+    /* flex-direction: column; */
+  }
+}
 </style>

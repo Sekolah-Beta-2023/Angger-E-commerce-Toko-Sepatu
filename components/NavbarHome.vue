@@ -1,7 +1,7 @@
 <template>
-  <header class="fixed z-50 lg:w-[100%] bg-primary text-slate-50">
+  <header class="fixed z-50 lg:w-[100%] md:w-[100%] bg-primary text-slate-50">
     <div class="container py-3 lg:w-[90%] flex justify-between items-center">
-      <div class="">
+      <div class="logo">
         <h1 class="text-slate-50 text-3xl font-bold">
           ANA<span class="text-btnColor">SHOES</span>
         </h1>
@@ -17,13 +17,14 @@
           <nuxt-link to="/login">Login</nuxt-link>
         </button>
         <button
+          id="btn-register"
           class="ms-2 border-2 border-btnColor outline-none bg-transparent py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-btnColor hover:border-transparent"
           type="button"
         >
           Register
         </button>
       </div>
-      <div class="burger-menu lg:hidden">
+      <div class="burger-menu lg:hidden md:hidden">
         <i id="menu-hamburger" class="fa-solid fa-bars"></i>
       </div>
     </div>
@@ -79,5 +80,87 @@
 </template>
 
 <script>
-export default {}
+export default {
+  mounted() {
+    const burgerMenu = document.getElementById('menu-hamburger')
+    const menuList = document.querySelector('.wrapper-nav-list')
+    burgerMenu.addEventListener('click', () => {
+      menuList.classList.toggle('toggle-nav-active')
+    })
+  },
+}
 </script>
+
+<style>
+/* media query mobile */
+@media screen and (max-width: 576px) {
+  header {
+    width: 100%;
+    padding: 10px;
+  }
+  header .container {
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+  }
+  .header-icon {
+    margin-left: 15px;
+  }
+  #btn-register {
+    margin-right: 50px;
+  }
+  .header-icon button {
+    padding-block: 5px;
+    padding-inline: 12px;
+  }
+  header .burger-menu {
+    position: absolute;
+    color: white;
+    display: block;
+    top: 23px;
+    right: 25px;
+    font-size: 24px;
+    z-index: 9999;
+  }
+  .wrapper-nav-list {
+    display: none;
+    padding: 0;
+    transition: 9s;
+    z-index: 9999;
+  }
+  .wrapper-nav-list.toggle-nav-active {
+    display: block;
+  }
+  .wrapper-nav-list > ul {
+    position: absolute;
+    z-index: 9999;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 80%;
+    height: 100vh;
+    background-color: #112852;
+    padding: 20px;
+  }
+  .wrapper-nav-list > ul > li {
+    margin-right: 0px;
+    margin-top: 20px;
+    font-size: 22px;
+    width: 100%;
+    padding: 10px;
+    color: white;
+  }
+
+  .wrapper-nav-list > ul > li:nth-child(1) {
+    margin-top: 0px;
+  }
+  .header-logo {
+    width: 100%;
+  }
+  .wrapper-nav-list > ul > li > a::after {
+    top: 30px;
+    right: 0%;
+    transform: translateX(-50%);
+  }
+}
+</style>
