@@ -19,7 +19,7 @@
           <form @submit.prevent="submitForm">
             <div class="form-group">
               <label for="name">Name:</label>
-              <input v-model="review.name" type="text" id="name" required />
+              <input id="name" v-model="review.name" type="text" required />
             </div>
             <div class="form-group image-wrapper">
               <label for="image">Image:</label>
@@ -39,8 +39,8 @@
             <div class="form-group">
               <label for="content">Review:</label>
               <textarea
-                v-model="review.content"
                 id="content"
+                v-model="review.content"
                 required
               ></textarea>
             </div>
@@ -146,67 +146,6 @@ export default {
       },
     }
   },
-  // created() {
-
-  //   // Mengambil data ulasan dari localStorage saat komponen dibuat
-  //   const storedReviews = localStorage.getItem('reviews')
-  //   if (storedReviews) {
-  //     this.reviews = JSON.parse(storedReviews)
-  //   }
-  //   this.fetchReviews()
-
-  // },
-  // async mounted() {
-  //   await this.fetchReviews()
-  // },
-  // methods: {
-  //   // crud
-  //   async fetchReviews() {
-  //     try {
-  //       const response = await axios.get(
-  //         'https://crudcrud.com/api/dd3b59a0cb6a47358b430bea894052fc/reviews'
-  //       )
-  //       console.log(response)
-  //       const datas = response.data
-  //       // Menggabungkan data dari API dengan data lokal
-  //       this.reviews = [...this.reviews, ...datas]
-
-  //       // Menyimpan data ulasan yang digabungkan ke dalam localStorage
-  //       localStorage.setItem('reviews', JSON.stringify(this.reviews))
-  //     } catch (e) {
-  //       console.error('Error fetching reviews:', e)
-  //     }
-  //   },
-  //   async submitForm() {
-  //     // Menambah ulasan baru ke dalam array reviews
-  //     this.reviews.push({
-  //       name: this.review.name,
-  //       content: this.review.content,
-  //       rating: this.selectedRating,
-  //     })
-
-  //     // Menyimpan ulasan ke dalam localStorage
-  //     localStorage.setItem('reviews', JSON.stringify(this.reviews))
-  //     try {
-  //       this.review.rating = this.selectedRating
-  //       // Mengirim ulasan baru ke server melalui API
-  //       const response = await axios.post(
-  //         'https://crudcrud.com/api/dd3b59a0cb6a47358b430bea894052fc/reviews',
-  //         this.review
-  //       )
-
-  //       this.reviews.push(response.data)
-  //       console.log(response)
-  //       this.review = { name: '', content: '' }
-  //       this.selectedRating = 0
-  //     } catch (e) {
-  //       console.error('Error fetching reviews:', e)
-  //     }
-  //   },
-  //   // rating
-  //   handleRatingSelected(rating) {
-  //     this.selectedRating = rating
-  //   },
   created() {
     this.fetchReviews()
   },
@@ -219,9 +158,7 @@ export default {
     },
     async fetchReviews() {
       try {
-        const response = await axios.get(
-          'https://api-crud-production-bc39.up.railway.app/review'
-        )
+        const response = await axios.get('')
         this.reviews = response.data
       } catch (error) {
         return 'Error fetching reviews: ' + error
@@ -230,12 +167,8 @@ export default {
     async submitForm() {
       try {
         const response = await axios.post(
-          'https://jsonplaceholder.typicode.com/posts',
-          {
-            title: this.review.name,
-            body: this.review.content,
-            userId: 1, // You can adjust this
-          }
+          'https://api-crud-production-bc39.up.railway.app/review',
+          {}
         )
         console.log('data post ', response.data)
 

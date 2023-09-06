@@ -1,5 +1,7 @@
 <template>
-  <header class="fixed z-50 lg:w-[100%] md:w-[100%] bg-primary text-slate-50">
+  <header
+    class="fixed z-50 lg:w-[100%] md:w-[100%] sm:w-[100%] bg-primary text-slate-50"
+  >
     <div class="container py-3 lg:w-[90%] flex justify-between items-center">
       <div class="logo">
         <h1 class="text-slate-50 text-3xl font-bold">
@@ -24,7 +26,7 @@
           Register
         </button>
       </div>
-      <div class="burger-menu lg:hidden md:hidden">
+      <div class="burger-menu lg:hidden md:hidden sm:hidden">
         <i id="menu-hamburger" class="fa-solid fa-bars"></i>
       </div>
     </div>
@@ -93,7 +95,7 @@ export default {
 
 <style>
 /* media query mobile */
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 675px) {
   header {
     width: 100%;
     padding: 10px;
