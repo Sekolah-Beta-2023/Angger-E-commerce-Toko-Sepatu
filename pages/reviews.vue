@@ -10,9 +10,50 @@
         </p>
         <div class="card-reviews flex-center"></div>
       </div>
-      <!-- v-if="!userReview" -->
       <div class="review-page rounded-md w-[70%] p-5 bg-white">
-        <div class="mb-5 rounded-md">
+        <!-- v-if="userReview" -->
+        <div
+          v-if="reviewUser && reviewUser.name"
+          class="user-review border-t-2 border-btnColor p-2 flex gap-4 flex-col"
+        >
+          <h2 class="text-2xl font-semibold">Your Review</h2>
+          <div class="review user-review">
+            <div class="flex justify-start items-center gap-3">
+              <p class="review-name"><b>Image : </b></p>
+              <img
+                class="rounded-full border-2 border-btnColor p-2"
+                :src="reviewUser.src"
+                :alt="reviewUser.src"
+              />
+            </div>
+
+            <p class="review-name"><b>Name : </b> {{ reviewUser.name }}</p>
+
+            <div class="flex justify-start items-start">
+              <p class="me-1"><b>Rating : </b></p>
+              <DisplayRating :rating="reviewUser.rating" />
+            </div>
+            <p class="review-description">
+              <b>Description : </b> {{ reviewUser.description }}
+            </p>
+            <button
+              class="border-2 border-btnColor outline-none bg-transparent py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-btnColor hover:border-transparent"
+              @click="editReview(reviewUser.id)"
+            >
+              Edit Review
+            </button>
+            <button
+              class="me-2 border-2 border-btnColor outline-none bg-transparent py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-btnColor hover:border-transparent"
+              @click="deleteReview(reviewUser.id)"
+            >
+              Delete Review
+            </button>
+          </div>
+        </div>
+        <!-- jika edit true -->
+
+        <!-- kondisi jika user belum membuat reviewUser maka halaman form akan tampil -->
+        <div v-else class="mb-5 rounded-md">
           <h2 class="text-center text-primary text-3xl mb-5 font-semibold">
             Write a Review
           </h2>
@@ -21,7 +62,8 @@
               <label for="name">Name:</label>
               <input id="name" v-model="review.name" type="text" required />
             </div>
-            <div class="form-group image-wrapper">
+
+            <!-- <div class="form-group image-wrapper">
               <label for="image">Image:</label>
               <div>
                 <p>
@@ -34,16 +76,17 @@
                   @change="handleImageUpload"
                 />
               </div>
-            </div>
+            </div> -->
 
             <div class="form-group">
               <label for="content">Review:</label>
               <textarea
                 id="content"
-                v-model="review.content"
+                v-model="review.description"
                 required
               ></textarea>
             </div>
+
             <div class="form-group">
               <label class="rating" for="content">Rating:</label>
 
@@ -57,32 +100,61 @@
             </button>
           </form>
         </div>
-        <!-- v-if="userReview" -->
-        <div class="user-review">
-          <h2 class="text-2xl mb-3 font-semibold">Your Review</h2>
-          <div class="review user-review p-5">
-            <img class="" :src="userReview.src" />
-            <p class="review-name">Name: {{ userReview.name }}</p>
-            <p>Rating :</p>
-            <DisplayRating :rating="userReview.rating" />
-            <p class="review-description">
-              Description: {{ userReview.description }}
-            </p>
-            <button
-              class="border-2 border-btnColor outline-none bg-transparent py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-btnColor hover:border-transparent"
-              @click="editReview(userReview)"
-            >
-              Edit Review
-            </button>
-            <button
-              class="me-2 border-2 border-btnColor outline-none bg-transparent py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-btnColor hover:border-transparent"
-              @click="deleteReview(userReview)"
-            >
-              Delete Review
-            </button>
-          </div>
-        </div>
 
+        <div v-if="formEdit" class="mb-5 rounded-md">
+          <h2 class="text-center text-primary text-3xl mb-5 font-semibold">
+            Write a Review
+          </h2>
+          <form @submit.prevent="submitForm">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input
+                id="name"
+                v-model="review.name"
+                type="text"
+                required
+                value="userReview.name"
+              />
+            </div>
+
+            <!-- <div class="form-group image-wrapper">
+              <label for="image">Image:</label>
+              <div>
+                <p>
+                  Gambar Profile Anda sebaiknya memiliki rasio 1:1 dan berukuran
+                  tidak lebih dari 2MB.
+                </p>
+                <input
+                  type="file"
+                  accept="image/*"
+                  @change="handleImageUpload"
+                />
+              </div>
+            </div> -->
+
+            <div class="form-group">
+              <label for="content">Review:</label>
+              <textarea
+                id="content"
+                v-model="review.description"
+                required
+                value="userReview.description"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="rating" for="content">Rating:</label>
+
+              <RatingUser @rating-selected="handleRatingSelected" />
+            </div>
+            <button
+              class="mt-4 border-2 border-transparent outline-none bg-btnColor py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
+              type="submit"
+            >
+              Save Changes
+            </button>
+          </form>
+        </div>
         <div class="all-reviews">
           <h2 class="text-2xl font-semibold mb-3">All Reviews</h2>
           <div
@@ -133,17 +205,12 @@ export default {
       reviews: [],
       review: {
         name: '',
-        image: null,
-        content: '',
+        url: 'https://fotoprofileuser.png',
+        description: '',
         rating: null,
       },
-      userReview: {
-        name: 'Angger NUr AMin',
-        src: require('@/assets/reviews/John.png'),
-        description:
-          'The shoes feel lightweight and offer excellent protection for my feet. The elegant design also boosts my  confidence. The customer service at this store is outstanding. Thank you!',
-        rating: 5,
-      },
+      reviewUser: {}, // iNi akan digunakan untuk menyimpan ulasan pengguna
+      formEdit: false,
     }
   },
   created() {
@@ -151,14 +218,16 @@ export default {
   },
   methods: {
     handleImageUpload(event) {
-      this.review.image = event.target.files[0]
+      this.review.url = event.target.files[0]
     },
     handleRatingSelected(rating) {
       this.selectedRating = rating
     },
     async fetchReviews() {
       try {
-        const response = await axios.get('')
+        const response = await axios.get(
+          'https://api-crud-production-bc39.up.railway.app/review'
+        )
         this.reviews = response.data
       } catch (error) {
         return 'Error fetching reviews: ' + error
@@ -166,20 +235,43 @@ export default {
     },
     async submitForm() {
       try {
-        const response = await axios.post(
-          'https://api-crud-production-bc39.up.railway.app/review',
-          {}
-        )
-        console.log('data post ', response.data)
-
-        this.reviews.push(response.data)
-        this.review.name = ''
-        this.review.content = ''
-        this.selectedRating = null
-        this.review.image = null
+        if (!this.reviewUser || !this.reviewUser.name) {
+          this.review.rating = this.selectedRating
+          const response = await axios.post(
+            'https://api-crud-production-bc39.up.railway.app/review',
+            this.review
+          )
+          console.log('data post ', response.data)
+          this.reviewUser = response.data
+        } else {
+          console.log('Anda sudah mengisi form review')
+        }
       } catch (error) {
-        console.error('Error submitting review:', error)
+        console.error('Error submitting review:', error.response)
       }
+      this.review.name = ''
+      this.review.description = ''
+      this.review.rating = null
+      this.selectedRating = null
+      this.review.image = null
+
+      this.fetchReviews()
+    },
+    async editReview(id) {
+      this.formEdit = true
+      this.reviewUser = {}
+
+      const updatedReview = await axios.get(
+        `https://api-crud-production-bc39.up.railway.app/review/${id}`
+      )
+      this.reviewUser = updatedReview.data
+    },
+    async deleteReview(id) {
+      await axios.delete(
+        `https://api-crud-production-bc39.up.railway.app/review/${id}`
+      )
+      this.reviewUser = {}
+      this.fetchReviews()
     },
   },
 }
