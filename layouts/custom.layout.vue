@@ -1,3 +1,5 @@
 <template>
-  <h1>Custom</h1>
+  <div id="app">
+    <nuxt />
+  </div>
 </template>

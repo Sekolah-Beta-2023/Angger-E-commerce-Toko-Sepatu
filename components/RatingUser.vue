@@ -1,5 +1,5 @@
 <template>
-  <div class="card-product-rating">
+  <div class="card-product-rating cursor-pointer">
     <i
       v-for="(star, index) in stars"
       :key="index"
@@ -38,9 +38,12 @@ export default {
 
 <style scoped>
 .card-product-rating i {
+  cursor: pointer;
   color: gold;
 }
 .card-product-rating .active-rating {
+  cursor: pointer;
+
   color: red;
 }
 </style>
