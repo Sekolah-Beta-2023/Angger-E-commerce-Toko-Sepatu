@@ -1,11 +1,11 @@
 <template>
   <section id="About" class="bg-secondary">
-    <h2 class="text-4xl pt-[150px] uppercase text-center font-bold">About</h2>
-    <div class="flex container w-[90%] my-16">
+    <h2 class="text-4xl pt-[150px] uppercase text-center font-normal">About</h2>
+    <div class="flex container w-[90%] mb-16 mt-5 text-slate-900 bg-white">
       <div class="about-image w-[40%] rounded-md mr-5">
         <img :src="imageAbout" alt="image-about" class="w-[100%] h-[100%]" />
       </div>
-      <article class="w-[55%] bg-slate-50">
+      <article class="w-[55%]">
         <p
           class="p-5 indent-8 text-lg text-slate-500 font-normal first-letter:text-btnColor first-letter:uppercase first-letter:text-5xl"
         >

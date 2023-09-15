@@ -9,10 +9,24 @@
         </h1>
       </div>
 
-      <div class="header-icon">
-        <i class="fa-regular fa-heart"></i>
-        <i class="fas fa-shopping-cart"> </i>
-        <button
+      <div class="header-icon flex gap-3 justify-center items-center">
+        <div
+          class="tooltip tooltip-bottom tooltip-warning"
+          data-tip="wislist saya"
+        >
+          <i class="fa-regular fa-heart"></i>
+        </div>
+        <div
+          class="indicator tooltip tooltip-bottom tooltip-warning cursor-pointer"
+          data-tip="keranjang saya"
+        >
+          <span class="indicator-item badge badge-secondary">0</span>
+          <div class="grid w-6 h-6 bg-base-300 place-items-center">
+            <i class="fas fa-shopping-cart text-lg text-white"></i>
+          </div>
+        </div>
+
+        <!-- <button
           class="ms-2 border-2 border-transparent outline-none bg-btnColor py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
           type="button"
         >
@@ -24,7 +38,7 @@
           type="button"
         >
           Register
-        </button>
+        </button> -->
       </div>
       <div class="burger-menu lg:hidden md:hidden sm:hidden">
         <i id="menu-hamburger" class="fa-solid fa-bars"></i>
@@ -51,8 +65,8 @@
         <li class="mr-4">
           <nuxt-link
             class="relative after:absolute after:block after:content-'' after:bg-white after:h-[3px] after:w-1/2 after:opacity-0 after:transition-opacity after:group-hover:opacity-100 after:left-1/2 after:translate-x-[-50%]"
-            to="/product"
-            >Product</nuxt-link
+            to="/products"
+            >Products</nuxt-link
           >
         </li>
         <li class="mr-4">

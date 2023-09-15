@@ -1,7 +1,7 @@
 <template>
   <main>
     <section id="Home" class="h-screen bg-secondary">
-      <div class="flex h-[100%] container w-[90%]">
+      <div class="flex h-[100%] container w-[90%] text-slate-900">
         <div class="home-content flex justify-end items-start flex-col w-[50%]">
           <h1 class="text-5xl capitalize mb-5 font-medium">
             Perfect Product To Now And Forefer

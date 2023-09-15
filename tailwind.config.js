@@ -17,7 +17,10 @@ module.exports = {
         secondary: '#efefef',
         btnColor: 'rgb(238, 178, 12)',
       },
+      fontFamily: {
+        lexend: ['Lexend', 'sans-serif'],
+      },
     },
   },
-  plugins: [],
+  plugins: [require('daisyui')],
 }

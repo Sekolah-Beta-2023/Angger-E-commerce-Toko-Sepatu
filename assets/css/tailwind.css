@@ -6,6 +6,10 @@
   .wrapper-nav-list > ul > li:hover > a::after {
     @apply opacity-100;
   }
+
+  body {
+    @apply font-lexend bg-secondary;
+  }
 }
 /* icon start */
 .home-content-sosmed {

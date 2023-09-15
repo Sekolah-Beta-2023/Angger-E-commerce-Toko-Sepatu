@@ -1,8 +1,8 @@
 <template>
-  <section id="Contact" class="bg-secondary">
-    <div class="pt-[130px] pb-5 container w-[90%]">
+  <section id="Contact">
+    <div class="pt-[130px] pb-5 container w-[90%] text-slate-900">
       <div class="flex justify-between items-start flex-wrap w-[100%]">
-        <div class="form-contact rounded-md w-[40%] bg-slate-50 p-5">
+        <div class="form-contact rounded-md w-[40%] bg-white p-5">
           <h2 class="text-center text-3xl mb-5">Contact Us</h2>
           <form action="">
             <label class="text-xl block" for="name">Name</label>
