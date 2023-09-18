@@ -1,14 +1,18 @@
 <template>
   <nuxt-link :to="`/products/${product.id}`">
-    <div class="flex justify-center items-center p-5">
+    <div
+      class="grid h-[200px] overflow-hidden card rounded-box place-items-center"
+    >
       <img
-        class="bg-transparent w-[180px] h-[150px]"
+        class="bg-transparent w-[180px] h-[150px] object-cover"
         :src="product.image"
         :alt="product.image"
       />
     </div>
 
-    <h3 class="border-t-2 font-semibold border-slate-200 pt-2 pb-1">
+    <h3
+      class="inline-block border-t-2 font-semibold border-slate-200 pt-2 pb-1 h-[80px] overflow-hidden"
+    >
       {{ product.title.substring(0, 25) }}
     </h3>
     <p class="mb-2 text-slate-600 font-normal">
