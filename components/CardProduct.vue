@@ -21,7 +21,7 @@
       </p>
       <div
         class="stat-figure text-primary"
-        @click.prevent.stop="handleWishList(product)"
+        @click.prevent.stop="addWishList(product.id)"
       >
         <i class="fa fa-heart" :class="{ active: iconWishList }"></i>
       </div>
@@ -61,10 +61,13 @@ export default {
   },
 
   methods: {
-    handleWishList(prodak) {
-      console.log(prodak.title)
-      // Toggle status saat ikon diklik
+    // mengakses action diglobal state vuex menggunakan dispatch
+    addWishList(id) {
       this.iconWishList = !this.iconWishList
+      if (this.iconWishList) {
+        // proses pemanggilan action ('nama_file/nama_method', parameter)
+        this.$store.dispatch('index/addWishList', id)
+      }
     },
     // hitung diskon
     hitungHargaAkhir(hargaAwal) {

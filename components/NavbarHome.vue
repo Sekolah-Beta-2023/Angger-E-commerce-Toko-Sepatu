@@ -9,20 +9,37 @@
         </h1>
       </div>
 
-      <div class="header-icon flex gap-3 justify-center items-center">
-        <div
-          class="tooltip tooltip-bottom tooltip-warning"
-          data-tip="wislist saya"
-        >
-          <i class="fa-regular fa-heart"></i>
-        </div>
+      <div class="header-icon flex gap-5 justify-center items-center">
+        <nuxt-link to="/wishlist" class="cursor-pointer">
+          <div
+            class="indicator tooltip tooltip-bottom tooltip-warning"
+            data-tip="wislist saya"
+          >
+            <span class="indicator-item badge badge-secondary">{{
+              notifWishListItems.length
+            }}</span>
+
+            <div
+              class="grid w-6 h-6 bg-base-300 place-items-center bg-transparent"
+            >
+              <i
+                class="fa-regular fa-heart text-lg text-white bg-transparent"
+              ></i>
+            </div>
+          </div>
+        </nuxt-link>
+
         <div
           class="indicator tooltip tooltip-bottom tooltip-warning cursor-pointer"
           data-tip="keranjang saya"
         >
           <span class="indicator-item badge badge-secondary">0</span>
-          <div class="grid w-6 h-6 bg-base-300 place-items-center">
-            <i class="fas fa-shopping-cart text-lg text-white"></i>
+          <div
+            class="grid w-6 h-6 bg-base-300 place-items-center bg-transparent"
+          >
+            <i
+              class="fas fa-shopping-cart text-lg text-white bg-transparent"
+            ></i>
           </div>
         </div>
 
@@ -97,6 +114,14 @@
 
 <script>
 export default {
+  computed: {
+    // penamaan computed tidak karus sama dengan state yg ada di store, begitupun juga dengan method
+    notifWishListItems() {
+      // this.$store.state.namaFolder.namaStateyangAkanDiPanggil
+      return this.$store.state.index.wishListItems
+    },
+  },
+  // vue hook mounted(dom sudah dirender dengan baik)
   mounted() {
     const burgerMenu = document.getElementById('menu-hamburger')
     const menuList = document.querySelector('.wrapper-nav-list')

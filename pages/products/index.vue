@@ -18,91 +18,103 @@
           >
         </div>
       </div>
-      <div class="flex justify-between items-center w-full bg-white">
-        <select
-          v-model="selectCategoryProducts"
-          class="bg-white dropdown-category p-3 border-2 border-btnColor rounded-md"
-        >
-          <option value="">All category</option>
-          <option value="men's clothing">Men's clothing</option>
-          <option value="women's clothing">Women's clothing</option>
-          <option value="jewelery">Jewelery</option>
-          <option value="electronics">Electronics</option>
-        </select>
-
-        <div
-          class="my-4 border-2 border-btnColor rounded-md w-[50%] flex justify-between items-center bg-white"
-        >
-          <input
-            type="search"
-            class="bg-white w-full p-2 outline-none border-0"
-            placeholder="Search Product is here..."
-            v-model="searchQueryProducts"
-          />
-          <!-- @click="searchProducts" -->
-
-          <button
-            class="w-36 text-lg p-2 text-center bg-btnColor outline-none cursor-pointer transition font-semibold rounded-sm inline-block"
-          >
-            Search
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-        </div>
+      <div v-if="products.length === 0">
+        <div class="w-100 h-80"><LoadingPage /></div>
       </div>
-      <div class="mt-1">
-        <div class="box-card flex justify-center items-start">
-          <div class="card-product w-[25%] bg-slate-50 p-5 mr-5 rounded-md">
-            <div class="flex justify-between items-center">
-              <h3 class="font-semibold">HOT DEALS</h3>
-            </div>
-            <img
-              class="w-[260px]"
-              :src="productPromo.src"
-              :alt="productPromo.alt"
-            />
-            <h3
-              class="font-semibold pt-3 border-t-2 border-slate-300 capitalize my-1"
-            >
-              {{ productPromo.name }}
-            </h3>
-            <div class="text-slate-600 mb-3">
-              <RatingUser @rating-selected="handleRatingSelected" />
+      <div v-else>
+        <div class="flex justify-between items-center w-full bg-white">
+          <select
+            v-model="selectCategoryProducts"
+            class="bg-white dropdown-category p-3 border-2 border-btnColor rounded-md"
+          >
+            <option value="">All category</option>
+            <option value="men's clothing">Men's clothing</option>
+            <option value="women's clothing">Women's clothing</option>
+            <option value="jewelery">Jewelery</option>
+            <option value="electronics">Electronics</option>
+          </select>
 
-              <!-- Tampilkan nilai rating yang dipilih -->
-              <p>Selected Rating: {{ selectedRating }}</p>
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="text-lg font-bold text-red-600">{{
-                productPromo.diskon
-              }}</span>
-              <span class="line-through italic text-slate-600">{{
-                productPromo.harga
-              }}</span>
-            </div>
-          </div>
-          <div class="rounded-md p-5 w-[75%] bg-slate-50 flex-wrap">
-            <div
-              class="flex justify-between items-center border-b-2 border-slate-200"
+          <div
+            class="my-4 border-2 border-btnColor rounded-md w-[50%] flex justify-between items-center bg-white"
+          >
+            <input
+              v-model="searchQueryProducts"
+              type="search"
+              class="bg-white w-full p-2 outline-none border-0"
+              placeholder="Search Product is here..."
+              list="title-product"
+            />
+            <!-- membuat suggestion pada search product -->
+            <datalist id="title-product">
+              <option
+                v-for="item in products"
+                :key="item.id"
+                :value="item.title"
+              ></option>
+            </datalist>
+            <!-- @click="searchProducts" -->
+
+            <button
+              class="w-36 text-lg p-2 text-center bg-btnColor outline-none cursor-pointer transition font-semibold rounded-sm inline-block"
             >
-              <h2 class="font-semibold text-xl">Product</h2>
-            </div>
-            <div v-if="products.length === 0">
-              <div class="w-100 h-80"><LoadingPage /></div>
-            </div>
-            <div v-else>
-              <div
-                v-if="combineFilterProducts.length > 0"
-                class="list-card flex justify-between items-center flex-wrap cursor-pointer"
-              >
-                <CardProduct
-                  v-for="product in combineFilterProducts"
-                  :key="product.id"
-                  :product="product"
-                  class="card p-5 w-[270px] hover:bg-secondary"
-                />
+              Search
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+        </div>
+        <div class="mt-1">
+          <div class="box-card flex justify-center items-start">
+            <div class="card-product w-[25%] bg-slate-50 p-5 mr-5 rounded-md">
+              <div class="flex justify-between items-center">
+                <h3 class="font-semibold">HOT DEALS</h3>
               </div>
-              <div v-else class="halaman-error w-full h-80 overflow-hidden">
-                <NotFoundPage />
+              <img
+                class="w-[260px]"
+                :src="productPromo.src"
+                :alt="productPromo.alt"
+              />
+              <h3
+                class="font-semibold pt-3 border-t-2 border-slate-300 capitalize my-1"
+              >
+                {{ productPromo.name }}
+              </h3>
+              <div class="text-slate-600 mb-3">
+                <RatingUser @rating-selected="handleRatingSelected" />
+
+                <!-- Tampilkan nilai rating yang dipilih -->
+                <p>Selected Rating: {{ selectedRating }}</p>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-bold text-red-600">{{
+                  productPromo.diskon
+                }}</span>
+                <span class="line-through italic text-slate-600">{{
+                  productPromo.harga
+                }}</span>
+              </div>
+            </div>
+            <div class="rounded-md p-5 w-[75%] bg-slate-50 flex-wrap">
+              <div
+                class="flex justify-between items-center border-b-2 border-slate-200"
+              >
+                <h2 class="font-semibold text-xl">Product</h2>
+              </div>
+
+              <div>
+                <div
+                  v-if="combineFilterProducts.length > 0"
+                  class="list-card flex justify-between items-center flex-wrap cursor-pointer"
+                >
+                  <CardProduct
+                    v-for="product in combineFilterProducts"
+                    :key="product.id"
+                    :product="product"
+                    class="card p-5 w-[270px] hover:bg-secondary"
+                  />
+                </div>
+                <div v-else class="halaman-error w-full h-80 overflow-hidden">
+                  <NotFoundPage />
+                </div>
               </div>
             </div>
           </div>
@@ -216,9 +228,6 @@ export default {
 
 .deskripsi-banner-product {
   padding: 90px 5px 5px 60px;
-}
-
-.halaman-error {
 }
 
 /* media query mobile */
