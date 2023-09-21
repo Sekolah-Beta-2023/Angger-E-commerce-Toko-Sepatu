@@ -11,7 +11,7 @@
     </div>
 
     <h3
-      class="inline-block border-t-2 font-semibold border-slate-200 pt-2 pb-1 h-[80px] overflow-hidden"
+      class="inline-block border-t-2 font-semibold border-slate-200 pt-2 pb-1 h-[60px] overflow-hidden"
     >
       {{ product.title.substring(0, 25) }}
     </h3>
@@ -31,9 +31,14 @@
       </div>
     </div>
     <div class="mb-2 flex justify-between items-center">
-      <span class="text-base font-bold text-red-600">{{
-        hitungHargaAkhir(product.price)
-      }}</span>
+      <span class="text-base font-bold text-red-600">
+        {{
+          product.price.toLocaleString('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+          })
+        }}</span
+      >
       <span class="line-through italic text-slate-600"
         >$ {{ product.price }}</span
       >
@@ -47,6 +52,7 @@
         >Buy Now</a
       >
     </button>
+    <notifications group="notifReview" class="mt-32 me-14" />
   </nuxt-link>
 </template>
 <script>
@@ -71,6 +77,18 @@ export default {
       if (this.iconWishList) {
         // proses pemanggilan action ('nama_file/nama_method', parameter)
         this.$store.dispatch('index/addWishList', id)
+        this.$notify({
+          group: 'notifReview',
+          type: 'success',
+          text: 'Succes add wishlist.',
+        })
+      } else {
+        this.$store.dispatch('index/removeWishList', id)
+        this.$notify({
+          group: 'notifReview',
+          type: 'error',
+          text: 'Delete wishlist.',
+        })
       }
     },
     // hitung diskon

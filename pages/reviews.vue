@@ -247,8 +247,6 @@ export default {
   },
   data() {
     return {
-      sampleImage: require('@/assets/reviews/Sarah.png'),
-
       // rating
       selectedRating: 0,
       // crud reviews

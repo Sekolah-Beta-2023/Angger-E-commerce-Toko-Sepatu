@@ -10,7 +10,7 @@
       </div>
 
       <div class="header-icon flex gap-5 justify-center items-center">
-        <nuxt-link to="/wishlist" class="cursor-pointer">
+        <nuxt-link to="/wishlist" class="cursor-pointer text-base">
           <div
             class="indicator tooltip tooltip-bottom tooltip-warning"
             data-tip="wislist saya"
@@ -27,20 +27,39 @@
               ></i>
             </div>
           </div>
+          WISHLIST
         </nuxt-link>
 
-        <div
-          class="indicator tooltip tooltip-bottom tooltip-warning cursor-pointer"
-          data-tip="keranjang saya"
-        >
-          <span class="indicator-item badge badge-secondary">0</span>
+        <nuxt-link to="/keranjang" class="cursor-pointer text-base">
           <div
-            class="grid w-6 h-6 bg-base-300 place-items-center bg-transparent"
+            class="indicator tooltip tooltip-bottom tooltip-warning cursor-pointer"
+            data-tip="keranjang saya"
           >
-            <i
-              class="fas fa-shopping-cart text-lg text-white bg-transparent"
-            ></i>
+            <span class="indicator-item badge badge-secondary">{{
+              notifListItemsKeranjang.length
+            }}</span>
+            <div
+              class="grid w-6 h-6 bg-base-300 place-items-center bg-transparent"
+            >
+              <i
+                class="fas fa-shopping-cart text-lg text-white bg-transparent"
+              ></i>
+            </div>
           </div>
+          CART
+        </nuxt-link>
+        <div class="dropdown dropdown-hover dropdown-end">
+          <i class="fas fa-user"></i>
+
+          <label tabindex="0" class="m-1">Angger Nur</label>
+          <ul
+            tabindex="0"
+            class="dropdown-content z-[1] menu p-2 shadow bg-white text-slate-900 rounded-box w-52"
+          >
+            <li><nuxt-link to="/">Account saya</nuxt-link></li>
+            <li><nuxt-link to="/">Pesanana saya</nuxt-link></li>
+            <li><nuxt-link to="/">Log out</nuxt-link></li>
+          </ul>
         </div>
 
         <!-- <button
@@ -119,6 +138,9 @@ export default {
     notifWishListItems() {
       // this.$store.state.namaFolder.namaStateyangAkanDiPanggil
       return this.$store.state.index.wishListItems
+    },
+    notifListItemsKeranjang() {
+      return this.$store.state.index.listDataBelanja
     },
   },
   // vue hook mounted(dom sudah dirender dengan baik)

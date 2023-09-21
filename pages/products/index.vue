@@ -139,7 +139,7 @@ export default {
   data() {
     return {
       productPromo: {
-        src: require('@/assets/Product/Nike-blazer-mid.png'),
+        src: require('@/assets/background/banner-newArrival.jpg'),
         alt: 'Nike-blazer-mid.png',
         name: 'Nike Blazer Mid',
         harga: '$452',

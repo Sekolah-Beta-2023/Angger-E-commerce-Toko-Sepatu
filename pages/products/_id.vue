@@ -2,6 +2,18 @@
 <template>
   <section id="detail-products" class="bg-slate-200">
     <div class="container w-[80%] pt-[120px]">
+      <div v-if="isAlreadyProduct">
+        <div class="toast toast-top toast-middle">
+          <div class="alert alert-info">
+            <span
+              >Product {{ detailProduct.title }} sudah ada dikeranjang.</span
+            >
+          </div>
+        </div>
+      </div>
+      <div v-if="showError" class="error-message">
+        Mohon isi semua detail pesanan.
+      </div>
       <!-- Tampilkan breadcrumbs di sini -->
       <div class="text-sm breadcrumbs">
         <ul>
@@ -52,9 +64,14 @@
               <span class="line-through italic text-slate-600"
                 >$ {{ detailProduct.price }}</span
               >
-              <span class="text-2xl font-bold text-red-600">{{
-                hitungHargaAkhir(detailProduct.price)
-              }}</span>
+              <span class="text-2xl font-bold text-red-600">
+                {{
+                  detailProduct.price.toLocaleString('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                  })
+                }}
+              </span>
 
               <span class="bg-red-600 text-white p-1 text-xs"
                 >{{ diskonPersentasi }} % OFF</span
@@ -184,24 +201,26 @@
                   <span class="ms-4 border-0 text-sm">Tersisa 4.444 buah</span>
                 </div>
               </ul>
-              <button
-                class="border-2 border-transparent outline-none bg-btnColor py-2 px-8 mt-5 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
-                @click="addToCart"
-              >
-                Buy Now
-              </button>
+              <div class="flex gap-4">
+                <button
+                  class="border-2 border-btnColor outline-none bg-yellow-300 py-2 px-8 mt-5 text-base cursor-pointer transition font-bold rounded-sm hover:bg-btnColor hover:border-btnColor"
+                  @click="addToKeranjang($route.params.id)"
+                >
+                  Masukkan Keranjang
+                </button>
+                <button
+                  class="border-2 border-transparent outline-none bg-btnColor py-2 px-8 mt-5 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
+                >
+                  Buy Now
+                </button>
+              </div>
+
               <!-- You can open the modal using ID.showModal() method -->
             </form>
           </div>
         </div>
       </div>
-      <div>
-        <ul v-for="item in keranjang" :key="item.id">
-          <p>{{ item.title }}</p>
-          <p>{{ item.quantity }}</p>
-          <p>{{ item.warna }}</p>
-        </ul>
-      </div>
+
       <div class="flex flex-col w-full mt-5">
         <div class="font-light text-slate-950 bg-white p-5 place-items-center">
           <h3 class="text-3xl mb-4 font-normal">Spesifikasi Product</h3>
@@ -229,12 +248,34 @@
           <p>{{ detailProduct.description }}</p>
         </div>
       </div>
+
+      <!--  -->
+      <div
+        v-if="productsCategory.length > 0"
+        class="bg-white text-slate-900 p-5"
+      >
+        <h2 class="text-3xl">Produk Terkait</h2>
+        <div
+          class="list-card flex justify-between items-center flex-wrap cursor-pointer"
+        >
+          <CardProduct
+            v-for="product in productsCategory"
+            :key="product.id"
+            :product="product"
+            class="card p-3 w-[250px] hover:bg-secondary"
+          />
+        </div>
+      </div>
     </div>
   </section>
 </template>
 <script>
 import axios from 'axios'
+import CardProduct from '../../components/CardProduct.vue'
 export default {
+  components: {
+    CardProduct,
+  },
   data() {
     return {
       detailProduct: {
@@ -244,15 +285,22 @@ export default {
         category: '',
         rating: { rate: 0, count: 0 },
       },
-      keranjang: [],
+      productsCategory: [],
+
       pilihanWarna: ['Grey', 'Black', 'White'],
       selectedWarna: '',
 
       sizesShoes: ['36', '37', '38', '39', '40', '41', '42', '43'], // Daftar ukuran sepatu
       selectedSize: null,
       quantity: 1,
+      showError: false, // Menampilkan pesan kesalahan jika true
       diskonPersentasi: 50, // misal diskon 5 persen
     }
+  },
+  computed: {
+    isAlreadyProduct() {
+      return this.$store.state.index.isAlreadyInCart
+    },
   },
   created() {
     this.getDetailProduct()
@@ -270,7 +318,17 @@ export default {
           'https://fakestoreapi.com/products/' + this.$route.params.id
         )
         this.detailProduct = response.data
-        console.log(this.detailProduct)
+        this.getProductsCategory()
+      } catch (error) {
+        console.log(error.message)
+      }
+    },
+    async getProductsCategory() {
+      try {
+        const response = await axios.get(
+          `https://fakestoreapi.com/products/category/${this.detailProduct.category}`
+        )
+        this.productsCategory = response.data
       } catch (error) {
         console.log(error.message)
       }
@@ -296,27 +354,31 @@ export default {
       this.selectedWarna = warna
       console.log(this.selectedWarna)
     },
-    addToCart() {
+    addToKeranjang(id) {
       if (
         this.selectedWarna === '' ||
         this.selectedSize === null ||
         this.quantity === 0
       ) {
+        this.showError = true
         return
       }
-      const pesanan = {
+      this.showError = false
+
+      const deskripsiPemesanan = {
         warna: this.selectedWarna,
         size: this.selectedSize,
         quantity: this.quantity,
+        checked: false,
       }
+      console.log('pesanan', deskripsiPemesanan)
+      const product = { ...this.detailProduct, deskripsiPemesanan }
+      console.log('product', product)
+      this.$store.commit('index/ADD_KERANJANG', product)
 
-      const dt = { ...this.detailProduct, ...pesanan }
-      console.log(dt.quantity)
-      this.keranjang.push(dt)
-      console.log('cek cart', this.keranjang)
       this.selectedSize = null
       this.selectedWarna = ''
-      this.quantity = 0
+      this.quantity = 1
     },
   },
 }
