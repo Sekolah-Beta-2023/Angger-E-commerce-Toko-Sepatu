@@ -1,7 +1,7 @@
 <!-- pages/products/_id.vue -->
 <template>
   <section id="detail-products" class="bg-slate-200">
-    <div class="container w-[80%] pt-[120px]">
+    <div class="container w-[80%] h-full relative pt-[120px]">
       <div v-if="isAlreadyProduct">
         <div class="toast toast-top toast-middle">
           <div class="alert alert-info">
@@ -208,11 +208,14 @@
                 >
                   Masukkan Keranjang
                 </button>
-                <button
-                  class="border-2 border-transparent outline-none bg-btnColor py-2 px-8 mt-5 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
-                >
-                  Buy Now
-                </button>
+
+                <nuxt-link to="/keranjang">
+                  <button
+                    class="border-2 border-transparent outline-none bg-btnColor py-2 px-8 mt-5 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
+                  >
+                    Buy Now
+                  </button>
+                </nuxt-link>
               </div>
 
               <!-- You can open the modal using ID.showModal() method -->
@@ -266,6 +269,46 @@
           />
         </div>
       </div>
+
+      <notifications
+        group="notifKeranjangSuccess"
+        class="wrapper-notification mt-[17rem] me-[34rem]"
+      >
+        <template slot="body">
+          <div
+            class="notification flex justify-center items-center gap-3 flex-col text-white"
+          >
+            <div class="notification-icon">
+              <i class="fas fa-check bg-green-600"></i>
+            </div>
+            <p class="notification-text">
+              Product berhasil ditambahkan ke keranjang.
+            </p>
+          </div>
+        </template>
+      </notifications>
+
+      <notifications
+        group="notifKeranjangError"
+        class="wrapper-notification-error mt-[17rem] me-[36rem]"
+      >
+        <template slot="body">
+          <div
+            class="notification flex justify-center gap-3 items-center flex-col text-white"
+          >
+            <div class="notification-icon">
+              <i class="fas fa-times bg-red-600"></i>
+            </div>
+            <p class="notification-text">Gagal menambahkan ke keranjang.</p>
+            <p class="notification-text font-normal">
+              pastikan Anda sudah memilih
+              <span class="font-semibold bg-red-600">
+                warna dan Size Sepatu
+              </span>
+            </p>
+          </div>
+        </template>
+      </notifications>
     </div>
   </section>
 </template>
@@ -360,7 +403,11 @@ export default {
         this.selectedSize === null ||
         this.quantity === 0
       ) {
-        this.showError = true
+        this.$notify({
+          group: 'notifKeranjangError',
+          width: '800px',
+        })
+
         return
       }
       this.showError = false
@@ -371,11 +418,12 @@ export default {
         quantity: this.quantity,
         checked: false,
       }
-      console.log('pesanan', deskripsiPemesanan)
       const product = { ...this.detailProduct, deskripsiPemesanan }
-      console.log('product', product)
       this.$store.commit('index/ADD_KERANJANG', product)
-
+      this.$notify({
+        group: 'notifKeranjangSuccess',
+        width: '800px',
+      })
       this.selectedSize = null
       this.selectedWarna = ''
       this.quantity = 1
@@ -383,7 +431,38 @@ export default {
   },
 }
 </script>
-<style>
+<style scoped>
+.wrapper-notification-error {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  border-radius: 5px;
+}
+.wrapper-notification {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  border-radius: 2px;
+}
+/* Mengubah gaya teks pada elemen <p> dalam slot */
+.notification {
+  padding: 28px 5px !important;
+  font-size: 16px;
+}
+.notification p {
+  text-align: center;
+  width: 100%;
+}
+
+.notification-icon i {
+  display: inline-block;
+  height: 43px;
+  width: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 1.7rem;
+}
+
 .list-spesifikasi-product li {
   color: rgba(0, 0, 0, 0.7);
 }

@@ -68,6 +68,17 @@ export default {
   data() {
     return {
       imageHome: require('@/assets/background/image-home.png'),
+      user: null
+    }
+  },
+  async created() {
+    try {
+      const {
+        data: { user },
+      } = await this.$supabase.auth.getUser()
+      this.user = user
+    } catch (error) {
+      console.error(error)
     }
   },
 }

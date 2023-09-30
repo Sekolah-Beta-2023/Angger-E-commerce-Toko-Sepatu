@@ -99,6 +99,7 @@ export const modules = {
         })
       },
     },
+
     // 3. membuat action yaitu digunakan untuk mengubah data state, sama seperti mutation tetapi action bisa melakukan proses asnychronous seperti get api, DAN ACTION dapat mengakses hasil dari mutations
     actions: {
       async addWishList({ commit }, productId) {

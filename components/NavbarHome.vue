@@ -10,71 +10,74 @@
       </div>
 
       <div class="header-icon flex gap-5 justify-center items-center">
-        <nuxt-link to="/wishlist" class="cursor-pointer text-base">
-          <div
-            class="indicator tooltip tooltip-bottom tooltip-warning"
-            data-tip="wislist saya"
-          >
-            <span class="indicator-item badge badge-secondary">{{
-              notifWishListItems.length
-            }}</span>
-
+        <div v-if="user">
+          <nuxt-link to="/wishlist" class="cursor-pointer text-base">
             <div
-              class="grid w-6 h-6 bg-base-300 place-items-center bg-transparent"
+              class="indicator tooltip tooltip-bottom tooltip-warning"
+              data-tip="wislist saya"
             >
-              <i
-                class="fa-regular fa-heart text-lg text-white bg-transparent"
-              ></i>
-            </div>
-          </div>
-          WISHLIST
-        </nuxt-link>
+              <span class="indicator-item badge badge-secondary">{{
+                notifWishListItems.length
+              }}</span>
 
-        <nuxt-link to="/keranjang" class="cursor-pointer text-base">
-          <div
-            class="indicator tooltip tooltip-bottom tooltip-warning cursor-pointer"
-            data-tip="keranjang saya"
-          >
-            <span class="indicator-item badge badge-secondary">{{
-              notifListItemsKeranjang.length
-            }}</span>
+              <div
+                class="grid w-6 h-6 bg-base-300 place-items-center bg-transparent"
+              >
+                <i
+                  class="fa-regular fa-heart text-lg text-white bg-transparent"
+                ></i>
+              </div>
+            </div>
+            WISHLIST
+          </nuxt-link>
+
+          <nuxt-link to="/keranjang" class="cursor-pointer text-base">
             <div
-              class="grid w-6 h-6 bg-base-300 place-items-center bg-transparent"
+              class="indicator tooltip tooltip-bottom tooltip-warning cursor-pointer"
+              data-tip="keranjang saya"
             >
-              <i
-                class="fas fa-shopping-cart text-lg text-white bg-transparent"
-              ></i>
+              <span class="indicator-item badge badge-secondary">{{
+                notifListItemsKeranjang.length
+              }}</span>
+              <div
+                class="grid w-6 h-6 bg-base-300 place-items-center bg-transparent"
+              >
+                <i
+                  class="fas fa-shopping-cart text-lg text-white bg-transparent"
+                ></i>
+              </div>
             </div>
-          </div>
-          CART
-        </nuxt-link>
-        <div class="dropdown dropdown-hover dropdown-end">
-          <i class="fas fa-user"></i>
+            CART
+          </nuxt-link>
+          <div class="dropdown dropdown-hover dropdown-end">
+            <i class="fas fa-user"></i>
 
-          <label tabindex="0" class="m-1">Angger Nur</label>
-          <ul
-            tabindex="0"
-            class="dropdown-content z-[1] menu p-2 shadow bg-white text-slate-900 rounded-box w-52"
-          >
-            <li><nuxt-link to="/">Account saya</nuxt-link></li>
-            <li><nuxt-link to="/">Pesanana saya</nuxt-link></li>
-            <li><nuxt-link to="/">Log out</nuxt-link></li>
-          </ul>
+            <label tabindex="0" class="m-1">{{ user.email }}</label>
+            <ul
+              tabindex="0"
+              class="dropdown-content z-[1] menu p-2 shadow bg-white text-slate-900 rounded-box w-52"
+            >
+              <li><nuxt-link to="/profile">Profile saya</nuxt-link></li>
+              <li><nuxt-link to="/keranjang">Pesanana saya</nuxt-link></li>
+              <li><button @click="logOut">Log out</button></li>
+            </ul>
+          </div>
         </div>
-
-        <!-- <button
-          class="ms-2 border-2 border-transparent outline-none bg-btnColor py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
-          type="button"
-        >
-          <nuxt-link to="/login">Login</nuxt-link>
-        </button>
-        <button
-          id="btn-register"
-          class="ms-2 border-2 border-btnColor outline-none bg-transparent py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-btnColor hover:border-transparent"
-          type="button"
-        >
-          Register
-        </button> -->
+        <div v-else>
+          <button
+            class="ms-2 border-2 border-transparent outline-none bg-btnColor py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
+            type="button"
+          >
+            <nuxt-link to="/login">Login</nuxt-link>
+          </button>
+          <button
+            id="btn-register"
+            class="ms-2 border-2 border-btnColor outline-none bg-transparent py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-btnColor hover:border-transparent"
+            type="button"
+          >
+            <nuxt-link to="/register">Register</nuxt-link>
+          </button>
+        </div>
       </div>
       <div class="burger-menu lg:hidden md:hidden sm:hidden">
         <i id="menu-hamburger" class="fa-solid fa-bars"></i>
@@ -133,6 +136,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      user: null,
+    }
+  },
   computed: {
     // penamaan computed tidak karus sama dengan state yg ada di store, begitupun juga dengan method
     notifWishListItems() {
@@ -143,6 +151,16 @@ export default {
       return this.$store.state.index.listDataBelanja
     },
   },
+  async created() {
+    try {
+      const {
+        data: { user },
+      } = await this.$supabase.auth.getUser()
+      this.user = user
+    } catch (error) {
+      console.error(error)
+    }
+  },
   // vue hook mounted(dom sudah dirender dengan baik)
   mounted() {
     const burgerMenu = document.getElementById('menu-hamburger')
@@ -150,6 +168,19 @@ export default {
     burgerMenu.addEventListener('click', () => {
       menuList.classList.toggle('toggle-nav-active')
     })
+  },
+  methods: {
+    async logOut() {
+      try {
+        const { error } = await this.$supabase.auth.signOut()
+        if (error) {
+          throw error
+        }
+        this.$router.push('/login')
+      } catch (error) {
+        console.log(error.message)
+      }
+    },
   },
 }
 </script>
