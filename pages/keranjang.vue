@@ -156,12 +156,7 @@
                   <td>
                     Rp.
                     <span class="text-red-600 text-2xl">
-                      {{
-                        totalHargaCheckout.toLocaleString('id-ID', {
-                          styles: 'currency',
-                          currency: 'IDR',
-                        })
-                      }}
+                      {{ totalHargaCheckout }}.000
                     </span>
                   </td>
                   <td class="border-0">

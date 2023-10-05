@@ -65,31 +65,20 @@ export default {
       type: Object,
       required: true,
     },
+    user: {
+      type: Object,
+      required: true,
+      default: null,
+    },
   },
   data() {
     return {
       diskonPersentasi: 50, // misal diskon 5 persen
       iconWishList: false,
-      user: null,
     }
-  },
-  created() {
-    this.cekUser()
   },
 
   methods: {
-    async cekUser() {
-      // lewat local storange agar tidak melakukan request terus menerus
-      try {
-        const {
-          data: { user },
-        } = await this.$supabase.auth.getUser()
-        this.user = user
-        console.log('user', user)
-      } catch (error) {
-        console.error(error)
-      }
-    },
     // mengakses action diglobal state vuex menggunakan dispatch
     addWishList(id) {
       this.iconWishList = !this.iconWishList

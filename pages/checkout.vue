@@ -19,12 +19,11 @@
               <div class="flex justify-center items-center gap-3">
                 <li>{{ dataALamat.name }}</li>
                 <li>(+62){{ dataALamat.noTelp }}</li>
-                <li>Nama</li>
+
                 <li>{{ dataALamat.kodePos }}</li>
                 <li>{{ dataALamat.kota }}</li>
                 <li>{{ dataALamat.kecamatan }}</li>
-                <li>Provinsi</li>
-                <li>ID KREDENSIAL</li>
+
                 <li>{{ dataALamat.provinsi }}</li>
                 <li class="h-2 w-2 rounded-full bg-green-600"></li>
               </div>
@@ -88,7 +87,7 @@
               <td></td>
               <td></td>
               <td>Total Pesanan({{ dataProductCheckout.length }} produk)</td>
-              <td class="text-xl text-red-600">Total</td>
+              <td class="text-xl text-red-600"></td>
             </tr>
           </tfoot>
         </table>
@@ -117,13 +116,13 @@
             class="list-spesifikasi-product grid grid-cols-[250px_minmax(80px,_1fr)] gap-2"
           >
             <li class="text-black font-semibold">Subtotal untuk Produk</li>
-            <h4>Rp95.000</h4>
+            <h4>Rp {{ totalHargaCheckout }}.000</h4>
             <li class="text-black font-semibold">Total Ongkos Kirim:</li>
-            <h4>Rp97.999</h4>
+            <h4>Rp. {{ ongkir }}</h4>
             <li class="text-black font-semibold">Biaya Penanganan</li>
-            <h4>Rp19.300</h4>
+            <h4>Rp. {{ biayaPenanganan }}</h4>
             <li class="text-black font-semibold">Total Pembayaran:</li>
-            <h4>Rp212.299</h4>
+            <h4>Rp {{ totalPembayaran }}.000</h4>
           </ul>
         </div>
         <div class="flex items-end justify-end px-5 mb-5">
@@ -136,11 +135,28 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      ongkir: '3.000',
+      biayaPenanganan: '10.000',
+      totalBiaya: '',
+    }
   },
   computed: {
     dataProductCheckout() {
       return this.$store.state.index.listDataCheckout
+    },
+    totalHargaCheckout() {
+      return this.dataProductCheckout.reduce((total, item) => {
+        const subtotal = item.price * item.deskripsiPemesanan.quantity
+        return total + subtotal
+      }, 0)
+    },
+    totalPembayaran() {
+      return (
+        this.totalHargaCheckout -
+        Number(this.ongkir) -
+        Number(this.biayaPenanganan)
+      )
     },
     dataALamat() {
       return this.$store.state.index.alamatActive

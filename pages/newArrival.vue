@@ -68,6 +68,7 @@
               v-for="product in productsNewArrival"
               :key="product.id"
               :product="product"
+              :user="user"
               class="card p-5 w-[270px] hover:bg-secondary"
             />
           </div>
@@ -94,8 +95,21 @@ export default {
   created() {
     this.getProducts()
     this.getProductsNewOffer()
+    this.cekUser()
   },
   methods: {
+    async cekUser() {
+      // lewat local storange agar tidak melakukan request terus menerus
+      try {
+        const {
+          data: { user },
+        } = await this.$supabase.auth.getUser()
+        this.user = user
+        console.log('user status', user)
+      } catch (error) {
+        console.error('error user status', error)
+      }
+    },
     async getProducts() {
       try {
         const { data, error } = await this.$supabase
