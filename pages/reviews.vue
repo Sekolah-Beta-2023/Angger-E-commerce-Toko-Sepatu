@@ -4,9 +4,10 @@
       class="container w-[90%] pt-[110px] flex justify-center items-center flex-col text-slate-900"
     >
       <div class="mb-3">
-        <h2 class="mt-5 text-5xl text-center mb-2 font-normal">Reviews</h2>
+        <h2 class="mt-5 text-5xl text-center mb-2 font-medium">Reviews</h2>
         <p class="ket-reviews text-center text-xl font-normal text-slate-900">
-          Get real-world advice from people who've been there
+          Dapatkan panduan dari mereka yang telah berbelanja di toko sepatu kami
+          sebelumnya.
         </p>
         <div class="card-reviews flex-center"></div>
       </div>
@@ -17,11 +18,11 @@
           class="user-review border-btnColor p-2 flex gap-5 flex-col"
         >
           <h2 class="text-3xl font-normal text-primary text-center">
-            Your Review
+            Review Anda
           </h2>
           <div class="review user-review">
             <div class="flex justify-start items-center gap-5 form-group">
-              <p class="review-name"><label>Image : </label></p>
+              <p class="review-name"><label>Gambar : </label></p>
               <img
                 class="rounded-full border-2 border-btnColor"
                 :src="reviewUser.url"
@@ -30,7 +31,7 @@
             </div>
 
             <p class="review-name form-group mt-2">
-              <label>Name : </label> {{ reviewUser.name }}
+              <label>Nama : </label> {{ reviewUser.name }}
             </p>
 
             <div class="flex justify-start items-start form-group">
@@ -40,7 +41,7 @@
             <div
               class="review-description w-[100%] h-52 form-group overflow-scroll"
             >
-              <label>Description : </label>
+              <label>Deskripsi : </label>
               <p
                 class="overflow-auto mt-1 break-words border-2 border-btnColor p-3 rounded-md w-full"
               >
@@ -66,16 +67,16 @@
         <!-- kondisi jika user belum membuat reviewUser maka halaman form akan tampil -->
         <div v-if="formCreateReview" class="mb-1 rounded-md bg-white">
           <h2 class="text-center text-primary text-3xl mb-5 font-normal">
-            Write a Review
+            Buat Review
           </h2>
           <form @submit.prevent="submitForm">
             <div class="form-group bg-white">
-              <label for="name">Name : </label>
+              <label for="name">Nama : </label>
               <input id="name" v-model="review.name" type="text" required />
             </div>
 
             <div class="form-group image-wrapper">
-              <label for="image">Image : </label>
+              <label for="image">Gambar : </label>
               <div>
                 <p>
                   Gambar Profile Anda sebaiknya memiliki rasio 1:1 dan berukuran
@@ -111,17 +112,17 @@
               class="mt-4 border-2 border-transparent outline-none bg-warning py-[6px] text-white px-3 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor hover:text-black"
               type="submit"
             >
-              Submit Review
+              Kirim Review
             </button>
           </form>
         </div>
         <div v-if="formEdit" class="mb-5 rounded-md">
           <h2 class="text-center text-primary text-3xl mb-5 font-semibold">
-            Write edit Review
+            Edit Review
           </h2>
           <form @submit.prevent="submitEditForm">
             <div class="form-group">
-              <label for="name">Name : </label>
+              <label for="name">Nama : </label>
               <input
                 id="name"
                 v-model="reviewUser.name"
@@ -132,7 +133,7 @@
             </div>
 
             <div class="form-group mb-3">
-              <label class="mb-3" for="image">Image : </label>
+              <label class="mb-3" for="image">Gambar : </label>
               <div class="flex">
                 <div class="border-2 me-3">
                   <img
@@ -184,13 +185,13 @@
               class="mt-4 border-2 border-transparent outline-none bg-warning py-[6px] text-white px-3 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor hover:text-black"
               type="submit"
             >
-              Save Changes
+              Simpan Perubahan
             </button>
           </form>
         </div>
         <div v-if="reviews.length > 0">
           <div class="mt-4 all-reviews">
-            <h2 class="text-2xl font-semibold mb-3">All Reviews</h2>
+            <h2 class="text-2xl font-semibold mb-3">Semua Reviews</h2>
             <div
               v-for="(item, index) in reviews"
               :key="index"

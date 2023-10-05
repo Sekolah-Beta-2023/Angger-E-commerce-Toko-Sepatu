@@ -7,22 +7,26 @@
             ANA<span class="text-btnColor">SHOES</span>
           </h4>
           <p>
-            Discover our latest collection of stylish and comfortable shoes.
-            Choose from our high-quality selection, including casual shoes,
-            sports shoes, and renowned brands. Start your fashion adventure now!
+            Temukan koleksi terbaru kami sepatu yang stylish dan nyaman. Pilih
+            dari seleksi berkualitas tinggi kami, termasuk sepatu kasual, sepatu
+            olahraga, dan merek-merek terkenal. Mulai petualangan mode Anda
+            sekarang!
           </p>
         </div>
         <div
           class="footer-collection flex justify-center items-center flex-col"
         >
-          <h4>Collection</h4>
+          <h4>Koleksi</h4>
           <ul>
-            <li><a href="#Product">Summer</a></li>
-            <li><a href="#Product">Converse</a></li>
-
-            <li><a href="#newArrival">Sporty</a></li>
-
-            <li><a href="#newArrival">CLasic</a></li>
+            <li>
+              <nuxt-link to="/product"> Kasual </nuxt-link>
+            </li>
+            <li>
+              <nuxt-link to="/product"> Olahraga </nuxt-link>
+            </li>
+            <li>
+              <nuxt-link to="/product"> Formal </nuxt-link>
+            </li>
           </ul>
         </div>
         <div class="footer-contact">
@@ -34,10 +38,10 @@
           </ul>
         </div>
         <div class="footer-payment">
-          <h4>PAYMENT METHODS</h4>
+          <h4>METODE PEMBAYARAN</h4>
           <p class="mb-5 font-normal">
-            Here are some payment methods available for purchases at our shoe
-            store:
+            Berikut adalah beberapa metode pembayaran yang tersedia untuk
+            pembelian di toko sepatu kami:
           </p>
           <ul class="flex justify-between items-center gap-3 flex-wrap">
             <li>

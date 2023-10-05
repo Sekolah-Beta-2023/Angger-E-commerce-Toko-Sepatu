@@ -14,7 +14,9 @@
                   ANA<span class="text-btnColor">SHOES</span>
                 </h1>
               </div>
-              <h1 class="text-2xl text-slate-900 font-semibold">Register</h1>
+              <h1 class="text-2xl text-slate-900 font-semibold text-center">
+                Register
+              </h1>
               <div class="form-control">
                 <label class="label">
                   <span class="label-text text-slate-800">Email</span>
@@ -33,6 +35,7 @@
                 <div class="flex justify-between items-center relative">
                   <input
                     v-model="password"
+                    autocomplete
                     :type="showPassword ? 'text' : 'password'"
                     placeholder="password"
                     class="input input-bordered w-[100%] bg-white h-11"
@@ -69,7 +72,7 @@
             </div>
 
             <p class="text-center text-black text-sm py-3">
-              Already have an account?
+              Sudah memiliki akun?
               <nuxt-link to="/login" class="text-red-600 font-semibold"
                 >Login</nuxt-link
               >

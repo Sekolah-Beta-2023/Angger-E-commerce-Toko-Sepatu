@@ -12,10 +12,10 @@
           </li>
           <li>
             <nuxt-link class="text-primary text-md font-normal" to="/products"
-              >products</nuxt-link
+              >produk</nuxt-link
             >
           </li>
-          <li>detail product</li>
+          <li>detail produk</li>
         </ul>
       </div>
 
@@ -114,7 +114,7 @@
                       >
                         <table class="table">
                           <!-- head -->
-                          <thead>
+                          <thead class="text-slate-600">
                             <tr class="text-lg">
                               <th>EU</th>
                               <th>Panjang Kaki (cm)</th>
@@ -162,7 +162,11 @@
                       <div class="modal-action">
                         <form method="dialog">
                           <!-- if there is a button, it will close the modal -->
-                          <button class="btn btn-warning">Close</button>
+                          <button
+                            class="border-2 border-transparent outline-none bg-btnColor py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
+                          >
+                            Close
+                          </button>
                         </form>
                       </div>
                     </div>
@@ -234,7 +238,7 @@
                     class="border-2 border-transparent outline-none bg-btnColor py-2 px-8 mt-5 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
                     onclick="modalAddKeranjang.showModal()"
                   >
-                    Buy Now
+                    Belanja Sekarang
                   </button>
                 </div>
                 <div v-else>
@@ -249,7 +253,7 @@
                     <button
                       class="border-2 border-transparent outline-none bg-btnColor py-2 px-8 mt-5 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
                     >
-                      Buy Now
+                      Belanja Sekarang
                     </button>
                   </nuxt-link>
                 </div>

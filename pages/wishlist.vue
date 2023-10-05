@@ -10,7 +10,7 @@
           </li>
           <li>
             <nuxt-link class="text-primary text-md font-normal" to="/products"
-              >products</nuxt-link
+              >Products</nuxt-link
             >
           </li>
           <li>wishlist</li>
@@ -22,8 +22,8 @@
         <div class="flex justify-start items-end flex-wrap bg-white gap-3 p-5">
           <nuxt-link
             v-for="product in wishListItems"
-            :to="`/products/${product.id}`"
             :key="product.id"
+            :to="`/products/${product.id}`"
             class="w-[270px] h-auto p-3 overflow-hidden hover:bg-slate-50 transition cursor-pointer"
           >
             <div
@@ -74,15 +74,19 @@
       <div v-else>
         <div class="hero min-h-[450px]">
           <div class="hero-content text-center">
-            <div class="max-w-md">
-              <h1 class="text-5xl font-bold">Wishlist is Empty</h1>
+            <div class="max-w-lg">
+              <h1 class="text-5xl font-bold">Wishlist Anda Kosong</h1>
               <p class="py-6">
-                Provident cupiditate voluptatem et in. Quaerat fugiat ut
-                assumenda excepturi exercitationem quasi. In deleniti eaque aut
-                repudiandae et a id nisi.
+                Wishlist Anda adalah tempat terbaik untuk menyimpan produk
+                impian Anda. Isi daftar keinginan Anda dengan berbagai produk
+                terbaru dan terbaik yang kami tawarkan.
               </p>
               <nuxt-link to="/products">
-                <button class="btn btn-warning">Shop Now</button>
+                <button
+                  class="border-2 border-transparent outline-none bg-btnColor py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
+                >
+                  Belanja Sekarang
+                </button>
               </nuxt-link>
             </div>
           </div>

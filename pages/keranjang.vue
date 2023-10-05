@@ -10,7 +10,7 @@
           </li>
           <li>
             <nuxt-link class="text-primary text-md font-normal" to="/products"
-              >products</nuxt-link
+              >Produk</nuxt-link
             >
           </li>
           <li>Keranjang Belanja</li>
@@ -20,7 +20,7 @@
         <div class="overflow-x-auto bg-white min-h-screen">
           <table class="table">
             <!-- head -->
-            <thead>
+            <thead class="text-slate-500">
               <tr>
                 <th></th>
                 <th>Produk</th>
@@ -108,7 +108,9 @@
             </tbody>
           </table>
         </div>
-        <div class="wrapper-checkout fixed bottom-0 left-0 right-0 bg-white">
+        <div
+          class="wrapper-checkout fixed bottom-0 left-0 right-0 shadow-lg bg-white border-t-4 border-btnColor"
+        >
           <div class="overflow-x-auto w-[75%] m-auto">
             <table class="table border-slate-400">
               <!-- head -->
@@ -236,8 +238,8 @@
                                   class="flex justify-between items-center w-full gap-4"
                                 >
                                   <select
-                                    v-model="dataALamat.kecamatan"
                                     id="kecamatan"
+                                    v-model="dataALamat.kecamatan"
                                     name="kecamatan"
                                     class="bg-white w-[50%] p-2 border-2"
                                   >
@@ -251,8 +253,8 @@
                                   </select>
 
                                   <select
-                                    v-model="dataALamat.kodePos"
                                     id="kodepos"
+                                    v-model="dataALamat.kodePos"
                                     name="kodepos"
                                     class="bg-white w-[50%] p-2 border-2"
                                   >
@@ -435,7 +437,7 @@
                     </div>
 
                     <button
-                      class="btn btn-warning w-full"
+                      class="border-2 border-transparent outline-none bg-btnColor py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
                       :class="{ disabled: !isCheckoutEnabled }"
                       :disabled="!isCheckoutEnabled"
                       @click="checkOut"
@@ -453,15 +455,19 @@
       <div v-else>
         <div class="hero min-h-[450px]">
           <div class="hero-content text-center">
-            <div class="max-w-md">
-              <h1 class="text-5xl font-bold">Keranjang Belanja Kosong</h1>
+            <div class="max-w-lg">
+              <h1 class="text-5xl font-bold">Keranjang Belanja Anda Kosong</h1>
               <p class="py-6">
-                Provident cupiditate voluptatem et in. Quaerat fugiat ut
-                assumenda excepturi exercitationem quasi. In deleniti eaque aut
-                repudiandae et a id nisi.
+                Isi keranjang Anda dengan berbagai produk terbaru dan terbaik
+                yang kami tawarkan. Temukan gaya yang sesuai dengan kebutuhan
+                Anda dan nikmati kenyamanan berbelanja online dengan kami.
               </p>
               <nuxt-link to="/products">
-                <button class="btn btn-warning">Shop Now</button>
+                <button
+                  class="border-2 border-transparent outline-none bg-btnColor py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
+                >
+                  Belanja Sekarang
+                </button>
               </nuxt-link>
             </div>
           </div>

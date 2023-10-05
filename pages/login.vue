@@ -1,5 +1,5 @@
 <template>
-  <div class="hero min-h-screen bg-slate-100">
+  <div class="hero min-h-screen bg-secondary">
     <div class="container w-[80%]">
       <div class="hero-content flex-col lg:flex-row-reverse container">
         <div
@@ -7,18 +7,18 @@
         >
           <form action="" @submit.prevent="signIn">
             <div class="card-body my-0 py-0">
-              <div
-                class="flex flex-col gap-1 justify-center items-center pt-5 pb-2"
-              >
+              <div class="flex flex-col gap-1 justify-center items-center pt-5">
                 <h1 class="text-slate-400 text-3xl font-bold mt-3">
                   ANA<span class="text-btnColor">SHOES</span>
                 </h1>
               </div>
-              <div class="flex flex-col">
+              <div class="flex flex-col items-center justify-center">
                 <h1 class="text-2xl text-slate-900 font-semibold">
                   Welcome back
                 </h1>
-                <p class="mb-2 text-slate-800">Please login in to continue</p>
+                <p class="mb-2 text-slate-800">
+                  Silakan login untuk melanjutkan
+                </p>
               </div>
               <div class="form-control">
                 <label class="label">
@@ -38,6 +38,7 @@
                 <div class="flex justify-between items-center relative">
                   <input
                     v-model="password"
+                    autocomplete
                     :type="showPassword ? 'text' : 'password'"
                     placeholder="password"
                     class="input input-bordered w-[100%] bg-white h-11"
@@ -73,7 +74,7 @@
             </div>
 
             <p class="text-center text-black text-sm py-3">
-              Dont't have an account?
+              Tidak punya akun?
               <nuxt-link to="/register" class="text-red-600 font-semibold"
                 >Sign Up</nuxt-link
               >

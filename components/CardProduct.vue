@@ -49,10 +49,10 @@
     <button
       class="mt-2 block text-center w-full bg-btnColor rounded-sm py-[5px]"
     >
-      <a
-        href="#Product"
+      <nuxt-link
+        :to="`/products/${product.id}`"
         class="border-2 text-black border-transparent outline-none text-base cursor-pointer transition font-bold hover:bg-transparent hover:border-btnColor"
-        >Buy Now</a
+        >Belanja Sekarang</nuxt-link
       >
     </button>
     <notifications group="notifReview" class="mt-32 me-14" />
@@ -99,14 +99,14 @@ export default {
         this.$notify({
           group: 'notifReview',
           type: 'success',
-          text: 'Succes add wishlist.',
+          text: 'Berhasil menambahkan ke wishlist.',
         })
       } else {
         this.$store.dispatch('index/removeWishList', id)
         this.$notify({
           group: 'notifReview',
           type: 'error',
-          text: 'Delete wishlist.',
+          text: 'Menghapus wishlist.',
         })
       }
     },

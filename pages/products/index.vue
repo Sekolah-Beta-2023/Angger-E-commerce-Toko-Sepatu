@@ -5,17 +5,17 @@
         class="banner-product w-[100%] h-[400px] bg-no-repeat bg-cover bg-center relative rounded-md overflow-hidden after: contents-'' after:absolute after:w-[100%] after:h-[100%] bg-[rgba(0, 0, 0, 0.5)]"
       >
         <div class="z-10 absolute text-slate-50 deskripsi-banner-product">
-          <h3 class="text-btnColor text-5xl mb-3">Top Branch Collection</h3>
+          <h3 class="text-btnColor text-5xl mb-3">Koleksi Terbaik dari Kami</h3>
           <p class="w-[50%] text-lg mb-10 font-normal">
-            Discover style and comfort with every step, Our shoe store offers
-            the best selection. From casual to formal, we have it all, Superior
-            quality, unmatched style, oh wow!
+            Temukan gaya dan kenyamanan setiap langkah, Toko sepatu kami
+            menawarkan pilihan terbaik. Dari kasual hingga formal, semuanya ada,
+            Kualitas unggul, gaya tak tertandingi, wah.
           </p>
-          <a
-            href="#Product"
+          <nuxt-link
+            to="/product"
             class="border-2 border-transparent outline-none bg-btnColor py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
-            >Shop No</a
-          >
+            >Belanja Sekarang
+          </nuxt-link>
         </div>
       </div>
       <div v-if="products.length === 0">
@@ -27,7 +27,7 @@
             v-model="selectCategoryProducts"
             class="bg-white dropdown-category p-3 border-2 border-btnColor rounded-md"
           >
-            <option value="">All category</option>
+            <option value="">Semua Kategori</option>
             <option value="Olahraga">Olahraga</option>
             <option value="Kasual">Kasual</option>
             <option value="Formal">Formal</option>
@@ -40,7 +40,7 @@
               v-model="searchQueryProducts"
               type="search"
               class="bg-white w-full p-2 outline-none border-0"
-              placeholder="Search Product is here..."
+              placeholder="Cari Produk di sini..."
               list="title-product"
             />
             <!-- membuat suggestion pada search product -->
@@ -65,7 +65,7 @@
           <div class="box-card flex justify-center items-start">
             <div class="card-product w-[25%] bg-slate-50 p-5 mr-5 rounded-md">
               <div class="flex justify-between items-center">
-                <h3 class="font-semibold">HOT DEALS</h3>
+                <h3 class="font-semibold">PROMO TERHANGAT</h3>
               </div>
               <div v-for="product in productsHotDeals" :key="product.id">
                 <nuxt-link :to="`/products/${product.id}`">
@@ -99,7 +99,7 @@
               <div
                 class="flex justify-between items-center border-b-2 border-slate-200"
               >
-                <h2 class="font-semibold text-xl">Product</h2>
+                <h2 class="font-semibold text-xl">Produk</h2>
               </div>
 
               <div>

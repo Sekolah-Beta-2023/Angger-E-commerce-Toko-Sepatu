@@ -6,12 +6,7 @@
           <div
             class="title-product-newArrival flex justify-between items-center"
           >
-            <h1 class="font-semibold">NEW OFFER</h1>
-            <a
-              class="text-red-600 font-semibold hover:text-red-900"
-              href="#newArrival"
-              >More</a
-            >
+            <h1 class="font-semibold">PENAWARAN TERBARU</h1>
           </div>
           <div v-for="product in productsNewOffer" :key="product.id">
             <nuxt-link
@@ -56,16 +51,14 @@
               class="content-banner-newArrival h-[100%] flex-col z-10 absolute text-slate-50 flex justify-center items-center"
             >
               <h3 class="text-btnColor text-5xl mt-9 mb-3 font-semibold">
-                New Arrival
+                Koleksi Terbaru
               </h3>
               <p class="w-[70%] text-lg mb-5 text-center font-normal">
-                Discover the latest style with our newest collection, Our shoe
-                store offers the most up-to-date options. From modern designs to
-                the latest trends, Elevate your appearance with our curated
-                selection of shoes!
+                Temukan gaya terbaru dengan koleksi terbaru kami, Toko sepatu
+                kami menawarkan opsi yang paling mutakhir. Dari desain modern
+                hingga tren terbaru, Tingkatkan penampilan Anda dengan memakai
+                sepatu dari produk kami.
               </p>
-
-              >
             </div>
           </div>
           <div

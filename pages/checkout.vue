@@ -36,7 +36,7 @@
       <div class="mt-5 overflow-x-auto text-slate-900">
         <table class="rounded-none table bg-white text-slate-900">
           <!-- head -->
-          <thead>
+          <thead class="text-slate-500">
             <tr>
               <th>Produk Dipesan</th>
               <th>Harga Satuan</th>
@@ -94,13 +94,16 @@
         </table>
       </div>
 
-      <div class="flex flex-col bg-white my-5 gap-4">
+      <div class="flex flex-col bg-white my-5 gap-4 text-slate-500">
         <div
           class="flex items-center justify-start gap-2 border-b-2 pb-3 px-5 py-5"
         >
           <h3 class="inline-block w-[20%]">Metode Pembayaran</h3>
           <div class="flex gap-2">
             <button class="btn btn-warning">Cod</button>
+            <button class="btn btn-warning">Ovo</button>
+            <button class="btn btn-warning">Dana</button>
+            <button class="btn btn-warning">Master Card</button>
           </div>
         </div>
         <div class="flex items-center justify-start gap-2 border-b-2 pb-3 px-5">
@@ -113,13 +116,13 @@
           <ul
             class="list-spesifikasi-product grid grid-cols-[250px_minmax(80px,_1fr)] gap-2"
           >
-            <li>Subtotal untuk Produk</li>
+            <li class="text-black font-semibold">Subtotal untuk Produk</li>
             <h4>Rp95.000</h4>
-            <li>Total Ongkos Kirim:</li>
+            <li class="text-black font-semibold">Total Ongkos Kirim:</li>
             <h4>Rp97.999</h4>
-            <li>Biaya Penanganan</li>
+            <li class="text-black font-semibold">Biaya Penanganan</li>
             <h4>Rp19.300</h4>
-            <li>Total Pembayaran:</li>
+            <li class="text-black font-semibold">Total Pembayaran:</li>
             <h4>Rp212.299</h4>
           </ul>
         </div>

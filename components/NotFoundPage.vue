@@ -3,7 +3,7 @@
     class="mt-5 bg-white w-full h-full flex justify-center flex-col items-center"
   >
     <h2 class="text-red-600 text-4xl font-bold">Oooopss !</h2>
-    <p class="text-xl italic text-red-600 mt-1">Product Not Founds</p>
+    <p class="text-xl italic text-red-600 mt-1">Produk Tidak Ditemukan</p>
     <svg
       id="currentIllo"
       xmlns="http://www.w3.org/2000/svg"

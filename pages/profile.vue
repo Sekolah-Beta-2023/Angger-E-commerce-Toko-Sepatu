@@ -4,7 +4,7 @@
     <div class="container w-[70%] pt-[120px]">
       <div class="wrapper-profile text-slate-900 bg-white p-5">
         <div class="header-profile">
-          <h2 class="text-2xl">Profil Saya</h2>
+          <h2 class="text-3xl mb-2">Profil Saya</h2>
           <p class="pb-3 border-b-2">
             Kelola informasi profil Anda untuk mengontrol, melindungi dan
             mengamankan akun
@@ -44,16 +44,30 @@
                     >
                       Password
                     </label>
-                    <input
-                      id="password"
-                      v-model="newPassword"
-                      name="password"
-                      type="password"
-                      required
-                      class="input input-bordered input-sm w-full bg-white rounded-md"
-                    />
+                    <div class="flex justify-between items-center relative">
+                      <input
+                        v-model="newPassword"
+                        :type="showPassword ? 'text' : 'password'"
+                        required
+                        autocomplete
+                        placeholder="password"
+                        class="input input-bordered input-sm w-full bg-white rounded-md"
+                      />
+                      <div
+                        class="absolute right-4 top-2"
+                        @click="togglePasswordVisibility"
+                      >
+                        <i
+                          v-if="showPassword"
+                          class="fas fa-eye-slash"
+                          title="Hide Password"
+                        ></i>
+                        <i v-else class="fas fa-eye" title="Show Password"></i>
+                      </div>
+                    </div>
+
                     <p class="text-btnColor font-semibold">
-                      Jika ingin melengkapi Profile. Makan Anda juga diharuskan
+                      Jika ingin melengkapi Profile. Maka Anda juga diharuskan
                       untuk memasukkan Password baru.
                     </p>
                   </div>
@@ -62,7 +76,7 @@
                       class="label text-slate-400 font-normal text-base"
                       for="Name"
                     >
-                      Name
+                      Nama
                     </label>
                     <input
                       id="Name"
@@ -208,7 +222,7 @@
               class="label text-slate-400 font-normal text-base"
               for="Name"
             >
-              Name
+              Nama
             </label>
             <input
               id="Name"
@@ -255,8 +269,8 @@
             >
             <br />
             <select
-              v-model="detailProfile.tanggal"
               id="tanggal"
+              v-model="detailProfile.tanggal"
               name="tanggal"
               class="bg-white w-[160px] me-2 p-2 border-2 mt-3"
             >
@@ -370,6 +384,7 @@ export default {
       SelectTahun: '',
       showEditProfile: false,
       showLengkapiProfile: false,
+      showPassword: false,
     }
   },
   mounted() {
@@ -426,6 +441,10 @@ export default {
     } catch (error) {}
   },
   methods: {
+    //  toggle icon password show and hide
+    togglePasswordVisibility() {
+      this.showPassword = !this.showPassword
+    },
     async createProfile() {
       this.showEditProfile = true
       this.showLengkapiProfile = false

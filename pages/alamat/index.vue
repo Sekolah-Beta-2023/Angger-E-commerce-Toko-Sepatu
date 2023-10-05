@@ -4,7 +4,7 @@
     <div class="container w-[70%] pt-[130px] min-h-screen">
       <div class="wrapper-profile text-slate-900 bg-white p-5 mb-5">
         <div class="header-profile">
-          <h2 class="text-2xl font-semibold">Alamat Saya</h2>
+          <h2 class="text-2xl font-semibold mb-2">Alamat Saya</h2>
           <p class="pb-3 border-b-2">
             Kelola alamat Anda untuk pengiriman barang.
           </p>

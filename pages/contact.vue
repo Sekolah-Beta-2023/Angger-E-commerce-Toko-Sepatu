@@ -3,24 +3,24 @@
     <div class="pt-[130px] pb-5 container w-[90%] text-slate-900">
       <div class="flex justify-between items-start flex-wrap w-[100%]">
         <div class="form-contact rounded-md w-[40%] bg-white p-5">
-          <h2 class="text-center text-3xl mb-5">Contact Us</h2>
+          <h2 class="text-center text-3xl mb-5">Contact Kami</h2>
           <form action="">
-            <label class="text-xl block" for="name">Name</label>
-            <input type="text" name="name" placeholder="Your name ..." />
+            <label class="text-xl block" for="name">Nama</label>
+            <input type="text" name="name" placeholder="Nama kamu ..." />
             <label for="email">Email</label>
-            <input type="email" name="email" placeholder="example@gmail.com" />
-            <label for="message">Message</label>
+            <input type="email" name="email" placeholder="contoh@gmail.com" />
+            <label for="message">Pesan</label>
             <textarea
               name="message"
               cols="20"
               rows="10"
-              placeholder="Input message here ..."
+              placeholder="Masukka pesan disini ..."
             ></textarea>
             <button
               type="submit"
               class="w-[100%] border-2 border-transparent outline-none bg-btnColor py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
             >
-              Send
+              Kirim
             </button>
           </form>
         </div>
@@ -41,34 +41,38 @@
           class="card-info-contact gap-5 flex justify-center items-center flex-wrap"
         >
           <!-- 1 -->
-          <div class="card p-5 w-[300px] h-[125px] rounded-md">
+          <div class="card p-5 w-[350px] h-[125px] rounded-md">
             <div class="flex justify-start items-center gap-3 mb-2">
               <i class="fa-solid fa-phone text-red-600 font-bold"></i>
-              <h4 class="text-primary text-xl">Call Us</h4>
+              <h4 class="text-primary text-xl">Hubungi Kami</h4>
             </div>
             <p>
-              Contact us assistance at.
+              Contact kami jika Anda butuh bantuan
               <span class="block text-base font-semibold"
-                >Phone: 085856064117</span
+                >Telepon: 085856064117</span
               >
             </p>
           </div>
           <!-- 2 -->
-          <div class="card p-5 w-[300px] h-[125px] rounded-md">
+          <div class="card p-5 w-[350px] h-[125px] rounded-md">
             <div class="flex justify-start items-center gap-3 mb-2">
               <i class="fa-sharp fa-solid fa-location-dot"></i>
-              <h4 class="text-primary text-xl">Location</h4>
-            </div>
-            <p>We are located at: Jalan Raya Elang No. 456 Malang Indonesia</p>
-          </div>
-          <!-- 3 -->
-          <div class="card p-5 w-[300px] h-[125px] rounded-md">
-            <div class="flex justify-start items-center gap-3 mb-2">
-              <i class="fa-solid fa-clock"></i>
-              <h4>Hours</h4>
+              <h4 class="text-primary text-xl">Lokasi</h4>
             </div>
             <p>
-              Monday to Friday: 9:00 AM - 8:00 PM Saturday: 10:00 AM - 6:00 PM.
+              Kami berlokasi di: Jalan Raya Elang No. 456 Malang, Jawa Timur
+              Indonesia
+            </p>
+          </div>
+          <!-- 3 -->
+          <div class="card p-5 w-[350px] h-[125px] rounded-md">
+            <div class="flex justify-start items-center gap-3 mb-2">
+              <i class="fa-solid fa-clock"></i>
+              <h4 class="text-primary text-xl">Layanan Konsultasi</h4>
+            </div>
+            <p>
+              Senin hingga Jumat: 09:00 pagi - 08:00 malam Sabtu: 10:00 pagi -
+              06:00 sore.
             </p>
           </div>
         </div>
