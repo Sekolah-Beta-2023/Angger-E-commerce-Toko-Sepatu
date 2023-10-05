@@ -17,18 +17,17 @@
             </div>
             <div class="w-full flex justify-between items-center">
               <div class="flex justify-center items-center gap-3">
+                <li>{{ dataALamat.name }}</li>
+                <li>(+62){{ dataALamat.noTelp }}</li>
                 <li>Nama</li>
-                <li>(+62)No hp</li>
-                <li>Nama</li>
-                <li>(Kode Pos)</li>
-                <li>Kabupaten -</li>
-                <li>Desa</li>
+                <li>{{ dataALamat.kodePos }}</li>
+                <li>{{ dataALamat.kota }}</li>
+                <li>{{ dataALamat.kecamatan }}</li>
                 <li>Provinsi</li>
                 <li>ID KREDENSIAL</li>
-                <li>Provinsi</li>
+                <li>{{ dataALamat.provinsi }}</li>
                 <li class="h-2 w-2 rounded-full bg-green-600"></li>
               </div>
-              <nuxt-link to="/">ubah</nuxt-link>
             </div>
           </ul>
         </div>
@@ -139,6 +138,22 @@ export default {
   computed: {
     dataProductCheckout() {
       return this.$store.state.index.listDataCheckout
+    },
+    dataALamat() {
+      return this.$store.state.index.alamatActive
+    },
+  },
+  mounted() {
+    this.getAlamatActive()
+  },
+  methods: {
+    getAlamatActive() {
+      if (process.client) {
+        const idActive = localStorage.getItem('userAlamatId')
+        if (idActive) {
+          this.$store.dispatch('index/addAlamat', idActive)
+        }
+      }
     },
   },
 }

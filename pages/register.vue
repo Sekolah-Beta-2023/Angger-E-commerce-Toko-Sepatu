@@ -5,21 +5,16 @@
         <div
           class="card flex-shrink-0 w-full max-w-[510px] shadow-2xl bg-white rounded-none"
         >
-          <form action="" @submit.prevent="signIn">
+          <form action="" @submit.prevent="signUp">
             <div class="card-body my-0 py-0">
               <div
-                class="flex flex-col gap-1 justify-center items-center pt-5 pb-2"
+                class="text-slate-900 flex flex-col gap-1 justify-center items-center pt-5 pb-2"
               >
                 <h1 class="text-slate-400 text-3xl font-bold mt-3">
                   ANA<span class="text-btnColor">SHOES</span>
                 </h1>
               </div>
-              <div class="flex flex-col">
-                <h1 class="text-2xl text-slate-900 font-semibold">
-                  Welcome back
-                </h1>
-                <p class="mb-2 text-slate-800">Please login in to continue</p>
-              </div>
+              <h1 class="text-2xl text-slate-900 font-semibold">Register</h1>
               <div class="form-control">
                 <label class="label">
                   <span class="label-text text-slate-800">Email</span>
@@ -42,7 +37,7 @@
                     placeholder="password"
                     class="input input-bordered w-[100%] bg-white h-11"
                   />
-                  <div
+                  <button
                     class="absolute right-4 top-2"
                     @click="togglePasswordVisibility"
                   >
@@ -52,7 +47,7 @@
                       title="Hide Password"
                     ></i>
                     <i v-else class="fas fa-eye" title="Show Password"></i>
-                  </div>
+                  </button>
                 </div>
               </div>
               <p v-if="errorMessage" class="text-red-600 italic my-2">
@@ -65,17 +60,18 @@
                 class="form-control mt-2 border-b-[1px] border-slate-400 pb-3"
               >
                 <button
+                  type="submit"
                   class="btn bg-btnColor text-slate-950 h-10 border-0 outline-none hover:bg-warning transition"
                 >
-                  Login
+                  Register
                 </button>
               </div>
             </div>
 
             <p class="text-center text-black text-sm py-3">
-              Dont't have an account?
-              <nuxt-link to="/register" class="text-red-600 font-semibold"
-                >Sign Up</nuxt-link
+              Already have an account?
+              <nuxt-link to="/login" class="text-red-600 font-semibold"
+                >Login</nuxt-link
               >
             </p>
           </form>
@@ -91,8 +87,8 @@ export default {
     return {
       email: '',
       password: '',
-      errorMessage: '',
       succesMessage: '',
+      errorMessage: '',
       showPassword: false,
     }
   },
@@ -101,24 +97,23 @@ export default {
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword
     },
-    async signIn() {
+    async signUp() {
       try {
-        const { error } = await this.$supabase.auth.signInWithPassword({
+        const { data, error } = await this.$supabase.auth.signUp({
           email: this.email,
           password: this.password,
         })
-
         if (error) {
+          // jika salah satau field kosong maka throw eror dan tampilkan pesan error , agar masuk ke block catch
           throw error
-          // Handle error here (e.g., show error message to the user)
-        } else {
-          this.errorMessage = ''
-          this.succesMessage = 'Login successful'
-          // Redirect or perform actions upon successful login
-          this.$router.push('/') // Redirect to the home page
         }
-      } catch (error) {
-        this.errorMessage = error.message
+        if (data) {
+          this.errorMessage = ''
+          this.succesMessage = 'Check your email to confirm your account.'
+        }
+      } catch (er) {
+        this.succesMessage = ''
+        this.errorMessage = er.message
       }
     },
   },

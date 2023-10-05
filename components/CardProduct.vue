@@ -13,34 +13,37 @@
     <h3
       class="inline-block border-t-2 font-semibold border-slate-200 pt-2 pb-1 h-[60px] overflow-hidden"
     >
-      {{ product.title.substring(0, 25) }}
+      {{ product.title.toString().substring(0, 30) }}
     </h3>
     <p class="mb-2 text-slate-600 font-normal">
-      {{ product.description.substring(0, 45) }} . . .
+      {{ product.description.toString().substring(0, 35) }} . . .
     </p>
     <!-- show nilai rating yang dipilih -->
     <div class="mb-2 flex justify-between items-center">
       <p>
-        <DisplayRating :rating="Math.ceil(product.rating.rate)" />
+        <DisplayRating :rating="Math.ceil(product.rating)" />
       </p>
-      <div
-        class="stat-figure text-primary"
-        @click.prevent.stop="addWishList(product.id)"
-      >
-        <i class="fa fa-heart" :class="{ active: iconWishList }"></i>
+      <div v-if="!user">
+        <div class="stat-figure text-primary">
+          <i class="fa fa-heart" :class="{ active: iconWishList }"></i>
+        </div>
+      </div>
+      <div v-else>
+        <div
+          class="stat-figure text-primary"
+          @click.prevent.stop="addWishList(product.id)"
+        >
+          <i class="fa fa-heart" :class="{ active: iconWishList }"></i>
+        </div>
       </div>
     </div>
     <div class="mb-2 flex justify-between items-center">
       <span class="text-base font-bold text-red-600">
-        {{
-          product.price.toLocaleString('id-ID', {
-            style: 'currency',
-            currency: 'IDR',
-          })
-        }}</span
-      >
+        Rp
+        {{ product.price }}
+      </span>
       <span class="line-through italic text-slate-600"
-        >$ {{ product.price }}</span
+        >Rp {{ product.price }}</span
       >
     </div>
     <button
@@ -67,10 +70,26 @@ export default {
     return {
       diskonPersentasi: 50, // misal diskon 5 persen
       iconWishList: false,
+      user: null,
     }
+  },
+  created() {
+    this.cekUser()
   },
 
   methods: {
+    async cekUser() {
+      // lewat local storange agar tidak melakukan request terus menerus
+      try {
+        const {
+          data: { user },
+        } = await this.$supabase.auth.getUser()
+        this.user = user
+        console.log('user', user)
+      } catch (error) {
+        console.error(error)
+      }
+    },
     // mengakses action diglobal state vuex menggunakan dispatch
     addWishList(id) {
       this.iconWishList = !this.iconWishList

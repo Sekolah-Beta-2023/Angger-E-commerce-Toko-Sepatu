@@ -149,9 +149,5 @@ form > textarea {
   form > textarea {
     margin-bottom: 10px;
   }
-
-  .card-info-contact {
-    /* flex-direction: column; */
-  }
 }
 </style>

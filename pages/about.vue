@@ -27,6 +27,7 @@
 
 <script>
 export default {
+  layout: 'default',
   data() {
     return {
       imageAbout: require('../assets/background/image-about.jpg'),

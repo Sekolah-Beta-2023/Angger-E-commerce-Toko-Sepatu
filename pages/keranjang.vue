@@ -163,125 +163,282 @@
                     </span>
                   </td>
                   <td class="border-0">
-                    <!-- Open the modal using ID.showModal() method -->
-                    <dialog id="my_modal_1" class="modal">
-                      <div class="modal-box bg-white">
-                        <h3 class="font-bold text-2xl">Masukkan Alamat</h3>
-                        <p class="py-1 border-b-2 pb-2">
-                          Untuk membuat pesanan, silakan tambahkan alamat
-                          pengiriman
-                        </p>
-                        <div class="relative">
-                          <form @submit.prevent="checkoutProducts">
-                            <div class="flex items-center flex-col gap-2">
-                              <div
-                                class="mt-4 flex justify-between items-center w-full gap-4"
+                    <div v-if="dataLocalStorange">
+                      <!-- Open the modal using ID.showModal() method -->
+                      <dialog id="my_modal_1" ref="dialogAlamat" class="modal">
+                        <div class="modal-box bg-white">
+                          <h3 class="font-bold text-2xl">Alamat Aktif</h3>
+                          <p class="py-1 border-b-2 pb-2">
+                            Alamat aktif untuk pengiriman
+                          </p>
+                          <div class="relative">
+                            <form @submit.prevent="checkoutProduct">
+                              <div class="flex items-center flex-col gap-2">
+                                <div
+                                  class="mt-4 flex justify-between items-center w-full gap-4"
+                                >
+                                  <input
+                                    id="userName"
+                                    v-model="dataALamat.name"
+                                    readonly
+                                    name="userName"
+                                    type="text"
+                                    placeholder="Nama Lengkap"
+                                    class="input input-bordered input-sm w-[50%] bg-white rounded-sm"
+                                  />
+                                  <input
+                                    id="userName"
+                                    v-model="dataALamat.noTelp"
+                                    readonly
+                                    name="userName"
+                                    type="tel"
+                                    placeholder="No. Telepon"
+                                    class="input input-bordered input-sm w-[50%] bg-white rounded-sm"
+                                  />
+                                </div>
+
+                                <div
+                                  class="flex justify-between items-center w-full gap-4"
+                                >
+                                  <select
+                                    id="provinsi"
+                                    v-model="dataALamat.provinsi"
+                                    name="provinsi"
+                                    class="bg-white w-[50%] p-2 border-2"
+                                    @change="getUpdateKota()"
+                                  >
+                                    <option
+                                      :value="dataALamat.provinsi"
+                                      disabled
+                                      selected
+                                    >
+                                      {{ dataALamat.provinsi }}
+                                    </option>
+                                  </select>
+
+                                  <select
+                                    id="kota"
+                                    v-model="dataALamat.kota"
+                                    name="kota.Nama"
+                                    class="bg-white w-[50%] p-2 border-2"
+                                  >
+                                    <option
+                                      :value="dataALamat.kota"
+                                      disabled
+                                      selected
+                                    >
+                                      {{ dataALamat.kota }}
+                                    </option>
+                                  </select>
+                                </div>
+
+                                <div
+                                  class="flex justify-between items-center w-full gap-4"
+                                >
+                                  <select
+                                    v-model="dataALamat.kecamatan"
+                                    id="kecamatan"
+                                    name="kecamatan"
+                                    class="bg-white w-[50%] p-2 border-2"
+                                  >
+                                    <option
+                                      :value="dataALamat.kecamatan"
+                                      disabled
+                                      selected
+                                    >
+                                      {{ dataALamat.kecamatan }}
+                                    </option>
+                                  </select>
+
+                                  <select
+                                    v-model="dataALamat.kodePos"
+                                    id="kodepos"
+                                    name="kodepos"
+                                    class="bg-white w-[50%] p-2 border-2"
+                                  >
+                                    <option
+                                      :value="dataALamat.kodePos"
+                                      disabled
+                                      selected
+                                    >
+                                      {{ dataALamat.kodePos }}
+                                    </option>
+                                  </select>
+                                </div>
+                                <div class="form-control w-full mb-14">
+                                  <textarea
+                                    v-model="dataALamat.detail"
+                                    readonly
+                                    name=""
+                                    placeholder="Nama Jalan, Gedung, No.Rumah"
+                                    cols="30"
+                                    rows="10"
+                                    required
+                                  ></textarea>
+                                </div>
+                              </div>
+                              <button
+                                class="text-white font-semibold hovert:text-white py-3 px-7 bg-btnColor hover:btn-warning rounded-md absolute right-0 bottom-0"
                               >
-                                <input
-                                  id="userName"
-                                  name="userName"
-                                  type="text"
-                                  placeholder="Nama Lengkap"
-                                  class="input input-bordered input-sm w-[50%] bg-white rounded-sm"
-                                  required
-                                />
-                                <input
-                                  id="userName"
-                                  name="userName"
-                                  type="tel"
-                                  placeholder="No. Telepon"
-                                  class="input input-bordered input-sm w-[50%] bg-white rounded-sm"
-                                  required
-                                />
-                              </div>
-
-                              <div
-                                class="flex justify-between items-center w-full gap-4"
+                                Ok
+                              </button>
+                            </form>
+                            <form method="dialog">
+                              <button
+                                class="text-white font-semibold hovert:text-white py-3 px-6 rounded-md hover:bg-slate-600 bg-slate-500 absolute right-20 bottom-0"
                               >
-                                <select
-                                  id="provinsi"
-                                  v-model="selectProvinsi"
-                                  name="provinsi"
-                                  required
-                                  class="bg-white w-[50%] p-2 border-2"
-                                >
-                                  <option value="" disabled selected>
-                                    Provinsi
-                                  </option>
-                                  <option value="02">Jawa Timur</option>
-                                </select>
-
-                                <select
-                                  id="kota"
-                                  name="kota"
-                                  required
-                                  class="bg-white w-[50%] p-2 border-2"
-                                >
-                                  <option value="" disabled selected>
-                                    Kota / Kabupaten
-                                  </option>
-                                  <option value="Malang">Malang</option>
-                                </select>
-                              </div>
-
-                              <div
-                                class="flex justify-between items-center w-full gap-4"
-                              >
-                                <select
-                                  id="kecamatan"
-                                  name="kecamatan"
-                                  required
-                                  class="bg-white w-[50%] p-2 border-2"
-                                >
-                                  <option value="" disabled selected>
-                                    Kecamatan
-                                  </option>
-                                  <option value="Sukun">Sukun</option>
-                                </select>
-
-                                <select
-                                  id="kodepos"
-                                  name="kodepos"
-                                  required
-                                  class="bg-white w-[50%] p-2 border-2"
-                                >
-                                  <option value="" disabled selected>
-                                    Kode Pos
-                                  </option>
-                                  <option value="66514">66514</option>
-                                </select>
-                              </div>
-                              <div class="form-control w-full mb-14">
-                                <textarea
-                                  name=""
-                                  placeholder="Nama Jalan, Gedung, No.Rumah"
-                                  cols="30"
-                                  rows="10"
-                                  required
-                                ></textarea>
-                              </div>
-                            </div>
-                            <button
-                              class="text-white font-semibold hovert:text-white py-3 px-7 bg-btnColor hover:btn-warning rounded-md absolute right-0 bottom-0"
-                            >
-                              Ok
-                            </button>
-                          </form>
-                          <form method="dialog">
-                            <button
-                              class="text-white font-semibold hovert:text-white py-3 px-6 rounded-md hover:bg-slate-600 bg-slate-500 absolute right-20 bottom-0"
-                            >
-                              Batal
-                            </button>
-                          </form>
+                                Batal
+                              </button>
+                            </form>
+                          </div>
                         </div>
-                      </div>
-                    </dialog>
+                      </dialog>
+                    </div>
+                    <div v-else>
+                      <dialog id="my_modal_1" ref="dialogAlamat" class="modal">
+                        <div class="modal-box bg-white">
+                          <h3 class="font-bold text-2xl">
+                            Masukkan Alamat Baru
+                          </h3>
+                          <div class="relative">
+                            <form @submit.prevent="addAlamat">
+                              <div class="flex items-center flex-col gap-4">
+                                <div
+                                  class="mt-4 flex justify-between items-center w-full gap-4"
+                                >
+                                  <input
+                                    id="userName"
+                                    v-model="alamat.name"
+                                    name="userName"
+                                    type="text"
+                                    placeholder="Nama Lengkap"
+                                    class="input input-bordered input-sm w-[50%] bg-white rounded-sm"
+                                    required
+                                  />
+                                  <input
+                                    id="noTelp"
+                                    v-model="alamat.noTelp"
+                                    name="noTelp"
+                                    type="tel"
+                                    placeholder="No. Telepon"
+                                    class="input input-bordered input-sm w-[50%] bg-white rounded-sm"
+                                    required
+                                  />
+                                </div>
+
+                                <div
+                                  class="flex justify-between items-center w-full gap-4"
+                                >
+                                  <select
+                                    id="provinsi"
+                                    v-model="alamat.provinsi"
+                                    name="provinsi"
+                                    required
+                                    class="bg-white w-[50%] p-2 border-2"
+                                    @change="getDataKota()"
+                                  >
+                                    <option value="" disabled>Provinsi</option>
+                                    <option
+                                      v-for="item in provinsi"
+                                      :key="item.id"
+                                      :value="item"
+                                    >
+                                      {{ item.name }}
+                                    </option>
+                                  </select>
+
+                                  <select
+                                    id="kota"
+                                    v-model="alamat.kota"
+                                    name="kota"
+                                    required
+                                    class="bg-white w-[50%] p-2 border-2"
+                                    @change="getDataKecamatan()"
+                                  >
+                                    <option value="" disabled>
+                                      Kota / Kabupaten
+                                    </option>
+                                    <option
+                                      v-for="item in kota"
+                                      :key="item.id"
+                                      :value="item"
+                                    >
+                                      {{ item.name }}
+                                    </option>
+                                  </select>
+                                </div>
+
+                                <div
+                                  class="flex justify-between items-center w-full gap-4"
+                                >
+                                  <select
+                                    id="kecamatan"
+                                    v-model="alamat.kecamatan"
+                                    name="kecamatan"
+                                    required
+                                    class="bg-white w-[50%] p-2 border-2"
+                                  >
+                                    <option value="" disabled>Kecamatan</option>
+                                    <option
+                                      v-for="item in kecamatan"
+                                      :key="item.id"
+                                      :value="item"
+                                    >
+                                      {{ item.name }}
+                                    </option>
+                                  </select>
+                                  <!-- DATA KODEPOS MASIH BELUM BENAR, SAYA MENGGUNAKAN ID DARI data kecamatan untuk dummy data -->
+                                  <select
+                                    id="kodepos"
+                                    v-model="alamat.kodePos"
+                                    name="kodepos"
+                                    required
+                                    class="bg-white w-[50%] p-2 border-2"
+                                  >
+                                    <option value="" disabled>Kode Pos</option>
+                                    <option
+                                      v-for="item in kecamatan"
+                                      :key="item.id"
+                                      :value="item"
+                                    >
+                                      {{ item.id }}
+                                    </option>
+                                  </select>
+                                </div>
+                                <div class="form-control w-full mb-14">
+                                  <textarea
+                                    v-model="alamat.detail"
+                                    name=""
+                                    placeholder="Nama Jalan, Gedung, No.Rumah"
+                                    cols="30"
+                                    rows="10"
+                                    required
+                                  ></textarea>
+                                </div>
+                              </div>
+                              <button
+                                class="text-white font-semibold hovert:text-white py-3 px-7 bg-btnColor hover:btn-warning rounded-md absolute right-0 bottom-0"
+                              >
+                                Ok
+                              </button>
+                            </form>
+                            <form method="dialog">
+                              <button
+                                class="text-white font-semibold hovert:text-white py-3 px-6 rounded-md hover:bg-slate-600 bg-slate-500 absolute right-20 bottom-0"
+                              >
+                                Batal
+                              </button>
+                            </form>
+                          </div>
+                        </div>
+                      </dialog>
+                    </div>
+
                     <button
                       class="btn btn-warning w-full"
                       :class="{ disabled: !isCheckoutEnabled }"
                       :disabled="!isCheckoutEnabled"
-                      onclick="my_modal_1.showModal()"
+                      @click="checkOut"
                     >
                       Checkout
                     </button>
@@ -314,6 +471,7 @@
   </section>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -330,9 +488,26 @@ export default {
         messageKecamatan: null,
         messageKodePos: null,
       },
+      alamat: {
+        name: '',
+        noTelp: '',
+        provinsi: '',
+        kota: '',
+        kecamatan: '',
+        kodePos: '',
+        detail: '',
+      },
+      provinsi: [],
+      kota: [],
+      kecamatan: [],
+      kodePos: [],
+      dataLocalStorange: false,
     }
   },
   computed: {
+    dataALamat() {
+      return this.$store.state.index.alamatActive
+    },
     dataKeranjang() {
       return this.$store.state.index.listDataBelanja
     },
@@ -354,15 +529,97 @@ export default {
   },
   mounted() {
     this.initializeCeklist()
+    this.getDataProvinsi()
   },
   methods: {
+    async getDataProvinsi() {
+      const response = await axios.get(
+        'https://anggernuramin.github.io/api-wilayah-indonesia/api/provinces.json'
+      )
+      this.provinsi = response.data
+    },
+    async getDataKota() {
+      const response = await axios.get(
+        `https://anggernuramin.github.io/api-wilayah-indonesia/api/regencies/${this.alamat.provinsi.id}.json`
+      )
+      this.kota = response.data
+    },
+    async getDataKecamatan() {
+      const response = await axios.get(
+        `https://anggernuramin.github.io/api-wilayah-indonesia/api/districts/${this.alamat.kota.id}.json`
+      )
+      this.kecamatan = response.data
+    },
+    async addAlamat() {
+      try {
+        const { error } = await this.$supabase
+          .from('address')
+          .insert([this.alamat])
+
+        this.$notify({
+          group: 'notifAlamat',
+          type: 'success',
+          text: 'Succes Add Alamat.',
+        })
+
+        if (error) {
+          throw error
+        }
+        try {
+          const { data, error } = await this.$supabase
+            .from('address')
+            .select('*')
+          if (data) {
+            console.log('data sekarang', data)
+            // digunakan untuk mengambil id yg paling besar,karena jika menambah alamat baru maka otomatis akan memiliki id palng besar
+            data.sort((a, b) => b.id - a.id)
+            // Ambil nilai id dari objek pertama setelah pengurutan
+            const setId = data.length > 0 ? data[0].id : null
+            if (process.client) {
+              localStorage.setItem('userAlamatId', setId)
+            }
+            console.log(setId)
+          }
+          if (error) {
+            throw error
+          }
+        } catch (error) {
+          console.error('Error fetching data alamat:', error)
+        }
+        this.$router.push('/checkout')
+      } catch (error) {
+        console.log(error.message)
+      }
+      this.alamat = {
+        name: '',
+        noTelp: '',
+        provinsi: '',
+        kota: '',
+        kecamatan: '',
+        kodePos: '',
+        detail: '',
+      }
+    },
+    // checkout product
+    checkOut() {
+      if (process.client) {
+        const idActive = localStorage.getItem('userAlamatId')
+        if (idActive) {
+          this.dataLocalStorange = true
+          this.$store.dispatch('index/addAlamat', idActive)
+        } else {
+          this.dataLocalStorange = false
+        }
+      }
+      this.$refs.dialogAlamat.showModal() // Menutup modal
+    },
     initializeCeklist() {
       // Periksa apakah ada item dalam dataKeranjang yang memiliki checked = true
       if (this.dataKeranjang.every((item) => item.deskripsiPemesanan.checked)) {
         this.ceklist = true
       }
     },
-    checkoutProducts() {
+    checkoutProduct() {
       this.$router.push('/checkout')
     },
     toggleProductCheckout(id) {

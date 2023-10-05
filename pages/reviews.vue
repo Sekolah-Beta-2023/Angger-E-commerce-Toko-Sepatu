@@ -257,7 +257,7 @@ export default {
         description: '',
         rating: null,
       },
-      reviewUser: {}, // iNi akan digunakan untuk menyimpan ulasan pengguna
+      reviewUser: {}, // ini akan digunakan untuk menyimpan ulasan pengguna
       // variabel untuk layouting form crud reviews
       formEdit: false,
       formYourReview: false,
@@ -285,7 +285,6 @@ export default {
         const reviewDataId = localStorage.getItem('userReviewId')
         if (reviewDataId) {
           // Periksa apakah data sudah dalam format JSON sebelum mengurai
-          console.log('id localsekarang', reviewDataId)
           this.formCreateReview = false
           this.formYourReview = true
           // Ambil data dari server berdasarkan id
@@ -293,11 +292,9 @@ export default {
             const response = await axios.get(
               `https://api-crud-production-bc39.up.railway.app/review/${reviewDataId}`
             )
-            console.log('data dari server', response.data)
             this.reviewUser = response.data
           } catch (error) {
             // Tangani kesalahan jika tidak dapat mengambil data dari server
-            console.error('Error fetching review data:', error)
           }
         }
       }
@@ -338,7 +335,6 @@ export default {
             'https://api-crud-production-bc39.up.railway.app/review',
             this.review
           )
-          console.log('data post ', response.data)
           this.reviewUser = response.data
           this.saveToLocalStorage()
           this.$notify({
@@ -350,7 +346,6 @@ export default {
 
           this.formYourReview = true
           this.formCreateReview = false
-          console.log('data reviewUser', this.reviewUser)
         } else {
           console.log('Anda sudah mengisi form review')
         }
@@ -361,7 +356,6 @@ export default {
           title: 'Incomplete Submission',
           text: 'Please fill in all required fields before submitting your review.',
         })
-        console.error('Error submitting review:', error.response)
       }
       this.review.name = ''
       this.review.description = ''
@@ -374,7 +368,6 @@ export default {
     async editReview() {
       if (process.client) {
         const idActive = localStorage.getItem('userReviewId')
-        console.log('id local storange', idActive)
         this.formYourReview = false
         this.formEdit = true
         this.formCreateReview = false
@@ -382,7 +375,6 @@ export default {
           `https://api-crud-production-bc39.up.railway.app/review/${idActive}`
         )
         this.reviewUser = updatedReview.data
-        console.log('review User edit', this.reviewUser)
       }
     },
     handleImageUploadEdit(event) {
@@ -399,7 +391,6 @@ export default {
             `https://api-crud-production-bc39.up.railway.app/review/${idActive}`,
             this.reviewUser
           )
-          console.log('Data berhasil diubah', response.data)
           this.reviewUser = response.data
           this.reviewUser.rating = this.selectedRating
 
@@ -411,15 +402,12 @@ export default {
             text: 'Your review has been successfully edited and updated.',
           })
           this.fetchReviews()
-          console.log('hasil review User edit', this.reviewUser)
           // Setelah berhasil mengubah review, kembalikan ke tampilan awal
           this.formEdit = false
           this.formYourReview = true
           this.formCreateReview = false
         }
-      } catch (error) {
-        console.error('Error submitting edited review:', error.response)
-      }
+      } catch (error) {}
     },
 
     async deleteReview(id) {
@@ -441,9 +429,7 @@ export default {
           this.reviewUser = {}
           this.fetchReviews()
         }
-      } catch (error) {
-        console.log('delete error', error.response)
-      }
+      } catch (error) {}
     },
   },
 }

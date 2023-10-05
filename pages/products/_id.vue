@@ -2,18 +2,6 @@
 <template>
   <section id="detail-products" class="bg-slate-200">
     <div class="container w-[80%] h-full relative pt-[120px]">
-      <div v-if="isAlreadyProduct">
-        <div class="toast toast-top toast-middle">
-          <div class="alert alert-info">
-            <span
-              >Product {{ detailProduct.title }} sudah ada dikeranjang.</span
-            >
-          </div>
-        </div>
-      </div>
-      <div v-if="showError" class="error-message">
-        Mohon isi semua detail pesanan.
-      </div>
       <!-- Tampilkan breadcrumbs di sini -->
       <div class="text-sm breadcrumbs">
         <ul>
@@ -52,25 +40,21 @@
             <h2 class="text-xl mb-1">{{ detailProduct.title }}</h2>
             <div class="mb-3 flex">
               <span class="me-3 decoration-btnColor">{{
-                detailProduct.rating.rate
+                detailProduct.rating
               }}</span>
               <p>
-                <DisplayRating :rating="Math.ceil(detailProduct.rating.rate)" />
+                <DisplayRating :rating="Math.ceil(detailProduct.rating)" />
               </p>
             </div>
             <div
               class="p-4 mb-2 flex gap-3 justify-start items-center bg-slate-200 w-full"
             >
               <span class="line-through italic text-slate-600"
-                >$ {{ detailProduct.price }}</span
+                >Rp {{ detailProduct.price }}</span
               >
               <span class="text-2xl font-bold text-red-600">
-                {{
-                  detailProduct.price.toLocaleString('id-ID', {
-                    style: 'currency',
-                    currency: 'IDR',
-                  })
-                }}
+                Rp.
+                {{ detailProduct.price }}
               </span>
 
               <span class="bg-red-600 text-white p-1 text-xs"
@@ -82,7 +66,7 @@
                 <li>Warna</li>
                 <div>
                   <button
-                    v-for="item in pilihanWarna"
+                    v-for="item in detailProduct.colors"
                     :key="item"
                     class="border border-btnColor btn-sm hover:border-btnColor me-3 px-6 rounded-none"
                     :class="{ 'bg-btnColor': selectedWarna === item }"
@@ -95,7 +79,7 @@
                 <li>Size</li>
                 <div>
                   <button
-                    v-for="size in sizesShoes"
+                    v-for="size in detailProduct.size"
                     :key="size"
                     class="border border-btnColor btn-sm hover:border-btnColor mb-2 me-3 px-6 rounded-none"
                     :class="{ 'bg-btnColor': selectedSize === size }"
@@ -114,13 +98,16 @@
                     Panduan Ukuran
                   </button>
                   <dialog id="my_modal_4" class="modal">
-                    <div class="modal-box w-11/12 max-w-5xl bg-white">
-                      <h3 class="font-bold text-lg">Ukuran</h3>
-                      <p class="py-4">
-                        <span class="block">Panduan Ukuran</span>Panduan Ukuran
-                        Ukuran produk ini disediakan oleh Penjual dan diperoleh
-                        dari pengukuran produk secara manual. Mungkin terdapat
-                        selisih 1-2 cm
+                    <div
+                      class="modal-box w-11/12 max-w-5xl bg-white tex-slate-900"
+                    >
+                      <h3 class="font-bold text-2xl">Ukuran</h3>
+                      <p class="py-1">
+                        <span class="block font-semibold text-red-600"
+                          >Panduan Ukuran</span
+                        >Panduan Ukuran Ukuran produk ini disediakan oleh
+                        Penjual dan diperoleh dari pengukuran produk secara
+                        manual. Mungkin terdapat selisih 1-2 cm
                       </p>
                       <div
                         class="overflow-x-auto w-full flex justify-center items-center"
@@ -175,7 +162,7 @@
                       <div class="modal-action">
                         <form method="dialog">
                           <!-- if there is a button, it will close the modal -->
-                          <button class="btn">Close</button>
+                          <button class="btn btn-warning">Close</button>
                         </form>
                       </div>
                     </div>
@@ -198,24 +185,74 @@
                   >
                     +
                   </button>
-                  <span class="ms-4 border-0 text-sm">Tersisa 4.444 buah</span>
+                  <span class="ms-4 border-0 text-sm"
+                    >Tersisa
+                    {{ Number(detailProduct.stok) - quantity }} buah</span
+                  >
                 </div>
               </ul>
               <div class="flex gap-4">
-                <button
-                  class="border-2 border-btnColor outline-none bg-yellow-300 py-2 px-8 mt-5 text-base cursor-pointer transition font-bold rounded-sm hover:bg-btnColor hover:border-btnColor"
-                  @click="addToKeranjang($route.params.id)"
+                <dialog
+                  id="modalAddKeranjang"
+                  class="modal modal-bottom sm:modal-middle"
                 >
-                  Masukkan Keranjang
-                </button>
+                  <div class="modal-box bg-white">
+                    <h3
+                      class="font-bold text-2xl bg-slate-100 text-red-600 p-3"
+                    >
+                      Upsss!
+                    </h3>
+                    <p class="p-3 text-lg">
+                      Silahkan Login terlebih dahulu untuk melanjutkan Belanja.
+                    </p>
+                    <div class="modal-action flex justify-end items-end gap-3">
+                      <form method="dialog">
+                        <!-- if there is a button in form, it will close the modal -->
+                        <button class="btn bg-slate-100 text-slate-950">
+                          Batal
+                        </button>
+                      </form>
+                      <nuxt-link to="/login">
+                        <button
+                          class="btn btn-warning px-4 hover:bg-btnColor hover:border-btnColor"
+                        >
+                          Ok
+                        </button>
+                      </nuxt-link>
+                    </div>
+                  </div>
+                </dialog>
+                <div v-if="!user">
+                  <button
+                    class="border-2 border-btnColor outline-none bg-yellow-300 py-2 px-8 mt-5 text-base cursor-pointer transition font-bold rounded-sm hover:bg-btnColor hover:border-btnColor"
+                    onclick="modalAddKeranjang.showModal()"
+                  >
+                    Masukkan Keranjang
+                  </button>
 
-                <nuxt-link to="/keranjang">
                   <button
                     class="border-2 border-transparent outline-none bg-btnColor py-2 px-8 mt-5 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
+                    onclick="modalAddKeranjang.showModal()"
                   >
                     Buy Now
                   </button>
-                </nuxt-link>
+                </div>
+                <div v-else>
+                  <button
+                    class="border-2 border-btnColor outline-none bg-yellow-300 py-2 px-8 mt-5 text-base cursor-pointer transition font-bold rounded-sm hover:bg-btnColor hover:border-btnColor"
+                    @click="addToKeranjang($route.params.id)"
+                  >
+                    Masukkan Keranjang
+                  </button>
+
+                  <nuxt-link to="/keranjang">
+                    <button
+                      class="border-2 border-transparent outline-none bg-btnColor py-2 px-8 mt-5 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
+                    >
+                      Buy Now
+                    </button>
+                  </nuxt-link>
+                </div>
               </div>
 
               <!-- You can open the modal using ID.showModal() method -->
@@ -233,15 +270,27 @@
             <li>Name</li>
             <h4>{{ detailProduct.title }}</h4>
             <li>Merk</li>
-            <h4>Dobujack</h4>
+            <h4>
+              {{ detailProduct.merk }}
+            </h4>
             <li>Category</li>
             <h4>{{ detailProduct.category }}</h4>
-            <li>Tinggi Sepatu</li>
-            <h4>Rendah</h4>
+            <li>Bahan Utama</li>
+            <h4>
+              {{ detailProduct.bahanUtama }}
+            </h4>
+            <li>Tipe Sol</li>
+            <h4>
+              {{ detailProduct.tipeSol }}
+            </h4>
             <li>Stok</li>
-            <h4>3400</h4>
+            <h4>
+              {{ detailProduct.stok }}
+            </h4>
             <li>Dikirim Dari</li>
-            <h4>KAB. BOGOR</h4>
+            <h4>
+              {{ detailProduct.alamatToko }}
+            </h4>
           </ul>
         </div>
         <div
@@ -313,7 +362,6 @@
   </section>
 </template>
 <script>
-import axios from 'axios'
 import CardProduct from '../../components/CardProduct.vue'
 export default {
   components: {
@@ -326,18 +374,18 @@ export default {
         price: '',
         description: '',
         category: '',
-        rating: { rate: 0, count: 0 },
+        rating: '',
+        stok: '',
       },
       productsCategory: [],
 
-      pilihanWarna: ['Grey', 'Black', 'White'],
       selectedWarna: '',
 
-      sizesShoes: ['36', '37', '38', '39', '40', '41', '42', '43'], // Daftar ukuran sepatu
       selectedSize: null,
       quantity: 1,
       showError: false, // Menampilkan pesan kesalahan jika true
-      diskonPersentasi: 50, // misal diskon 5 persen
+      diskonPersentasi: 0, // misal diskon 5 persen
+      user: null,
     }
   },
   computed: {
@@ -347,31 +395,59 @@ export default {
   },
   created() {
     this.getDetailProduct()
+    this.cekUser()
   },
   methods: {
+    async cekUser() {
+      try {
+        const {
+          data: { user },
+        } = await this.$supabase.auth.getUser()
+        this.user = user
+        console.log('user', user)
+      } catch (error) {
+        console.error(error)
+      }
+    },
     decrementQuantity() {
       this.quantity--
+      if (this.quantity < 1) {
+        this.quantity = 1
+      }
     },
     incrementQuantity() {
       this.quantity++
     },
     async getDetailProduct() {
       try {
-        const response = await axios.get(
-          'https://fakestoreapi.com/products/' + this.$route.params.id
-        )
-        this.detailProduct = response.data
-        this.getProductsCategory()
+        const { data, error } = await this.$supabase
+          .from('products')
+          .select()
+          .eq('id', this.$route.params.id)
+        if (data) {
+          this.detailProduct = data[0]
+          this.getProductsCategory()
+        }
+        if (error) {
+          throw error
+        }
       } catch (error) {
         console.log(error.message)
       }
     },
     async getProductsCategory() {
       try {
-        const response = await axios.get(
-          `https://fakestoreapi.com/products/category/${this.detailProduct.category}`
-        )
-        this.productsCategory = response.data
+        const { data, error } = await this.$supabase
+          .from('products')
+          .select('*')
+          .eq('category', this.detailProduct.category)
+
+        if (data) {
+          this.productsCategory = data
+        }
+        if (error) {
+          throw error
+        }
       } catch (error) {
         console.log(error.message)
       }
@@ -391,11 +467,9 @@ export default {
     },
     selectSize(size) {
       this.selectedSize = size
-      console.log(this.selectedSize)
     },
     selectWarna(warna) {
       this.selectedWarna = warna
-      console.log(this.selectedWarna)
     },
     addToKeranjang(id) {
       if (

@@ -8,7 +8,7 @@ export const modules = {
       wishListItems: [],
       listDataBelanja: [],
       listDataCheckout: [],
-
+      alamatActive: {},
       isAlreadyInCart: false,
     },
     // 2. membuat mutation yaitu digunakan untuk mengubah data state diatas(diatas) namun yang berjalan syhncronous atau mengabaikan proses asynchronous seperti pemanggilan api
@@ -98,6 +98,9 @@ export const modules = {
           product.deskripsiPemesanan.checked = checklist
         })
       },
+      ADD_ALAMAT(state, alamat) {
+        state.alamatActive = alamat
+      },
     },
 
     // 3. membuat action yaitu digunakan untuk mengubah data state, sama seperti mutation tetapi action bisa melakukan proses asnychronous seperti get api, DAN ACTION dapat mengakses hasil dari mutations
@@ -150,6 +153,33 @@ export const modules = {
           const productIdDeleted = await response.data.id
           console.log('id keranjang deleted', productIdDeleted)
           commit('REMOVE_KERANJANG', productIdDeleted)
+        } catch (error) {
+          console.log(error.message)
+        }
+      },
+      async addAlamat({ commit }, alamatId) {
+        try {
+          const { data, error } = await this.$supabase
+            .from('address')
+            .select()
+            .eq('id', alamatId)
+            .single()
+          if (data) {
+            console.log('data local Storange', data)
+            const provinsi = JSON.parse(data.provinsi)
+            const kota = JSON.parse(data.kota)
+            const kecamatan = JSON.parse(data.kecamatan)
+            const kodePos = JSON.parse(data.kodePos)
+
+            data.provinsi = provinsi.name
+            data.kota = kota.name
+            data.kecamatan = kecamatan.name
+            data.kodePos = kodePos.id
+            commit('ADD_ALAMAT', data)
+          }
+          if (error) {
+            throw error
+          }
         } catch (error) {
           console.log(error.message)
         }

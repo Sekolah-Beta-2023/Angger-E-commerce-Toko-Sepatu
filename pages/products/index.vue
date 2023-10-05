@@ -28,10 +28,9 @@
             class="bg-white dropdown-category p-3 border-2 border-btnColor rounded-md"
           >
             <option value="">All category</option>
-            <option value="men's clothing">Men's clothing</option>
-            <option value="women's clothing">Women's clothing</option>
-            <option value="jewelery">Jewelery</option>
-            <option value="electronics">Electronics</option>
+            <option value="Olahraga">Olahraga</option>
+            <option value="Kasual">Kasual</option>
+            <option value="Formal">Formal</option>
           </select>
 
           <div
@@ -68,29 +67,32 @@
               <div class="flex justify-between items-center">
                 <h3 class="font-semibold">HOT DEALS</h3>
               </div>
-              <img
-                class="w-[260px]"
-                :src="productPromo.src"
-                :alt="productPromo.alt"
-              />
-              <h3
-                class="font-semibold pt-3 border-t-2 border-slate-300 capitalize my-1"
-              >
-                {{ productPromo.name }}
-              </h3>
-              <div class="text-slate-600 mb-3">
-                <RatingUser @rating-selected="handleRatingSelected" />
-
-                <!-- Tampilkan nilai rating yang dipilih -->
-                <p>Selected Rating: {{ selectedRating }}</p>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-lg font-bold text-red-600">{{
-                  productPromo.diskon
-                }}</span>
-                <span class="line-through italic text-slate-600">{{
-                  productPromo.harga
-                }}</span>
+              <div v-for="product in productsHotDeals" :key="product.id">
+                <nuxt-link :to="`/products/${product.id}`">
+                  <img
+                    class="w-[260px] h-auto"
+                    :src="product.image"
+                    :alt="product.title"
+                  />
+                  <h3
+                    class="font-semibold pt-3 border-t-2 border-slate-300 capitalize my-1"
+                  >
+                    {{ product.title }}
+                  </h3>
+                  <div class="text-slate-600 mb-1">
+                    <p>
+                      <DisplayRating :rating="Math.ceil(product.rating)" />
+                    </p>
+                  </div>
+                  <div class="flex justify-between items-center mb-5">
+                    <span class="text-lg font-bold text-red-600">{{
+                      product.price
+                    }}</span>
+                    <span class="line-through italic text-slate-600">{{
+                      product.price
+                    }}</span>
+                  </div>
+                </nuxt-link>
               </div>
             </div>
             <div class="rounded-md p-5 w-[75%] bg-slate-50 flex-wrap">
@@ -125,7 +127,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import NotFoundPage from '../../components/NotFoundPage.vue'
 import LoadingPage from '../../components/LoadingPage.vue'
 import CardProduct from '../../components/CardProduct.vue'
@@ -138,19 +139,13 @@ export default {
   },
   data() {
     return {
-      productPromo: {
-        src: require('@/assets/background/banner-newArrival.jpg'),
-        alt: 'Nike-blazer-mid.png',
-        name: 'Nike Blazer Mid',
-        harga: '$452',
-        diskon: '$321',
-      },
       products: [],
 
       selectedRating: 0,
       searchQueryProducts: '', // filtering data
       selectCategoryProducts: '',
       searchResults: [],
+      productsHotDeals: [],
     }
   },
   computed: {
@@ -185,15 +180,37 @@ export default {
   },
   created() {
     this.getProducts()
+    this.getProductsHotDeals()
   },
   methods: {
-    handleWishList(item) {
-      console.log(item)
+    async getProductsHotDeals() {
+      try {
+        const { data, error } = await this.$supabase
+          .from('products')
+          .select('*')
+          .range(0, 5)
+        if (data) {
+          this.productsHotDeals = await data
+        }
+        if (error) {
+          throw error
+        }
+      } catch (error) {
+        console.log(error.message)
+      }
     },
+    handleWishList(item) {},
     async getProducts() {
       try {
-        const response = await axios.get('https://fakestoreapi.com/products')
-        this.products = response.data
+        const { data, error } = await this.$supabase
+          .from('products')
+          .select('*')
+        if (data) {
+          this.products = data
+        }
+        if (error) {
+          throw error
+        }
       } catch (error) {
         console.log(error.message)
       }
@@ -201,17 +218,6 @@ export default {
     handleRatingSelected(rating) {
       this.selectedRating = rating
     },
-
-    // async searchProducts() {
-    //   if (this.searchQueryProducts) {
-    //     const query = this.searchQueryProducts.toLowerCase()
-    //     this.searchResults = this.products.filter((item) =>
-    //       item.title.toLowerCase().includes(query)
-    //     )
-    //   } else {
-    //     this.searchResults = this.products
-    //   }
-    // },
   },
 }
 </script>

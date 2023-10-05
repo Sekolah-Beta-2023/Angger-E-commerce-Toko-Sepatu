@@ -33,7 +33,7 @@
                 </h3>
                 <div class="card-product-rating">
                   <p>
-                    <DisplayRating :rating="Math.ceil(product.rating.rate)" />
+                    <DisplayRating :rating="Math.ceil(product.rating)" />
                   </p>
                 </div>
                 <div class="mb-2 flex justify-between items-start flex-col">
@@ -41,7 +41,7 @@
                     hitungHargaAkhir(product.price)
                   }}</span>
                   <span class="line-through italic text-slate-600"
-                    >$ {{ product.price }}</span
+                    >Rp. {{ product.price }}</span
                   >
                 </div>
               </div>
@@ -85,7 +85,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import CardProduct from '../components/CardProduct.vue'
 export default {
   components: {
@@ -106,18 +105,31 @@ export default {
   methods: {
     async getProducts() {
       try {
-        const response = await axios.get('https://fakestoreapi.com/products')
-        this.productsNewArrival = await response.data
+        const { data, error } = await this.$supabase
+          .from('products')
+          .select('*')
+        if (data) {
+          this.productsNewArrival = data
+        }
+        if (error) {
+          throw error
+        }
       } catch (error) {
         console.log(error.message)
       }
     },
     async getProductsNewOffer() {
       try {
-        const response = await axios.get(
-          'https://fakestoreapi.com/products?limit=5'
-        )
-        this.productsNewOffer = await response.data
+        const { data, error } = await this.$supabase
+          .from('products')
+          .select('*')
+          .range(0, 5)
+        if (data) {
+          this.productsNewOffer = await data
+        }
+        if (error) {
+          throw error
+        }
       } catch (error) {
         console.log(error.message)
       }

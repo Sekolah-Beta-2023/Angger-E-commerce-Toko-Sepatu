@@ -28,7 +28,7 @@
                 ></i>
               </div>
             </div>
-            WISHLIST
+            Wishlist
           </nuxt-link>
 
           <nuxt-link to="/keranjang" class="cursor-pointer text-base">
@@ -47,18 +47,18 @@
                 ></i>
               </div>
             </div>
-            CART
+            Cart
           </nuxt-link>
           <div class="dropdown dropdown-hover dropdown-end">
             <i class="fas fa-user"></i>
 
-            <label tabindex="0" class="m-1">{{ user.email }}</label>
+            <label tabindex="0" class="m-1">Profile</label>
             <ul
               tabindex="0"
               class="dropdown-content z-[1] menu p-2 shadow bg-white text-slate-900 rounded-box w-52"
             >
               <li><nuxt-link to="/profile">Profile saya</nuxt-link></li>
-              <li><nuxt-link to="/keranjang">Pesanana saya</nuxt-link></li>
+              <li><nuxt-link to="/alamat">Alamat saya</nuxt-link></li>
               <li><button @click="logOut">Log out</button></li>
             </ul>
           </div>
