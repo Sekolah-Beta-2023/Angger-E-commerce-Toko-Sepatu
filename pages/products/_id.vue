@@ -318,28 +318,48 @@
             v-for="product in productsCategory"
             :key="product.id"
             :product="product"
+            :user="user"
             class="card p-3 w-[250px] hover:bg-secondary"
           />
         </div>
       </div>
 
-      <notifications
-        group="notifKeranjangSuccess"
-        class="wrapper-notification mt-[17rem] me-[34rem]"
-      >
-        <template slot="body">
-          <div
-            class="notification flex justify-center items-center gap-3 flex-col text-white"
-          >
-            <div class="notification-icon">
-              <i class="fas fa-check bg-green-600"></i>
+      <div v-if="isAlreadyProduct">
+        <notifications
+          group="notifKeranjangStatus"
+          class="wrapper-notification mt-[17rem] me-[34rem]"
+        >
+          <template slot="body">
+            <div
+              class="notification flex justify-center items-center gap-3 flex-col text-white"
+            >
+              <div class="notification-icon">
+                <i class="fas fa-check bg-green-600"></i>
+              </div>
+              <p class="notification-text">Product sudah ada di Keranjang.</p>
             </div>
-            <p class="notification-text">
-              Product berhasil ditambahkan ke keranjang.
-            </p>
-          </div>
-        </template>
-      </notifications>
+          </template>
+        </notifications>
+      </div>
+      <div v-else>
+        <notifications
+          group="notifKeranjangSuccess"
+          class="wrapper-notification mt-[17rem] me-[34rem]"
+        >
+          <template slot="body">
+            <div
+              class="notification flex justify-center items-center gap-3 flex-col text-white"
+            >
+              <div class="notification-icon">
+                <i class="fas fa-check bg-green-600"></i>
+              </div>
+              <p class="notification-text">
+                Product berhasil ditambahkan ke keranjang.
+              </p>
+            </div>
+          </template>
+        </notifications>
+      </div>
 
       <notifications
         group="notifKeranjangError"
@@ -408,10 +428,7 @@ export default {
           data: { user },
         } = await this.$supabase.auth.getUser()
         this.user = user
-        console.log('user', user)
-      } catch (error) {
-        console.error(error)
-      }
+      } catch (error) {}
     },
     decrementQuantity() {
       this.quantity--
@@ -435,9 +452,7 @@ export default {
         if (error) {
           throw error
         }
-      } catch (error) {
-        console.log(error.message)
-      }
+      } catch (error) {}
     },
     async getProductsCategory() {
       try {
@@ -498,6 +513,12 @@ export default {
       }
       const product = { ...this.detailProduct, deskripsiPemesanan }
       this.$store.commit('index/ADD_KERANJANG', product)
+
+      console.log('cek apakah sudah ada product', this.isAlreadyProduct)
+      this.$notify({
+        group: 'notifKeranjangStatus',
+        width: '800px',
+      })
       this.$notify({
         group: 'notifKeranjangSuccess',
         width: '800px',

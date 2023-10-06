@@ -1,4 +1,3 @@
-import axios from 'axios'
 // cara membuat state global menggunakan vuex
 export const modules = {
   index: {
@@ -10,13 +9,22 @@ export const modules = {
       listDataCheckout: [],
       alamatActive: {},
       isAlreadyInCart: false,
+      isAlreadyInWishlist: false,
     },
     // 2. membuat mutation yaitu digunakan untuk mengubah data state diatas(diatas) namun yang berjalan syhncronous atau mengabaikan proses asynchronous seperti pemanggilan api
     // parameter state merepresentasikan semua data yg ada di state(agar kita bisa mengakses datanya)
     // mutation baiknya ditulis dengan SNAKE_CASE(uppercase)
     mutations: {
       ADDWISHLIST(state, product) {
-        state.wishListItems.push(product)
+        const statusWishlist = state.wishListItems.find(
+          (item) => item.id === product.id
+        )
+        if (statusWishlist) {
+          state.isAlreadyInWishlist = true
+        } else {
+          state.isAlreadyInWishlist = false
+          state.wishListItems.push(product)
+        }
       },
       REMOVE_WISHLIST(state, productId) {
         state.wishListItems = state.wishListItems.filter(
@@ -31,6 +39,7 @@ export const modules = {
         if (existingProduct) {
           state.isAlreadyInCart = true
         } else {
+          state.isAlreadyInCart = false
           state.listDataBelanja.push(product)
         }
       },
@@ -107,52 +116,71 @@ export const modules = {
     actions: {
       async addWishList({ commit }, productId) {
         try {
-          const response = await axios.get(
-            `https://fakestoreapi.com/products/${productId}`
-          )
-          const product = await response.data
-          console.log('store', product)
-
-          // CARA memanggil mutation harus mengginakan commit
-          commit('ADDWISHLIST', product)
-        } catch (error) {
-          console.log(error.message)
-        }
+          const { data, error } = await this.$supabase
+            .from('products')
+            .select()
+            .eq('id', productId)
+          if (data) {
+            const product = data[0]
+            // CARA memanggil mutation harus mengginakan commit
+            commit('ADDWISHLIST', product)
+          }
+          if (error) {
+            throw error
+          }
+        } catch (error) {}
       },
       async removeWishList({ commit }, productId) {
         try {
-          const response = await axios.delete(
-            `https://fakestoreapi.com/products/${productId}`
-          )
-          const productIdDeleted = await response.data.id
-          console.log('id deleted', productIdDeleted)
-          commit('REMOVE_WISHLIST', productIdDeleted)
-        } catch (error) {
-          console.log(error.message)
-        }
+          const { data, error } = await this.$supabase
+            .from('products')
+            .select()
+            .eq('id', productId)
+            .single()
+          if (error) {
+            throw error
+          }
+
+          if (data) {
+            const productIdDeleted = data.id
+            commit('REMOVE_WISHLIST', productIdDeleted)
+          }
+        } catch (error) {}
       },
       async setListDataBelanja({ commit }, productId) {
         try {
-          const response = await axios.get(
-            `https://fakestoreapi.com/products/${productId}`
-          )
-          const product = await response.data
-          console.log('keranjang', product)
+          const { data, error } = await this.$supabase
+            .from('products')
+            .select()
+            .eq('id', productId)
+          if (data) {
+            const product = data
 
-          // CARA memanggil mutation harus mengginakan commit
-          commit('ADD_KERANJANG', product)
-        } catch (error) {
-          console.log(error.message)
-        }
+            // CARA memanggil mutation harus mengginakan commit
+            commit('ADD_KERANJANG', product)
+          }
+          if (error) {
+            throw error
+          }
+        } catch (error) {}
       },
       async removeListDataKeranjang({ commit }, productId) {
         try {
-          const response = await axios.delete(
-            `https://fakestoreapi.com/products/${productId}`
-          )
-          const productIdDeleted = await response.data.id
-          console.log('id keranjang deleted', productIdDeleted)
-          commit('REMOVE_KERANJANG', productIdDeleted)
+          const { data, error } = await this.$supabase
+            .from('products')
+            .select()
+            .eq('id', productId)
+            .single()
+
+          if (error) {
+            throw error
+          }
+
+          if (data) {
+            const productIdDeleted = data.id
+            console.log('id keranjang deleted', productIdDeleted)
+            commit('REMOVE_KERANJANG', productIdDeleted)
+          }
         } catch (error) {
           console.log(error.message)
         }

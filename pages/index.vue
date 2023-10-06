@@ -5,10 +5,10 @@
         class="flex h-[100%] container w-[90%] text-slate-900 justify-between"
       >
         <div class="home-content flex justify-end items-start flex-col w-[50%]">
-          <h1 class="text-5xl capitalize font-medium mb-2">
+          <h1 class="text-4xl capitalize font-medium mb-1">
             Produk Sempurna Untuk
           </h1>
-          <h1 class="text-5xl capitalize font-medium mb-9">
+          <h1 class="text-4xl capitalize font-medium mb-9">
             Sekarang
             <span class="text-btnColor font-bold text-3xl">dan</span>
             Selamanya.
@@ -285,9 +285,7 @@ export default {
         if (error) {
           throw error
         }
-      } catch (error) {
-        console.log(error.message)
-      }
+      } catch (error) {}
     },
     async getProductsCategoryOlahraga() {
       const category = 'Olahraga'
@@ -304,9 +302,7 @@ export default {
         if (error) {
           throw error
         }
-      } catch (error) {
-        console.log(error.message)
-      }
+      } catch (error) {}
     },
     async getProductsCategoryKasual() {
       const category = 'Kasual'
@@ -323,9 +319,7 @@ export default {
         if (error) {
           throw error
         }
-      } catch (error) {
-        console.log(error.message)
-      }
+      } catch (error) {}
     },
     async getProductsCategoryFormal() {
       const category = 'Formal'
@@ -342,9 +336,7 @@ export default {
         if (error) {
           throw error
         }
-      } catch (error) {
-        console.log(error.message)
-      }
+      } catch (error) {}
     },
     async getProductsNewArrival() {
       try {
@@ -358,9 +350,7 @@ export default {
         if (error) {
           throw error
         }
-      } catch (error) {
-        console.log(error.message)
-      }
+      } catch (error) {}
     },
   },
 }

@@ -10,7 +10,7 @@
       </div>
 
       <div class="header-icon flex gap-5 justify-center items-center">
-        <div v-if="user">
+        <div v-if="user" class="flex gap-5">
           <nuxt-link to="/wishlist" class="cursor-pointer text-base">
             <div
               class="indicator tooltip tooltip-bottom tooltip-warning"

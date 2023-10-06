@@ -43,7 +43,13 @@
             <form @submit.prevent="">
               <div class="form-group bg-white">
                 <label for="name">Nama : </label>
-                <input id="name" v-model="review.name" type="text" required />
+                <input
+                  id="name"
+                  v-model="review.name"
+                  autofocus
+                  type="text"
+                  required
+                />
               </div>
 
               <div class="form-group image-wrapper">
@@ -189,7 +195,13 @@
             <form @submit.prevent="submitForm">
               <div class="form-group bg-white">
                 <label for="name">Nama : </label>
-                <input id="name" v-model="review.name" type="text" required />
+                <input
+                  id="name"
+                  v-model="review.name"
+                  autofocus
+                  type="text"
+                  required
+                />
               </div>
 
               <div class="form-group image-wrapper">
@@ -203,9 +215,9 @@
                     id="image"
                     type="file"
                     class="file-input file-input-warning file-input-sm w-full max-w-xs bg-white"
+                    required
                     accept="image/*"
                     @change="handleImageUpload"
-                    required
                   />
                 </div>
               </div>

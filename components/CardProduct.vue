@@ -55,7 +55,13 @@
         >Belanja Sekarang</nuxt-link
       >
     </button>
-    <notifications group="notifReview" class="mt-32 me-14" />
+    <div v-if="alreadyWishlist">
+      <notifications group="notifWishlistSudahAda" class="mt-32 me-14" />
+    </div>
+    <div v-else>
+      <notifications group="notifWishlist" class="mt-32 me-14" />
+    </div>
+    <notifications group="notifDeleteWishlist" class="mt-32 me-14" />
   </nuxt-link>
 </template>
 <script>
@@ -77,6 +83,11 @@ export default {
       iconWishList: false,
     }
   },
+  computed: {
+    alreadyWishlist() {
+      return this.$store.state.index.isAlreadyInWishlist
+    },
+  },
 
   methods: {
     // mengakses action diglobal state vuex menggunakan dispatch
@@ -85,17 +96,24 @@ export default {
       if (this.iconWishList) {
         // proses pemanggilan action ('nama_file/nama_method', parameter)
         this.$store.dispatch('index/addWishList', id)
+        console.log('status wishlist', this.alreadyWishlist)
         this.$notify({
-          group: 'notifReview',
+          group: 'notifWishlist',
           type: 'success',
-          text: 'Berhasil menambahkan ke wishlist.',
+          text: 'Berhasil tambah product ke wishlist.',
+        })
+
+        this.$notify({
+          group: 'notifWishlistSudahAda',
+          type: 'success',
+          text: 'Berhasil Product sudah ada di Wishlist.',
         })
       } else {
         this.$store.dispatch('index/removeWishList', id)
         this.$notify({
-          group: 'notifReview',
+          group: 'notifDeleteWishlist',
           type: 'error',
-          text: 'Menghapus wishlist.',
+          text: 'Menghapus product dari wishlist.',
         })
       }
     },

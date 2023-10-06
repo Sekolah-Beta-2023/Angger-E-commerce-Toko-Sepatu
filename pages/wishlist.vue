@@ -24,8 +24,14 @@
             v-for="product in wishListItems"
             :key="product.id"
             :to="`/products/${product.id}`"
-            class="w-[270px] h-auto p-3 overflow-hidden hover:bg-slate-50 transition cursor-pointer"
+            class="w-[270px] h-[460px] p-3 overflow-hidden hover:bg-slate-50 transition cursor-pointer relative flex flex-col items-stretch"
           >
+            <div
+              class="w-[30px] h-[30px] rounded-full bg-slate-200 text-black text-bold flex justify-center items-center text-end hover:bg-slate-400 transition"
+              @click.prevent.stop="deleteWishlist(product.id)"
+            >
+              <i class="fas fa-times"></i>
+            </div>
             <div
               class="grid h-[200px] overflow-hidden card rounded-box place-items-center"
             >
@@ -36,16 +42,18 @@
               />
             </div>
 
-            <h3 class="border-t-2 font-semibold border-slate-200 pt-2 pb-1">
-              {{ product.title.substring(0, 25) }}
+            <h3
+              class="border-t-2 font-semibold border-slate-200 pt-2 pb-1 h-[80px]"
+            >
+              {{ product.title.toString().substring(0, 30) }}
             </h3>
             <p class="mb-2 text-slate-600 font-normal">
-              {{ product.description.substring(0, 45) }} . . .
+              {{ product.description.toString().substring(0, 35) }} . . .
             </p>
             <!-- show nilai rating yang dipilih -->
             <div class="mb-2 flex justify-between items-center">
               <p>
-                <DisplayRating :rating="Math.ceil(product.rating.rate)" />
+                <DisplayRating :rating="Math.ceil(product.rating)" />
               </p>
               <div class="stat-figure cursor-default">
                 <i class="fa fa-heart" style="color: red"></i>
@@ -56,7 +64,7 @@
                 hitungHargaAkhir(product.price)
               }}</span>
               <span class="line-through italic text-slate-600"
-                >$ {{ product.price }}</span
+                >Rp {{ product.price }}</span
               >
             </div>
             <button
@@ -65,7 +73,7 @@
               <a
                 href="#Product"
                 class="border-2 text-black border-transparent outline-none text-base cursor-pointer transition font-bold hover:bg-transparent hover:border-btnColor"
-                >Buy Now</a
+                >Belanja Sekarang</a
               >
             </button>
           </nuxt-link>
@@ -114,7 +122,7 @@ export default {
     },
   },
   methods: {
-    deleteProduct(id) {
+    deleteWishlist(id) {
       // akses action di store(global state yg dibuat dengan vuex)
       this.$store.dispatch('index/removeWishList', id)
     },

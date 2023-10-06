@@ -51,12 +51,11 @@
                 :value="item.title"
               ></option>
             </datalist>
-            <!-- @click="searchProducts" -->
 
             <button
               class="w-36 text-lg p-2 text-center bg-btnColor outline-none cursor-pointer transition font-semibold rounded-sm inline-block"
             >
-              Search
+              Cari
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
           </div>
@@ -192,10 +191,7 @@ export default {
           data: { user },
         } = await this.$supabase.auth.getUser()
         this.user = user
-        console.log('user status', user)
-      } catch (error) {
-        console.error('error user status', error)
-      }
+      } catch (error) {}
     },
     async getProductsHotDeals() {
       try {
@@ -209,9 +205,7 @@ export default {
         if (error) {
           throw error
         }
-      } catch (error) {
-        console.log(error.message)
-      }
+      } catch (error) {}
     },
     handleWishList(item) {},
     async getProducts() {
@@ -225,9 +219,7 @@ export default {
         if (error) {
           throw error
         }
-      } catch (error) {
-        console.log(error.message)
-      }
+      } catch (error) {}
     },
     handleRatingSelected(rating) {
       this.selectedRating = rating

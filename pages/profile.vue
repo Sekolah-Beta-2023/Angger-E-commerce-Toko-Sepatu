@@ -59,10 +59,14 @@
                       >
                         <i
                           v-if="showPassword"
-                          class="fas fa-eye-slash"
+                          class="fas fa-eye"
                           title="Hide Password"
                         ></i>
-                        <i v-else class="fas fa-eye" title="Show Password"></i>
+                        <i
+                          v-else
+                          class="fas fa-eye-slash"
+                          title="Show Password"
+                        ></i>
                       </div>
                     </div>
 
@@ -135,49 +139,49 @@
                     <br />
                     <select
                       id="tanggal"
-                      v-model="selectTanggal"
+                      v-model="tanggal"
                       name="tanggal"
                       class="bg-white w-[160px] me-2 p-2 border-2 mt-3"
                     >
                       <option value="">Tanggal</option>
                       <option
-                        v-for="tanggal in tanggalOptions"
-                        :key="tanggal"
-                        :value="tanggal"
+                        v-for="tgl in tanggalOptions"
+                        :key="tgl"
+                        :value="tgl"
                       >
-                        {{ tanggal }}
+                        {{ tgl }}
                       </option>
                     </select>
 
                     <select
                       id="bulan"
-                      v-model="selectBulan"
+                      v-model="bulan"
                       name="bulan"
                       class="bg-white w-[160px] me-2 p-2 border-2"
                     >
                       <option value="">Bulan</option>
                       <option
-                        v-for="(bulan, index) in bulanOptions"
+                        v-for="(bln, index) in bulanOptions"
                         :key="index"
-                        :value="bulan"
+                        :value="bln"
                       >
-                        {{ bulan }}
+                        {{ bln }}
                       </option>
                     </select>
 
                     <select
                       id="tahun"
-                      v-model="SelectTahun"
+                      v-model="tahun"
                       name="tahun"
                       class="bg-white w-[160px] me-2 p-2 border-2"
                     >
                       <option value="">Tahun</option>
                       <option
-                        v-for="tahun in tahunOptions"
-                        :key="tahun"
-                        :value="tahun"
+                        v-for="thn in tahunOptions"
+                        :key="thn"
+                        :value="thn"
                       >
-                        {{ tahun }}
+                        {{ thn }}
                       </option>
                     </select>
                   </div>
@@ -226,7 +230,7 @@
             </label>
             <input
               id="Name"
-              v-model="detailProfile.name"
+              v-model="name"
               name="Name"
               type="Name"
               readonly
@@ -242,7 +246,7 @@
             </label>
             <input
               id="NoTelepon"
-              v-model="detailProfile.noTelepon"
+              v-model="noTelepon"
               readonly
               name="NoTelepon"
               type="tel"
@@ -255,13 +259,13 @@
             >
             <input
               id="Laki-laki"
-              v-model="detailProfile.jenisKelamin"
+              v-model="jenisKelamin"
               readonly
               type="radio"
               name="jenis_kelamin"
               class="w-3 mt-2 bg-white"
             />
-            <label for="Laki-laki">{{ detailProfile.jenisKelamin }}</label>
+            <label for="Laki-laki">{{ jenisKelamin }}</label>
           </div>
           <div class="">
             <label class="text-slate-400 font-normal text-base"
@@ -270,36 +274,36 @@
             <br />
             <select
               id="tanggal"
-              v-model="detailProfile.tanggal"
+              v-model="tanggal"
               name="tanggal"
               class="bg-white w-[160px] me-2 p-2 border-2 mt-3"
             >
-              <option :value="detailProfile.tanggal">
-                {{ detailProfile.tanggal }}
+              <option :value="tanggal">
+                {{ tanggal }}
               </option>
             </select>
 
             <select
               id="bulan"
-              v-model="detailProfile.bulan"
+              v-model="bulan"
               name="bulan"
               class="bg-white w-[160px] me-2 p-2 border-2"
               disabled
             >
-              <option :value="detailProfile.bulan">
-                {{ detailProfile.bulan }}
+              <option :value="bulan">
+                {{ bulan }}
               </option>
             </select>
 
             <select
               id="tahun"
-              v-model="detailProfile.tahun"
+              v-model="tahun"
               name="tahun"
               class="bg-white w-[160px] me-2 p-2 border-2"
               disabled
             >
-              <option :value="detailProfile.tahun">
-                {{ detailProfile.tahun }}
+              <option :value="tahun">
+                {{ tahun }}
               </option>
             </select>
           </div>
@@ -363,14 +367,6 @@ export default {
     return {
       src: require('@/assets/background/banner-newArrival.jpg'),
       profile: {},
-      detailProfile: {
-        name: '',
-        noTelepon: '',
-        jenisKelamin: '',
-        tanggal: '',
-        bulan: '',
-        tahun: '',
-      },
       tanggalOptions: [],
       bulanOptions: [],
       tahunOptions: [],
@@ -379,9 +375,9 @@ export default {
       name: '',
       noTelepon: '',
       jenisKelamin: '',
-      selectTanggal: '',
-      selectBulan: '',
-      SelectTahun: '',
+      tanggal: '',
+      bulan: '',
+      tahun: '',
       showEditProfile: false,
       showLengkapiProfile: false,
       showPassword: false,
@@ -424,14 +420,13 @@ export default {
         data: { user },
       } = await this.$supabase.auth.getUser()
       this.profile = user
-      this.detailProfile.name = user.user_metadata.name
-      this.detailProfile.noTelepon = user.user_metadata.noTelepon
-      this.detailProfile.jenisKelamin = user.user_metadata.jenisKelamin
-      this.detailProfile.tanggal = user.user_metadata.tanggal
-      this.detailProfile.bulan = user.user_metadata.bulan
-      this.detailProfile.tahun = user.user_metadata.tahun
-      console.log(this.detailProfile)
-      if (this.detailProfile.name) {
+      this.name = user.user_metadata.name
+      this.noTelepon = user.user_metadata.noTelepon
+      this.jenisKelamin = user.user_metadata.jenisKelamin
+      this.tanggal = user.user_metadata.tanggal
+      this.bulan = user.user_metadata.bulan
+      this.tahun = user.user_metadata.tahun
+      if (this.name) {
         this.showEditProfile = true
         this.showLengkapiProfile = false
       } else {
@@ -456,23 +451,19 @@ export default {
             name: this.name,
             noTelepon: this.noTelepon,
             jenisKelamin: this.jenisKelamin,
-            tanggal: this.selectTanggal,
-            bulan: this.selectBulan,
-            tahun: this.SelectTahun,
+            tanggal: this.tanggal,
+            bulan: this.bulan,
+            tahun: this.tahun,
           },
         })
         if (data) {
-          console.log('data terakhir', this.data)
           this.$refs.dialogProfile.close() // Menutup modal
         }
         if (error) {
           throw error
         }
-      } catch (error) {
-        console.log(error.message)
-      }
+      } catch (error) {}
     },
   },
 }
 </script>
-<style></style>

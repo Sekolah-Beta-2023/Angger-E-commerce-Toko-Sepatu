@@ -46,10 +46,14 @@
                   >
                     <i
                       v-if="showPassword"
-                      class="fas fa-eye-slash"
+                      class="fas fa-eye"
                       title="Hide Password"
                     ></i>
-                    <i v-else class="fas fa-eye" title="Show Password"></i>
+                    <i
+                      v-else
+                      class="fas fa-eye-slash"
+                      title="Show Password"
+                    ></i>
                   </button>
                 </div>
               </div>
