@@ -1,5 +1,5 @@
 # ANAshoes
-
+ANAShoes Store, an e-commerce platform crafted with clean and organized code. We provide a user-friendly interface with optimized search algorithms, enabling users to explore our shoe collection swiftly. With a robust framework and responsive design, we deliver an intuitive and efficient shoe shopping experience. Discover the perfect pair of shoes for your needs and take the next steps in style at Shoes Store.
 ## Build Setup
 
 ```bash
@@ -7,7 +7,7 @@
 $ yarn install
 
 # serve with hot reload at localhost:3000
-$ yarn dev
+$ yarn run dev
 
 # build for production and launch server
 $ yarn build
