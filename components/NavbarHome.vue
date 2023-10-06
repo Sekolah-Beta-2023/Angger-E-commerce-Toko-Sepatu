@@ -157,9 +157,7 @@ export default {
         data: { user },
       } = await this.$supabase.auth.getUser()
       this.user = user
-    } catch (error) {
-      console.error(error)
-    }
+    } catch (error) {}
   },
   // vue hook mounted(dom sudah dirender dengan baik)
   mounted() {
@@ -177,9 +175,7 @@ export default {
           throw error
         }
         this.$router.push('/login')
-      } catch (error) {
-        console.log(error.message)
-      }
+      } catch (error) {}
     },
   },
 }

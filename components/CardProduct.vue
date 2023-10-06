@@ -96,7 +96,6 @@ export default {
       if (this.iconWishList) {
         // proses pemanggilan action ('nama_file/nama_method', parameter)
         this.$store.dispatch('index/addWishList', id)
-        console.log('status wishlist', this.alreadyWishlist)
         this.$notify({
           group: 'notifWishlist',
           type: 'success',

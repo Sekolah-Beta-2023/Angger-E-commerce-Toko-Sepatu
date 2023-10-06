@@ -397,9 +397,7 @@ export default {
         if (error) {
           throw error
         }
-      } catch (error) {
-        console.error('Error fetching data alamat:', error)
-      }
+      } catch (error) {}
     },
     async addAlamat() {
       try {
@@ -417,9 +415,7 @@ export default {
         if (error) {
           throw error
         }
-      } catch (error) {
-        console.log(error.message)
-      }
+      } catch (error) {}
 
       this.closeModal()
     },
@@ -431,7 +427,7 @@ export default {
         }
       }
       try {
-        const { data, error } = await this.$supabase
+        const { error } = await this.$supabase
           .from('address')
           .delete()
           .eq('id', id)
@@ -440,18 +436,13 @@ export default {
           throw error
         }
 
-        if (data) {
-          console.log(data)
-        }
         this.$notify({
           group: 'notifAlamat',
           type: 'success',
           text: 'Succes delete Alamat.',
         })
         this.getDataAlamat()
-      } catch (error) {
-        console.log(error.message)
-      }
+      } catch (error) {}
     },
     async getUpdateKota() {
       const response = await axios.get(
@@ -494,7 +485,6 @@ export default {
         )
         const dtKota = await responseKota.data
         this.updateAlamat.kota = dtKota
-        console.log('kota', dtKota.name)
         this.showNameKota = dtKota.name
         this.getUpdateKota()
         // edit kecamatan
@@ -506,21 +496,12 @@ export default {
         this.getUpdateKecamatan()
         const dtkecamatan = await responsekecamatan.data
         this.updateAlamat.kecamatan = dtkecamatan
-        console.log('kecamatan', this.kecamatan)
 
         // edit kode pos
         this.updateAlamat.kodePos = dtkecamatan
-
-        console.log('data terakhir', this.updateAlamat)
-        if (data) {
-          console.log('edit', data)
-        }
-      } catch (error) {
-        console.log(error.message)
-      }
+      } catch (error) {}
     },
     async submitEditAlamat() {
-      console.log('update Alamat', this.updateAlamat)
       try {
         const { error } = await this.$supabase
           .from('address')
@@ -532,9 +513,7 @@ export default {
 
         this.$refs.dialogEditAlamat.close() // Menutup modal
         this.getDataAlamat()
-      } catch (error) {
-        console.log(error.message)
-      }
+      } catch (error) {}
       this.updateAlamat = {
         name: '',
         noTelp: '',
@@ -549,7 +528,6 @@ export default {
       if (process.client) {
         localStorage.setItem('userAlamatId', id)
       }
-      console.log(id)
     },
     closeModal() {
       this.$refs.dialogAddAlamat.close() // Menutup modal

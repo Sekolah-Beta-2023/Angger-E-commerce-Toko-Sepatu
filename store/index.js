@@ -65,11 +65,9 @@ export const modules = {
         }
       },
       CHECK_PRODUCT(state, productId) {
-        console.log('price data belanja', state.listDataBelanja)
         const product = state.listDataBelanja.find(
           (item) => item.id === productId
         )
-        console.log('price spesifik data belanja', product.price)
         if (product) {
           product.deskripsiPemesanan.checked =
             !product.deskripsiPemesanan.checked // Toggle the checked status
@@ -178,12 +176,9 @@ export const modules = {
 
           if (data) {
             const productIdDeleted = data.id
-            console.log('id keranjang deleted', productIdDeleted)
             commit('REMOVE_KERANJANG', productIdDeleted)
           }
-        } catch (error) {
-          console.log(error.message)
-        }
+        } catch (error) {}
       },
       async addAlamat({ commit }, alamatId) {
         try {
@@ -193,7 +188,6 @@ export const modules = {
             .eq('id', alamatId)
             .single()
           if (data) {
-            console.log('data local Storange', data)
             const provinsi = JSON.parse(data.provinsi)
             const kota = JSON.parse(data.kota)
             const kecamatan = JSON.parse(data.kecamatan)
@@ -208,9 +202,7 @@ export const modules = {
           if (error) {
             throw error
           }
-        } catch (error) {
-          console.log(error.message)
-        }
+        } catch (error) {}
       },
     },
     // digunakan untuk mengolah state,misal dibawah ini digunakan untuk menghitung data dari state, sama seperti computed:{}

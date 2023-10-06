@@ -514,7 +514,6 @@ export default {
       const product = { ...this.detailProduct, deskripsiPemesanan }
       this.$store.commit('index/ADD_KERANJANG', product)
 
-      console.log('cek apakah sudah ada product', this.isAlreadyProduct)
       this.$notify({
         group: 'notifKeranjangStatus',
         width: '800px',
