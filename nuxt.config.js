@@ -78,4 +78,6 @@ export default {
       },
     },
   },
+  // untuk keperluan deploy projext nuxtjs
+  target: 'static'
 }

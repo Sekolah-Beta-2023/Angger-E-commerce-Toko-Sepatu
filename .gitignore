@@ -68,8 +68,9 @@ typings/
 # nuxt.js build output
 .nuxt
 
+# Agar folder dist terpush di github dist jangan daftarkan ke git ignore
 # Nuxt generate
-dist
+# dist
 
 # vuepress build output
 .vuepress/dist

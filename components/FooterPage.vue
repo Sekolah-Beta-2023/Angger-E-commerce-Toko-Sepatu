@@ -19,13 +19,13 @@
           <h4>Koleksi</h4>
           <ul>
             <li>
-              <nuxt-link to="/product"> Kasual </nuxt-link>
+              <nuxt-link to="/products"> Kasual </nuxt-link>
             </li>
             <li>
-              <nuxt-link to="/product"> Olahraga </nuxt-link>
+              <nuxt-link to="/products"> Olahraga </nuxt-link>
             </li>
             <li>
-              <nuxt-link to="/product"> Formal </nuxt-link>
+              <nuxt-link to="/products"> Formal </nuxt-link>
             </li>
           </ul>
         </div>

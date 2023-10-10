@@ -12,7 +12,7 @@
             Kualitas unggul, gaya tak tertandingi, wah.
           </p>
           <nuxt-link
-            to="/product"
+            to="/products"
             class="border-2 border-transparent outline-none bg-btnColor py-2 px-8 text-base cursor-pointer transition font-bold rounded-sm hover:bg-transparent hover:border-btnColor"
             >Belanja Sekarang
           </nuxt-link>
