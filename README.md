@@ -1,7 +1,13 @@
 # ANAshoes
-ANAShoes Store, an e-commerce platform crafted with clean and organized code. We provide a user-friendly interface with optimized search algorithms, enabling users to explore our shoe collection swiftly. With a robust framework and responsive design, we deliver an intuitive and efficient shoe shopping experience. Discover the perfect pair of shoes for your needs and take the next steps in style at Shoes Store.
-## Build Setup
+platform e-commerce yang dirancang dengan vue2 dan nuxt2. Kami menyediakan antarmuka yang ramah pengguna dengan algoritma pencarian yang dioptimalkan, memungkinkan pengguna untuk menjelajahi koleksi sepatu kami dengan cepat. Dengan kerangka kerja yang kuat dan desain yang clean, kami memberikan pengalaman berbelanja sepatu yang intuitif dan efisien. Temukan pasangan sepatu yang sempurna untuk kebutuhan Anda dan ambil langkah berikutnya dengan gaya di Shoes Store.
 
+# Tujuan Proyek
+Proyek e-commerce ini bertujuan untuk memberikan pengalaman berbelanja sepatu yang lebih fokus dan efisien kepada pengguna. Anda ingin memastikan bahwa pengguna benar-benar dapat memusatkan perhatian mereka pada pembelian sepatu tanpa distraksi dari produk lain. Dalam proyek ini, Anda berupaya untuk menciptakan platform yang menyederhanakan proses belanja sepatu, menawarkan produk yang berkualitas, dan mengurangi potensi gangguan atau distraksi yang mungkin terjadi dalam pengalaman berbelanja e-commerce yang lebih umum.
+
+# Latar Belakang Proyek
+Latar belakang proyek ini berasal dari pemahaman akan tantangan yang dihadapi pengguna ketika berbelanja di berbagai platform e-commerce. Beberapa e-commerce seringkali menampilkan beragam produk dalam satu halaman, yang dapat membingungkan pengguna dan membuat mereka sulit memutuskan produk mana yang sebenarnya mereka inginkan. Dengan fokus pada penjualan sepatu, Anda ingin mengatasi masalah ini dengan menyediakan lingkungan berbelanja yang terfokus, dengan penekanan pada produk-produk sepatu berkualitas tinggi.
+
+## Build Setup
 ```bash
 # install dependencies
 $ yarn install
